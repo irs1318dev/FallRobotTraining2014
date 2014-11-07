@@ -15,8 +15,8 @@ public class BasicTwoStickDriveTrainComponent extends RobotComponentBase {
 		leftStick = new Joystick(LEFT_JOYSTICK_PORT);
 		rightStick = new Joystick(RIGHT_JOYSTICK_PORT);
 		
-		leftTalon = new Talon(LEFT_TALON_PORT, 1);
-		rightTalon = new Talon(RIGHT_TALON_PORT, 1);
+		leftTalon = new Talon(1, LEFT_TALON_PORT);
+		rightTalon = new Talon(1, RIGHT_TALON_PORT);
 	}
 	
 	public void teleopPeriodic() {
