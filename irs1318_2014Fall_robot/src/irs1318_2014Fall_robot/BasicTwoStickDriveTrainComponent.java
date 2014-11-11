@@ -29,7 +29,7 @@ public class BasicTwoStickDriveTrainComponent extends RobotComponentBase {
 			leftTalon.set(0);
 		}
 		if (rightStickY > .75 || rightStickY < -0.75) {
-			leftTalon.set(rightStickY / 3);
+			rightTalon.set(rightStickY / 3);
 		} else {
 			rightTalon.set(0);
 		}
