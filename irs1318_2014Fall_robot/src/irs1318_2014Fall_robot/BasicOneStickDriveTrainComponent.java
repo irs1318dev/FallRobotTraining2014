@@ -6,8 +6,10 @@ public class BasicOneStickDriveTrainComponent extends RobotComponentBase
 {
 	private static final int JOYSTICK_PORT = 1;
 	
-	private static final int LEFT_TALON_PORT = 1;
-	private static final int RIGHT_TALON_PORT = 2;
+	private static final int TALON_PORT = 1;
+	
+	private static final int LEFT_TALON_CHANNEL = 1;
+	private static final int RIGHT_TALON_CHANNEL = 2;
 	
 	private static final double DEAD_ZONE = 0.2;
 	private static final double MAX_SPEED = 0.8;
@@ -21,8 +23,8 @@ public class BasicOneStickDriveTrainComponent extends RobotComponentBase
 	{
 		this.joystick = new Joystick(JOYSTICK_PORT);
 		
-		this.leftTalon = new Talon(2, LEFT_TALON_PORT);
-		this.rightTalon = new Talon(2, RIGHT_TALON_PORT);
+		this.leftTalon = new Talon(TALON_PORT, LEFT_TALON_CHANNEL);
+		this.rightTalon = new Talon(TALON_PORT, RIGHT_TALON_CHANNEL);
 	}
 
 	public void teleopPeriodic()
@@ -44,7 +46,7 @@ public class BasicOneStickDriveTrainComponent extends RobotComponentBase
 			else
 			{
 				leftPower = BasicOneStickDriveTrainComponent.MAX_SPEED * y;
-				rightPower = -leftPower;
+				rightPower = leftPower;
 			}
 		}
 		
