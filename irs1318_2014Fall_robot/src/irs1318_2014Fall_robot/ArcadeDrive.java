@@ -55,8 +55,8 @@ public class ArcadeDrive extends RobotComponentBase {
 	}
 
 	public void robotInit() {
-		talonR = new Talon(RIGHT_PORT, 1);
-		talonL = new Talon(LEFT_PORT, 2);
+		talonR = new Talon(1, RIGHT_PORT);
+		talonL = new Talon(1, LEFT_PORT);
 
 	}
 
