@@ -36,20 +36,7 @@ public class SimpleComponent implements RobotComponent {
 	}
 
 	public void teleopInit() {
-		if (!(joystickLeft.getY() < 0.35 && joystickLeft.getY() > -0.35)) {
 
-			talonLeft.set(joystickLeft.getY() / 2);
-		} else {
-
-			talonLeft.set(0);
-
-		}
-		if (!(joystickRight.getY() < 0.35 && joystickRight.getY() > -0.35)) {
-			talonRight.set(joystickRight.getY() / 2);
-
-		} else {
-			talonRight.set(0);
-		}
 	}
 
 	public void disabledPeriodic() {
@@ -69,7 +56,20 @@ public class SimpleComponent implements RobotComponent {
 	 * <code>public void autonomousPeridodic(){} </code>
 	 */
 	public void teleopPeriodic() {
+		if (!(joystickLeft.getY() < 0.35 && joystickLeft.getY() > -0.35)) {
 
+			talonLeft.set(joystickLeft.getY() / 2);
+		} else {
+
+			talonLeft.set(0);
+
+		}
+		if (!(joystickRight.getY() < 0.35 && joystickRight.getY() > -0.35)) {
+			talonRight.set(joystickRight.getY() / 2);
+
+		} else {
+			talonRight.set(0);
+		}
 	}
 
 	public void disabledContinuous() {
