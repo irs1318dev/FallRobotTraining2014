@@ -14,7 +14,6 @@ public class ArcadeDrive extends RobotComponentBase {
 	private final static float speedCoef = 0.4f;
 	private float speed;
 	private MotorHandleManager manager;
-	private float angle;
 
 	/**
 	 * The main method that should be overridden. NOTE:
@@ -29,29 +28,14 @@ public class ArcadeDrive extends RobotComponentBase {
 		float y = (float) controller.getY();
 		speed = (float) Math.sqrt(x * x + y * y);
 		if ((float) Math.abs((double) speed) > deadZone) {
-			angle = (float) Math.toDegrees(atan2(x, y));
-			manager.update(angle);
+
+			manager.update(x, y, speed);
 			talonR.set(manager.getRight() * speed * speedCoef);
 			talonL.set(manager.getLeft() * speed * speedCoef);
 		} else {
 			talonL.set(0);
 			talonR.set(0);
 		}
-	}
-
-	private float atan2(float x, float y) {
-		float coeff_1 = (float) (Math.PI / 4f);
-		float coeff_2 = 3f * coeff_1;
-		float abs_x = Math.abs(x);
-		float angle;
-		if (y >= 0d) {
-			float r = (y - abs_x) / (y + abs_x);
-			angle = (float) (coeff_1 - coeff_1 * r);
-		} else {
-			float r = (y + abs_x) / (abs_x - y);
-			angle = (float) (coeff_2 - coeff_1 * r);
-		}
-		return x < 0f ? -angle : angle;
 	}
 
 	public void robotInit() {

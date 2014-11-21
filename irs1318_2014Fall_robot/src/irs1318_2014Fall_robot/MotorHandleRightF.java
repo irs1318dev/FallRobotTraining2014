@@ -5,29 +5,36 @@ public class MotorHandleRightF extends ArcadeDriveMotorHandle {
 		// TODO Auto-generated constructor stub
 	}
 
-	public float leftMotor(float angle) {
+	public float rightMotor(float x, float y, float speed) {
 		// TODO Auto-generated method stub
-		return (float) Math.cos(angle);
+		return (speed - x);
 	}
 
-	public float rightMotor(float angle) {
+	public float leftMotor(float x, float y, float speed) {
 		// TODO Auto-generated method stub
 		return 1f;
 	}
 
-	public boolean change(float angle) {
+	public boolean change(float x, float y) {
 		// TODO Auto-generated method stub
-		if ((angle <= 0 && angle >= -90) || (angle >= 90 && angle <= 180)) {
-			return false;
-
-		} else {
+		if (x < 0) {
+			if (y > 0) {
+				handle = new MotorHandleLeftF();
+			}
+			if (y < 0) {
+				handle = new MotorHandleLeftB();
+			}
 			return true;
+		} else if (x > 0 && y < 0) {
+			handle = new MotorHandleRightB();
+			return true;
+		} else {
+			return false;
 		}
-
 	}
 
 	public ArcadeDriveMotorHandle change() {
 		// TODO Auto-generated method stub
-		return new MotorHandleLeftF();
+		return handle;
 	}
 }

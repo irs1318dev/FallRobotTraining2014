@@ -1,18 +1,18 @@
 package irs1318_2014Fall_robot;
 
-public class MotorHandleLeftF extends ArcadeDriveMotorHandle {
-	public MotorHandleLeftF() {
+public class MotorHandleLeftB extends ArcadeDriveMotorHandle {
+	public MotorHandleLeftB() {
 		// TODO Auto-generated constructor stub
 	}
 
 	public float rightMotor(float x, float y, float speed) {
 		// TODO Auto-generated method stub
-		return 1f;
+		return -1f;
 	}
 
 	public float leftMotor(float x, float y, float speed) {
 		// TODO Auto-generated method stub
-		return (speed - Math.abs(x));
+		return -(speed - Math.abs(x));
 	}
 
 	public boolean change(float x, float y) {
@@ -25,8 +25,8 @@ public class MotorHandleLeftF extends ArcadeDriveMotorHandle {
 				handle = new MotorHandleRightB();
 			}
 			return true;
-		} else if (x < 0 && y < 0) {
-			handle = new MotorHandleLeftB();
+		} else if (x < 0 && y > 0) {
+			handle = new MotorHandleLeftF();
 			return true;
 		} else {
 			return false;

@@ -9,12 +9,12 @@ public class MotorHandleManager {
 		handle = new MotorHandleRightF();
 	}
 
-	public void update(float angle) {
-		if (handle.change(angle)) {
+	public void update(float x, float y, float speed) {
+		if (handle.change(x, y)) {
 			handle = handle.change();
 		}
-		leftMotor = handle.leftMotor(angle);
-		rightMotor = handle.rightMotor(angle);
+		leftMotor = handle.leftMotor(x, y, speed);
+		rightMotor = handle.rightMotor(x, y, speed);
 	}
 
 	public float getRight() {
