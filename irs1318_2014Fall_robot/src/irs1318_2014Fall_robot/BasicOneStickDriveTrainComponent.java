@@ -40,7 +40,7 @@ public class BasicOneStickDriveTrainComponent extends RobotComponentBase
 		{
 			if (Math.abs(y) < Math.abs(x))
 			{
-				leftPower = BasicOneStickDriveTrainComponent.MAX_SPEED * x;
+				leftPower = -BasicOneStickDriveTrainComponent.MAX_SPEED * x;
 				rightPower = -leftPower;
 			}
 			else
@@ -50,7 +50,7 @@ public class BasicOneStickDriveTrainComponent extends RobotComponentBase
 			}
 		}
 		
-		this.leftTalon.set(leftPower);
+		this.leftTalon.set(-leftPower);
 		this.rightTalon.set(rightPower);
 	}
 }

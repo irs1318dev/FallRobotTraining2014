@@ -46,7 +46,7 @@ public class BasicTwoStickDriveTrainComponent extends RobotComponentBase
 			rightPower = BasicTwoStickDriveTrainComponent.MAX_SPEED * rightY;
 		}
 		
-		this.leftTalon.set(leftPower);
+		this.leftTalon.set(-leftPower);
 		this.rightTalon.set(rightPower);
 	}
 }
