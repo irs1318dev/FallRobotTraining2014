@@ -11,8 +11,8 @@ public class SimpleComponent extends RobotComponentBase {
 	
 	public void robotInit(){
 		talon2 = new Talon(2, 2);
-		talon1 = new Talon(1, 1);
-		joystick1 = new Joystick(3);
+		talon1 = new Talon(2, 1);
+		joystick1 = new Joystick(1);
 //		joystick2 = new Joystick(4);
 	}
 	
@@ -42,14 +42,18 @@ public class SimpleComponent extends RobotComponentBase {
 		} else if (Math.abs(joystick1.getY()) < DEADZONE && Math.abs(joystick1.getX()) > DEADZONE) {
 			talon1.set(joystick1.getX() / 2);
 			talon2.set(joystick1.getX() / -2);
+		//Put some actual math here, not this. Maybe trig
 		} else if (Math.abs(joystick1.getY()) > DEADZONE && Math.abs(joystick1.getX()) > DEADZONE) {
 			if (joystick1.getX() > 0) {
 				talon1.set(joystick1.getY() / 2);
-				talon2.set(joystick1.getY() / (2 * joystick1.getX()));
+					talon2.set(joystick1.getY() / (2 * Math.abs(joystick1.getX())));
 			} else {
-				talon1.set(joystick1.getY() / (2 * joystick1.getX()));
+				talon1.set(joystick1.getY() / (2 * Math.abs(joystick1.getX())));
 				talon2.set(joystick1.getY() / 2);
 			}
+		} else {
+			talon1.set(0);
+			talon2.set(0);
 		}
 	
 		/* jared and will r nerds
