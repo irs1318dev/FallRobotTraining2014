@@ -8,9 +8,9 @@ public class ArcadeDriveHandler extends RobotComponentBase { //borrows from comp
 	private static final int J_PORT = 1; //joystick port
 	//right motor variables
 	private static final int R_MOTOR_PORT = 1; //right motor port
-	private static final int R_MOTOR_CHANNEL = 1; //right motor channel
+	private static final int R_MOTOR_CHANNEL = 2; //right motor channel
 	//left motor variables
-	private static final int L_MOTOR_PORT = 2; //left motor port
+	private static final int L_MOTOR_PORT = 1; //left motor port
 	private static final int L_MOTOR_CHANNEL = 1; //left motor channel
 	//speed and checking variables
 	private static final double DEAD_ZONE = 0.35; //number that is used to limit control zone
@@ -44,11 +44,11 @@ public class ArcadeDriveHandler extends RobotComponentBase { //borrows from comp
 			 																	-1 or 1, depending if on left or right half*/
 			if(x_sign > 0){// sets talon speeds if controller is in the right half 
 				rTalon.set(y_sign * Math.abs(hyp - Math.abs(controller.getX())));
-				lTalon.set(y_sign * hyp);
+				lTalon.set(-(y_sign * hyp));
 			}
 			else{ // sets talon speeds if controller is in the left half
 				rTalon.set(y_sign * hyp);
-				lTalon.set(y_sign * Math.abs(hyp - Math.abs(controller.getX())));
+				lTalon.set(-(y_sign * Math.abs(hyp - Math.abs(controller.getX()))));
 			}
 		}
 	}
