@@ -8,9 +8,9 @@ public class ArcadeDriveHandler extends RobotComponentBase { //borrows from comp
 	private static final int J_PORT = 1; //joystick port
 	//right motor variables
 	private static final int R_MOTOR_PORT = 1; //right motor port
-	private static final int R_MOTOR_CHANNEL = 1; //right motor channel
+	private static final int R_MOTOR_CHANNEL = 2; //right motor channel
 	//left motor variables
-	private static final int L_MOTOR_PORT = 2; //left motor port
+	private static final int L_MOTOR_PORT = 1; //left motor port
 	private static final int L_MOTOR_CHANNEL = 1; //left motor channel
 	//speed and checking variables
 	private static final double DEAD_ZONE = 0.35; //number that is used to limit control zone
