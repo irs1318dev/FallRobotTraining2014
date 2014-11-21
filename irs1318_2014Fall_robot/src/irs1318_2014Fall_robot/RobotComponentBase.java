@@ -11,7 +11,7 @@ package irs1318_2014Fall_robot;
 public class RobotComponentBase implements RobotComponent {
 
 	public void robotInit() {
-
+			
 	}
 
 	public void disabledInit() {
