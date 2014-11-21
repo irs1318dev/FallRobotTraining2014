@@ -31,7 +31,7 @@ public class ArcadeDrive extends RobotComponentBase {
 
 			manager.update(x, y, speed);
 			talonR.set(manager.getRight() * speedCoef);
-			talonL.set(manager.getLeft() * speedCoef);
+			talonL.set(-manager.getLeft() * speedCoef);
 		} else {
 			talonL.set(0);
 			talonR.set(0);
