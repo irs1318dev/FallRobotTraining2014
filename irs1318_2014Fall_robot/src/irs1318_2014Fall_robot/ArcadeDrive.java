@@ -30,8 +30,8 @@ public class ArcadeDrive extends RobotComponentBase {
 		if ((float) Math.abs((double) speed) > deadZone) {
 
 			manager.update(x, y, speed);
-			talonR.set(manager.getRight() * speed * speedCoef);
-			talonL.set(manager.getLeft() * speed * speedCoef);
+			talonR.set(manager.getRight() * speedCoef);
+			talonL.set(manager.getLeft() * speedCoef);
 		} else {
 			talonL.set(0);
 			talonR.set(0);

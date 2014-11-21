@@ -12,7 +12,7 @@ public class MotorHandleRightB extends ArcadeDriveMotorHandle {
 
 	public float leftMotor(float x, float y, float speed) {
 		// TODO Auto-generated method stub
-		return -1f;
+		return -speed;
 	}
 
 	public boolean change(float x, float y) {
