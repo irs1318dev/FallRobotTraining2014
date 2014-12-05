@@ -46,9 +46,12 @@ public class SimpleComponent extends RobotComponentBase {
 		} else if (Math.abs(joystick1.getY()) > DEADZONE && Math.abs(joystick1.getX()) > DEADZONE) {
 			if (joystick1.getX() > 0) {
 				talon1.set(joystick1.getY() / 2);
-					talon2.set(joystick1.getY() / (2 * Math.abs(joystick1.getX())));
+					talon2.set((joystick1.getY() / (2 * Math.abs(joystick1.getX()))) / 4);
+//				talon2.set(Math.atan(joystick1.getY() / joystick1.getX()));
+					
 			} else {
-				talon1.set(joystick1.getY() / (2 * Math.abs(joystick1.getX())));
+				talon1.set((joystick1.getY() / (2 * Math.abs(joystick1.getX()))) / 4);
+//				talon1.set(Math.atan(joystick1.getY() / joystick1.getX()));
 				talon2.set(joystick1.getY() / 2);
 			}
 		} else {
