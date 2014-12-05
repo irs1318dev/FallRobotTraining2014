@@ -10,8 +10,8 @@ public class SimpleComponent extends RobotComponentBase {
 //	private Joystick joystick2;
 	
 	public void robotInit(){
-		talon2 = new Talon(2, 2);
-		talon1 = new Talon(2, 1);
+		talon2 = new Talon(1, 2);
+		talon1 = new Talon(1, 1);
 		joystick1 = new Joystick(1);
 //		joystick2 = new Joystick(4);
 	}
