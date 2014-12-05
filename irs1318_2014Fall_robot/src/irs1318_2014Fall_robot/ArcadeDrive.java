@@ -37,9 +37,9 @@ public class ArcadeDrive extends RobotComponentBase {
 			talonR.set(0);
 		}
 		if (controller.getRawButton(3)) {
-			talonC.set(1);
-		} else if (controller.getRawButton(5)) {
 			talonC.set(-1);
+		} else if (controller.getRawButton(5)) {
+			talonC.set(1);
 		} else {
 
 			talonC.set(0);
