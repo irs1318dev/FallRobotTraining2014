@@ -11,7 +11,7 @@ public class Simplecompnet extends RobotComponentBase {
 
 
 
-	public void teleopperiodic() {
+	public void teleopperint() {
 			rtalon = new Talon(1,1);
 			rjoystick =new Joystick(2);
 			ltalon = new Talon(1,1);
