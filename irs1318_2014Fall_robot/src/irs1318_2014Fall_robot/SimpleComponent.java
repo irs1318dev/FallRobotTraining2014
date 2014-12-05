@@ -58,13 +58,44 @@ public class SimpleComponent extends RobotComponentBase {
 				talon2.set(joystick1.getY() / 2);
 			}
 		/*
-		} else if {
+		} else {
 			double theta = Math.arctan(joystick1.getY(), joystick1.getX());
 			double BASELINE = .25;
 			double MAX = .5
-			if (theta > 0 && theta < Math.PI) {
+			
+			//1st quadrant
+			if (theta > 0 && theta <= Math.PI/2) {
 				talon1.set(MAX);
 				talon2.set(BASELINE+(MAX-BASELINE)*Math.sin(theta);
+			}
+			//2nd quadrant
+			else if(theta > Math.PI/2 && theta < Math.PI) {
+				talon2.set(MAX);
+				talon1.set(BASELINE+(MAX-BASELINE)*Math.sin(theta);
+			}
+			//3rd quadrant is opposite to 2nd quadrant, R>L but moving backwards
+			else if(theta > Math.PI && theta <= Math.PI*3/2) {
+				talon2.set(-MAX);
+				talon1.set(-BASELINE+(MAX-BASELINE)*Math.sin(theta);
+			}
+			//4th quadrant is opposite to 1nd quadrant, L>R but moving backwards			
+			else if(theta > Math.PI*3/2 && theta < Math.PI*2) {
+				talon1.set(-MAX);
+				talon1.set(-BASELINE+(MAX-BASELINE)*Math.sin(theta);
+			
+			//turn sharply right - WHAT ARE THE BOUNDARIES??
+			else if(theta == 0 || theta == Math.PI*2) {
+				talon1.set(MAX);
+				talon2.set(-MAX);
+			}
+			//turn sharply left - WHAT ARE THE BOUNDARIES??
+			else if(theta == Math.PI) {
+				talon1.set(-MAX);
+				talon2.set(MAX);
+			}
+			
+			//else...
+			
 			}
 			
 			*/
