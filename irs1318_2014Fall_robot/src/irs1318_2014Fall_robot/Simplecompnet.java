@@ -12,7 +12,7 @@ public class Simplecompnet extends RobotComponentBase {
 
 
 	public void teleopInit() {
-			rtalon = new Talon(1,1);
+			rtalon = new Talon(1,2);
 			rjoystick =new Joystick(2);
 			ltalon = new Talon(1,1);
 			ljoystick = new Joystick(2);
