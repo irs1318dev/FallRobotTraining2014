@@ -7,9 +7,9 @@ public class ArcadeDrive extends RobotComponentBase {
 
 	private final static int LEFT_PORT = 1;
 	private final static int RIGHT_PORT = 2;
+	private final static int COLLECTOR_PORT = 3;
 	private Joystick controller;
-	private Talon talonL;
-	private Talon talonR;
+	private Talon talonL, talonR, talonC;
 	private final static float deadZone = 0.35f;
 	private final static float speedCoef = 0.4f;
 	private float speed;
@@ -36,12 +36,20 @@ public class ArcadeDrive extends RobotComponentBase {
 			talonL.set(0);
 			talonR.set(0);
 		}
+		if (controller.getRawButton(3)) {
+			talonC.set(1);
+		} else if (controller.getRawButton(5)) {
+			talonC.set(-1);
+		} else {
+
+			talonC.set(0);
+		}
 	}
 
 	public void robotInit() {
 		talonR = new Talon(1, RIGHT_PORT);
 		talonL = new Talon(1, LEFT_PORT);
-
+		talonC = new Talon(1, COLLECTOR_PORT);
 	}
 
 	public void disabledInit() {
