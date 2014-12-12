@@ -58,29 +58,7 @@ public class SimpleComponent extends RobotComponentBase {
 		
 		
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+	
 		
 //		//Left Joystick
 //		if(joystick1.getY() > 0.50){
