@@ -1,8 +1,11 @@
 package irs1318_2014Fall_robot;
 
+
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.SensorBase;
 import edu.wpi.first.wpilibj.Solenoid;
 import edu.wpi.first.wpilibj.Talon;
 
@@ -58,11 +61,15 @@ public class ArcadeDrive extends RobotComponentBase {
 		}
 	}
 
+	int SIDECAR_SLOT = SensorBase.getDefaultDigitalModule();;
+	int DIGITAL_IO = SensorBase.getDefaultSolenoidModule();
+
 	public void robotInit() {
 		talonR = new Talon(1, RIGHT_PORT);
 		talonL = new Talon(1, LEFT_PORT);
 		talonC = new Talon(1, COLLECTOR_PORT);
-		soul = new DoubleSolenoid(1, SOLENOID_PORT);
+		new Compressor(SIDECAR_SLOT, 6, DIGITAL_IO, 1).start();
+		soul = new DoubleSolenoid(2, 4, 3);
 	}
 
 	public void disabledInit() {
