@@ -16,9 +16,72 @@ public class SimpleComponent extends RobotComponentBase {
 		talon3 = new Talon(1, 1);
 		joystick1 = new Joystick(1);
 //		joystick2 = new Joystick(4);
+		
+		DoubleSolenoid solenoidArm1 = new DoubleSolenoid();
+		DoubleSolenoid solenoidArm2 = new DoubleSolenoid();
+		
+		DoubleSolenoid solenoidLauncher1 = new DoubleSolenoid();
+		DoubleSolenoid solenoidLauncher2 = new DoubleSolenoid();
 	}
 	
 	public void teleopPeriodic(){
+		if (joystick1.getRawButton(13)) {
+			solenoidArm1.set(DoubleSolenoid.Value.kForward);
+			solenoidArm2.set(DoubleSolenoid.Value.kForward);
+		}
+		
+		else if (joystick1.getRawButton(14)) {
+			solenoidArm1.set(DoubleSolenoid.Value.kReverse);
+			solenoidArm2.set(DoubleSolenoid.Value.kReverse);
+		}
+		
+		else {
+			solenoidArm1.set(DoubleSolenoid.Value.kOff);
+			solenoidArm2.set(DoubleSolenoid.Value.kOff);
+		}
+		
+		if (joystick1.getRawButton(345)) {
+			solenoidLauncher1.set(DoubleSolenoid.Value.kForward);
+			solenoidLauncher2.set(DoubleSolenoid.Value.kForward);
+		}
+		
+		else if (joystick1.getRawButton(346)) {
+			solenoidLauncher1.set(DoubleSolenoid.Value.kReverse);
+			solenoidLauncher2.set(DoubleSolenoid.Value.kReverse);
+		}
+		
+		else {
+			solenoidLauncher1.set(DoubleSolenoid.Value.kOff);
+			solenoidLauncher2.set(DoubleSolenoid.Value.kOff);
+		}
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 //		//Left Joystick
 //		if(joystick1.getY() > 0.50){
 //			talon1.set(joystick1.getY() - 0.5);
@@ -78,27 +141,16 @@ public class SimpleComponent extends RobotComponentBase {
 				talon2.set(-MAX);
 				talon1.set(-BASELINE+(MAX-BASELINE)*Math.sin(theta);
 			}
-			//4th quadrant is opposite to 1nd quadrant, L>R but moving backwards			
-			else if(theta > Math.PI*3/2 && theta < Math.PI*2) {
+			//4th quadrant is opposite to 1nd quadrant, L>R but moving backwards (theta > Math.PI*3/2 && theta < Math.PI*2)			
+			else {
 				talon1.set(-MAX);
 				talon1.set(-BASELINE+(MAX-BASELINE)*Math.sin(theta);
-			
-			//turn sharply right - WHAT ARE THE BOUNDARIES??
-			else if(theta == 0 || theta == Math.PI*2) {
-				talon1.set(MAX);
-				talon2.set(-MAX);
-			}
-			//turn sharply left - WHAT ARE THE BOUNDARIES??
-			else if(theta == Math.PI) {
-				talon1.set(-MAX);
-				talon2.set(MAX);
-			}
-			
-			//else...
-			
+			}			
 			}
 			
 			*/
+
+			
 		} else {
 			talon1.set(0);
 			talon2.set(0);
