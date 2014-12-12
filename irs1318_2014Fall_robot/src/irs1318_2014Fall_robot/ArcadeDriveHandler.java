@@ -1,6 +1,7 @@
 package irs1318_2014Fall_robot;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 
 public class ArcadeDriveHandler extends RobotComponentBase { //borrows from component base structure
@@ -16,6 +17,9 @@ public class ArcadeDriveHandler extends RobotComponentBase { //borrows from comp
 	private static final double DEAD_ZONE = 0.35; //number that is used to limit control zone
 	private static final double SPEED_COEFFICIENT = 0.75; //coefficient to prohibit full speed
 	
+	private DoubleSolenoid solenoid;
+
+	
 	private Talon intakeTalon;
 	private Talon rTalon; //right motor / talon
 	private Talon lTalon; //left motor / talon
@@ -24,6 +28,7 @@ public class ArcadeDriveHandler extends RobotComponentBase { //borrows from comp
 	public void robotInit(){ /*sets up joystick and motors for use with the black box through 
 							their previously specified channels and ports
 							(basically the constructor for the robot)*/
+		solenoid = new DoubleSolenoid(0, 0);
 		controller = new Joystick(J_PORT);
 		//initializes talons using predefined ports and channels
 		intakeTalon = new Talon(1, 3);
@@ -48,6 +53,13 @@ public class ArcadeDriveHandler extends RobotComponentBase { //borrows from comp
 		else
 		{
 			intakeTalon.set(0);
+		}
+		if(controller.getRawButton(1) == true){
+			solenoid.set(Value.kForward);
+		}
+		else{
+			solenoid.set(Value.kReverse);
+			
 		}
 		if(Math.abs(hyp) <= DEAD_ZONE){//checks for dead zone and sets speed to zero if within dead zone
 			rTalon.set(0);
