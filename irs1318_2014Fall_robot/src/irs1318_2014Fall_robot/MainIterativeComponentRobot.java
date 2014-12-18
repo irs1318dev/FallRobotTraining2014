@@ -4,7 +4,7 @@ public class MainIterativeComponentRobot extends IterativeComponentRobot {
 
 	public BotVector currentRobotComponents() {
 		BotVector v = new BotVector();
-		v.add(new BasicOneStickDriveTrainComponent());
+		v.add(new AdvancedOneStickDriveTrain());
 		return v;
 	}
 	
