@@ -4,8 +4,6 @@ import edu.wpi.first.wpilibj.*;
 
 public class CompressorController extends RobotComponentBase
 {
-	private static final int JOYSTICK_PORT = 1;
-	
 	private static final int SIDECAR_SLOT = SensorBase.getDefaultDigitalModule();
 	private static final int DIGITAL_IO = SensorBase.getDefaultSolenoidModule();
 	
