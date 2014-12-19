@@ -81,8 +81,9 @@ public class AdvancedOneStickDriveTrain extends RobotComponentBase
 			}
 		}
 		
-		this.assertPowerLevelRange(leftPower);
-		this.assertPowerLevelRange(rightPower);
+		// ensure that our algorithms are correct and don't give values outside the appropriate range
+		this.assertPowerLevelRange(leftPower, "left");
+		this.assertPowerLevelRange(rightPower, "right");
 		
 		// decrease the power based on the desired max speed
 		leftPower = leftPower * AdvancedOneStickDriveTrain.MAX_SPEED;
@@ -93,10 +94,10 @@ public class AdvancedOneStickDriveTrain extends RobotComponentBase
 		this.rightTalon.set(rightPower);
 	}
 	
-	private void assertPowerLevelRange(double powerLevel)
+	private void assertPowerLevelRange(double powerLevel, String side)
 	{
-		Assert.that(powerLevel < POWERLEVEL_MIN, "power level too low!");
-		Assert.that(powerLevel > POWERLEVEL_MAX, "power level too high!");
+		Assert.that(powerLevel < POWERLEVEL_MIN, side + " power level too low!");
+		Assert.that(powerLevel > POWERLEVEL_MAX, side + " power level too high!");
 	}
 
 	private double adjustIntensity(double value)
