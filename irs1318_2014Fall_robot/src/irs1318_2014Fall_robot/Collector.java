@@ -4,8 +4,7 @@ import edu.wpi.first.wpilibj.*;
 
 public class Collector extends RobotComponentBase
 {
-	private static final int SIDECAR_SLOT = SensorBase.getDefaultDigitalModule();;
-	private static final int DIGITAL_IO = SensorBase.getDefaultSolenoidModule();
+	private static final int SIDECAR_SLOT = SensorBase.getDefaultDigitalModule();
 	
 	private static final int JOYSTICK_PORT = 1;
 	

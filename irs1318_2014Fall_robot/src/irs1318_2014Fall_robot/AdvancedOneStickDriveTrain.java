@@ -1,5 +1,4 @@
 package irs1318_2014Fall_robot;
-import com.sun.squawk.Debugger;
 import com.sun.squawk.util.Assert;
 
 import edu.wpi.first.wpilibj.*;
