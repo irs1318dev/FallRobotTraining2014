@@ -1,4 +1,7 @@
 package irs1318_2014Fall_robot;
+import com.sun.squawk.Debugger;
+import com.sun.squawk.util.Assert;
+
 import edu.wpi.first.wpilibj.*;
 
 public class AdvancedOneStickDriveTrain extends RobotComponentBase
@@ -12,6 +15,12 @@ public class AdvancedOneStickDriveTrain extends RobotComponentBase
 	
 	private static final double DEAD_ZONE = 0.1;
 	private static final double MAX_SPEED = 0.8;
+	
+	private static final double A = 0.2;
+	private static final double B = 0.3;
+
+	private static final double POWERLEVEL_MIN = -1.0;
+	private static final double POWERLEVEL_MAX = 1.0;
 	
 	private Joystick joystick;
 	
@@ -44,17 +53,36 @@ public class AdvancedOneStickDriveTrain extends RobotComponentBase
 		double radius = Math.sqrt(x*x + y*y);
 		if (radius > AdvancedOneStickDriveTrain.DEAD_ZONE)
 		{
-			if (Math.abs(y) < Math.abs(x))
+			if (x >= 0)
 			{
-				leftPower = -x;
-				rightPower = x;
+				if (y >= 0)
+				{
+					leftPower = x*B + y * (1 - x*B);
+					rightPower = -x*B + y * (1 - x*(1 - A) + x*B);
+				}
+				else
+				{
+					leftPower = x*B - y*(-1 -x*B);
+					rightPower = -x*B - y*(-1 + x*(1 - A) + x*B);
+				}
 			}
 			else
 			{
-				leftPower = y;
-				rightPower = y;
+				if (y >= 0)
+				{
+					leftPower = -x*B + y*(1 + x*(1 - A) + x*B);
+					rightPower = x*B + y*(1 - x*B);
+				}
+				else
+				{
+					leftPower = -x*B - y*(-1 + x*(1 - A) + x*B);
+					rightPower = x*B - y*(-1 - x*B);
+				}
 			}
 		}
+		
+		this.assertPowerLevelRange(leftPower);
+		this.assertPowerLevelRange(rightPower);
 		
 		// decrease the power based on the desired max speed
 		leftPower = leftPower * AdvancedOneStickDriveTrain.MAX_SPEED;
@@ -65,6 +93,12 @@ public class AdvancedOneStickDriveTrain extends RobotComponentBase
 		this.rightTalon.set(rightPower);
 	}
 	
+	private void assertPowerLevelRange(double powerLevel)
+	{
+		Assert.that(powerLevel < POWERLEVEL_MIN, "power level too low!");
+		Assert.that(powerLevel > POWERLEVEL_MAX, "power level too high!");
+	}
+
 	private double adjustIntensity(double value)
 	{
 		// we will use simple quadratic scaling to adjust input intensity
