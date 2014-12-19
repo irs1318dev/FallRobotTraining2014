@@ -8,11 +8,11 @@ public class Collector extends RobotComponentBase
 	private static final int DIGITAL_IO = SensorBase.getDefaultSolenoidModule();
 	
 	private static final int JOYSTICK_PORT = 1;
-		
+	
 	private static final int COLLECTOR_MOTOR_CHANNEL = 3;
-
+	
 	private static final int COLLECTOR_SOLENOID_MODULE_PORT = 2;
-
+	
 	private static final int COLLECTOR_EXTENDER_SOLENOID_CHANNEL = 4;
 	private static final int COLLECTOR_RETRACTOR_SOLENOID_CHANNEL = 3;
 	
