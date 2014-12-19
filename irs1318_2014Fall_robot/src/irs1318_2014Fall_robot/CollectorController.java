@@ -2,7 +2,7 @@ package irs1318_2014Fall_robot;
 
 import edu.wpi.first.wpilibj.*;
 
-public class Collector extends RobotComponentBase
+public class CollectorController extends RobotComponentBase
 {	
 	private static final int JOYSTICK_PORT = 1;
 	

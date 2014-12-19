@@ -1,7 +1,7 @@
 package irs1318_2014Fall_robot;
 import edu.wpi.first.wpilibj.*;
 
-public class BasicTwoStickDriveTrain extends RobotComponentBase
+public class BasicTwoStickDriveTrainController extends RobotComponentBase
 {
 	private static final int LEFT_JOYSTICK_PORT = 1;
 	private static final int RIGHT_JOYSTICK_PORT = 2;
@@ -31,14 +31,14 @@ public class BasicTwoStickDriveTrain extends RobotComponentBase
 		
 		double leftPower = 0.0;
 		double rightPower = 0.0;
-		if (leftY > BasicTwoStickDriveTrain.DEAD_ZONE || leftY < -BasicTwoStickDriveTrain.DEAD_ZONE)
+		if (leftY > BasicTwoStickDriveTrainController.DEAD_ZONE || leftY < -BasicTwoStickDriveTrainController.DEAD_ZONE)
 		{
-			leftPower = BasicTwoStickDriveTrain.MAX_SPEED * leftY;
+			leftPower = BasicTwoStickDriveTrainController.MAX_SPEED * leftY;
 		}
 		
-		if (rightY > BasicTwoStickDriveTrain.DEAD_ZONE || rightY < -BasicTwoStickDriveTrain.DEAD_ZONE)
+		if (rightY > BasicTwoStickDriveTrainController.DEAD_ZONE || rightY < -BasicTwoStickDriveTrainController.DEAD_ZONE)
 		{
-			rightPower = BasicTwoStickDriveTrain.MAX_SPEED * rightY;
+			rightPower = BasicTwoStickDriveTrainController.MAX_SPEED * rightY;
 		}
 		
 		this.leftTalon.set(-leftPower);

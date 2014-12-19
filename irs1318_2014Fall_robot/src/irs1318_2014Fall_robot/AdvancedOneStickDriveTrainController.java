@@ -3,7 +3,7 @@ import com.sun.squawk.util.Assert;
 
 import edu.wpi.first.wpilibj.*;
 
-public class AdvancedOneStickDriveTrain extends RobotComponentBase
+public class AdvancedOneStickDriveTrainController extends RobotComponentBase
 {
 	private static final int JOYSTICK_PORT = 1;
 	
@@ -47,7 +47,7 @@ public class AdvancedOneStickDriveTrain extends RobotComponentBase
 		
 		// if we are outside of our dead zone, calculate desired power values 
 		double radius = Math.sqrt(x*x + y*y);
-		if (radius > AdvancedOneStickDriveTrain.DEAD_ZONE)
+		if (radius > AdvancedOneStickDriveTrainController.DEAD_ZONE)
 		{
 			if (simpleDriveModeEnabled)
 			{
@@ -124,8 +124,8 @@ public class AdvancedOneStickDriveTrain extends RobotComponentBase
 		this.assertPowerLevelRange(rightPower, "right");
 		
 		// decrease the power based on the desired max speed
-		leftPower = leftPower * AdvancedOneStickDriveTrain.MAX_SPEED;
-		rightPower = rightPower * AdvancedOneStickDriveTrain.MAX_SPEED;
+		leftPower = leftPower * AdvancedOneStickDriveTrainController.MAX_SPEED;
+		rightPower = rightPower * AdvancedOneStickDriveTrainController.MAX_SPEED;
 		
 		// apply the speed to the motors
 		this.leftTalon.set(-leftPower); // left motors are oriented facing "backwards"
