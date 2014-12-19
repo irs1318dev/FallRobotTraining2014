@@ -7,16 +7,11 @@ public class AdvancedOneStickDriveTrain extends RobotComponentBase
 {
 	private static final int JOYSTICK_PORT = 1;
 	
-	private static final int TALON_PORT = 1;
-	
-	private static final int LEFT_TALON_CHANNEL = 1;
-	private static final int RIGHT_TALON_CHANNEL = 2;
-	
 	private static final double DEAD_ZONE = 0.1;
 	private static final double MAX_SPEED = 0.8;
 	
 	private static final double A = 0.2;
-	private static final double B = 0.3;
+	private static final double B = 1.0;
 
 	private static final double POWERLEVEL_MIN = -1.0;
 	private static final double POWERLEVEL_MAX = 1.0;
@@ -30,12 +25,14 @@ public class AdvancedOneStickDriveTrain extends RobotComponentBase
 	{
 		this.joystick = new Joystick(JOYSTICK_PORT);
 		
-		this.leftTalon = new Talon(TALON_PORT, LEFT_TALON_CHANNEL);
-		this.rightTalon = new Talon(TALON_PORT, RIGHT_TALON_CHANNEL);
+		this.leftTalon = new Talon(ElectronicsConstants.SIDECAR_SLOT, ElectronicsConstants.DRIVETRAIN_LEFT_TALON_CHANNEL);
+		this.rightTalon = new Talon(ElectronicsConstants.SIDECAR_SLOT, ElectronicsConstants.DRIVETRAIN_RIGHT_TALON_CHANNEL);
 	}
 	
 	public void teleopPeriodic()
 	{
+		boolean simpleDriveModeEnabled = this.joystick.getRawButton(ButtonConstants.DRIVETRAIN_SIMPLE_BUTTON);
+		
 		// get the X and Y values from the joystick
 		double x = this.joystick.getX();
 		double y = this.joystick.getY();
@@ -52,30 +49,72 @@ public class AdvancedOneStickDriveTrain extends RobotComponentBase
 		double radius = Math.sqrt(x*x + y*y);
 		if (radius > AdvancedOneStickDriveTrain.DEAD_ZONE)
 		{
-			if (x >= 0)
+			if (simpleDriveModeEnabled)
 			{
-				if (y >= 0)
+				// simple drive enables either forward/back or in-place left/right turn only
+				//
+				//                     forward
+				//                 ---------------
+				//                 |      |      |
+				//                 |      |      |
+				//  In-place left  |-------------| In-place right
+				//                 |      |      |
+				//                 |      |      |
+				//                 ---------------
+				//                     backward
+				//
+				
+				if (Math.abs(y) < Math.abs(x))
 				{
-					leftPower = x*B + y * (1 - x*B);
-					rightPower = -x*B + y * (1 - x*(1 - A) + x*B);
+					leftPower = -x;
+					rightPower = x;
 				}
 				else
 				{
-					leftPower = x*B - y*(-1 -x*B);
-					rightPower = -x*B - y*(-1 + x*(1 - A) + x*B);
+					leftPower = y;
+					rightPower = y;
 				}
 			}
 			else
 			{
-				if (y >= 0)
+				// advanced drive enables varying-degree turns
+				//
+				//      a,1    1,1    1,a
+				//       ---------------
+				//       |      |      |
+				//       |      |      |
+				//  -b,b |-------------| b,-b
+				//       |      |      |
+				//       |      |      |
+				//       ---------------
+				//     -a,-1  -1,-1  -1,-a
+				//
+				
+				if (x >= 0)
 				{
-					leftPower = -x*B + y*(1 + x*(1 - A) + x*B);
-					rightPower = x*B + y*(1 - x*B);
+					if (y >= 0)
+					{
+						leftPower = x*B + y * (1 - x*B);
+						rightPower = -x*B + y * (1 - x*(1 - A) + x*B);
+					}
+					else
+					{
+						leftPower = x*B - y*(-1 -x*B);
+						rightPower = -x*B - y*(-1 + x*(1 - A) + x*B);
+					}
 				}
 				else
 				{
-					leftPower = -x*B - y*(-1 + x*(1 - A) + x*B);
-					rightPower = x*B - y*(-1 - x*B);
+					if (y >= 0)
+					{
+						leftPower = -x*B + y*(1 + x*(1 - A) + x*B);
+						rightPower = x*B + y*(1 - x*B);
+					}
+					else
+					{
+						leftPower = -x*B - y*(-1 + x*(1 - A) + x*B);
+						rightPower = x*B - y*(-1 - x*B);
+					}
 				}
 			}
 		}
@@ -89,7 +128,7 @@ public class AdvancedOneStickDriveTrain extends RobotComponentBase
 		rightPower = rightPower * AdvancedOneStickDriveTrain.MAX_SPEED;
 		
 		// apply the speed to the motors
-		this.leftTalon.set(-leftPower);
+		this.leftTalon.set(-leftPower); // left motors are oriented facing "backwards"
 		this.rightTalon.set(rightPower);
 	}
 	
