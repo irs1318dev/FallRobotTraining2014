@@ -1,7 +1,7 @@
 MIDlet-Name: IterativeComponentRobot
 MIDlet-Version: 1.0.0
 MIDlet-Vendor: FIRST
-MIDlet-1: MainIterativeComponentRobot, , irs1318_2014Fall_robot.MainIterativeComponentRobot
+MIDlet-1: IRS1318Robot, , irs1318_2014Fall_robot.IRS1318Robot
 MicroEdition-Profile: IMP-1.0
 MicroEdition-Configuration: CLDC-1.1
 

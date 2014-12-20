@@ -11,7 +11,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public abstract class IterativeComponentRobot extends IterativeRobot {
+public class IRS1318Robot extends IterativeRobot {
 	private BotVector components;
 	private int iterator = 0;
 	
@@ -26,8 +26,13 @@ public abstract class IterativeComponentRobot extends IterativeRobot {
     	}
     }
     
-    public abstract BotVector currentRobotComponents();
-
+	public BotVector currentRobotComponents() {
+		BotVector v = new BotVector();
+		v.add(new AdvancedOneStickDriveTrainController());
+		v.add(new CollectorController());
+		v.add(new CompressorController());
+		return v;
+	}
 	
 	public void disabledInit() {
     	for(iterator = 0; iterator < components.size(); iterator++) {
