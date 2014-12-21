@@ -15,14 +15,14 @@ public class DriveTrainController
     private static final double POWERLEVEL_MIN = -1.0;
     private static final double POWERLEVEL_MAX = 1.0;
 
-    private Joystick joystick;
+    private IJoystick userInterface;
 
     private Talon leftTalon;
     private Talon rightTalon;
 
-    public DriveTrainController(Joystick joystick)
+    public DriveTrainController(IJoystick userInterface)
     {
-        this.joystick = joystick;
+        this.userInterface = userInterface;
 
         this.leftTalon = new Talon(
             ElectronicsConstants.SIDECAR_SLOT,
@@ -35,11 +35,11 @@ public class DriveTrainController
 
     public void teleopPeriodic()
     {
-        boolean simpleDriveModeEnabled = this.joystick.getRawButton(ButtonConstants.DRIVETRAIN_SIMPLE_BUTTON);
+        boolean simpleDriveModeEnabled = this.userInterface.getDriveTrainSimpleModeButton();
 
         // get the X and Y values from the joystick
-        double x = this.joystick.getX();
-        double y = this.joystick.getY();
+        double x = this.userInterface.getDriveTrainXAxis();
+        double y = this.userInterface.getDriveTrainYAxis();
 
         // adjust the intensity of the input
         x = this.adjustIntensity(x);
@@ -84,15 +84,15 @@ public class DriveTrainController
             {
                 // advanced drive enables varying-degree turns
                 //
-                // a,1 1,1 1,a
-                // ---------------
-                // | | |
-                // | | |
+                //     a,1    1,1    1,a
+                //      ---------------
+                //      |      |      |
+                //      |      |      |
                 // -b,b |-------------| b,-b
-                // | | |
-                // | | |
-                // ---------------
-                // -a,-1 -1,-1 -1,-a
+                //      |      |      |
+                //      |      |      |
+                //      ---------------
+                //    -a,-1  -1,-1  -1,-a
                 //
 
                 if (x >= 0)

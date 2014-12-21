@@ -6,13 +6,13 @@ public class CollectorController
 {
     private static final double COLLECTOR_SPEED = 0.8;
 
-    private Joystick joystick;
+    private IJoystick userInterface;
     private Talon collectorTalon;
     private DoubleSolenoid collectorSolenoid;
 
-    public CollectorController(Joystick joystick)
+    public CollectorController(IJoystick userInterface)
     {
-        this.joystick = joystick;
+        this.userInterface = userInterface;
 
         this.collectorSolenoid = new DoubleSolenoid(
             ElectronicsConstants.COLLECTOR_SOLENOID_MODULE_PORT,
@@ -26,11 +26,11 @@ public class CollectorController
 
     public void teleopPeriodic()
     {
-        // get the X and Y values from the joystick
-        boolean extend = this.joystick.getRawButton(ButtonConstants.COLLECTOR_EXTEND_BUTTON);
-        boolean retract = this.joystick.getRawButton(ButtonConstants.COLLECTOR_RETRACT_BUTTON);
-        boolean collect = this.joystick.getRawButton(ButtonConstants.COLLECTOR_COLLECT_BUTTON);
-        boolean expel = this.joystick.getRawButton(ButtonConstants.COLLECTOR_EXPEL_BUTTON);
+        // get the various values from the user interface
+        boolean extend = this.userInterface.getCollectorExtendButton();
+        boolean retract = this.userInterface.getCollectorRetractButton();
+        boolean collect = this.userInterface.getCollectorCollectButton();
+        boolean expel = this.userInterface.getCollectorExpelButton();
 
         if (extend)
         {

@@ -11,6 +11,11 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class IRS1318Robot extends IterativeRobot
 {
+    private IJoystick userInterface;
+    private DriveTrainController driveTrain;
+    private CollectorController collector;
+    private CompressorController compressor;
+    
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -29,6 +34,10 @@ public class IRS1318Robot extends IterativeRobot
 
     public void teleopInit()
     {
+        this.userInterface = new UserJoystick();
+        this.compressor = new CompressorController();
+        this.driveTrain = new DriveTrainController(this.userInterface);
+        this.collector = new CollectorController(this.userInterface);
     }
 
     public void disabledPeriodic()
