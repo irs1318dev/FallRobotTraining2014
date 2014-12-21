@@ -4,7 +4,7 @@ import com.sun.squawk.util.Assert;
 
 import edu.wpi.first.wpilibj.*;
 
-public class DriveTrainController
+public class DriveTrainController implements IActiveComponent
 {
     private static final double DEAD_ZONE = 0.1;
     private static final double MAX_SPEED = 0.8;
@@ -33,7 +33,7 @@ public class DriveTrainController
             ElectronicsConstants.DRIVETRAIN_RIGHT_TALON_CHANNEL);
     }
 
-    public void teleopPeriodic()
+    public void run()
     {
         boolean simpleDriveModeEnabled = this.userInterface.getDriveTrainSimpleModeButton();
 

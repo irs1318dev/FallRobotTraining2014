@@ -15,7 +15,7 @@ public class IRS1318Robot extends IterativeRobot
     private DriveTrainController driveTrain;
     private CollectorController collector;
     private CompressorController compressor;
-    
+
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
@@ -34,7 +34,10 @@ public class IRS1318Robot extends IterativeRobot
 
     public void teleopInit()
     {
+        // create input components
         this.userInterface = new UserJoystick();
+        
+        // create component controllers
         this.compressor = new CompressorController();
         this.driveTrain = new DriveTrainController(this.userInterface);
         this.collector = new CollectorController(this.userInterface);
@@ -50,6 +53,8 @@ public class IRS1318Robot extends IterativeRobot
 
     public void teleopPeriodic()
     {
+        this.driveTrain.run();
+        this.collector.run();
     }
 
     public void disabledContinuous()

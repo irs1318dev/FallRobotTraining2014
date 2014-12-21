@@ -2,7 +2,7 @@ package irs1318_2014Fall_robot;
 
 import edu.wpi.first.wpilibj.*;
 
-public class CollectorController
+public class CollectorController implements IActiveComponent
 {
     private static final double COLLECTOR_SPEED = 0.8;
 
@@ -24,7 +24,7 @@ public class CollectorController
             ElectronicsConstants.COLLECTOR_MOTOR_CHANNEL);
     }
 
-    public void teleopPeriodic()
+    public void run()
     {
         // get the various values from the user interface
         boolean extend = this.userInterface.getCollectorExtendButton();
