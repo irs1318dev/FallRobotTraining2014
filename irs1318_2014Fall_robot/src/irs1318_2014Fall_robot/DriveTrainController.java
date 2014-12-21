@@ -3,7 +3,7 @@ import com.sun.squawk.util.Assert;
 
 import edu.wpi.first.wpilibj.*;
 
-public class AdvancedOneStickDriveTrainController
+public class DriveTrainController
 {
 	private static final int JOYSTICK_PORT = 1;
 	
@@ -21,7 +21,7 @@ public class AdvancedOneStickDriveTrainController
 	private Talon leftTalon;
 	private Talon rightTalon;
 	
-	public AdvancedOneStickDriveTrainController(Joystick joystick)
+	public DriveTrainController(Joystick joystick)
 	{
 		this.joystick = joystick;
 		
@@ -47,7 +47,7 @@ public class AdvancedOneStickDriveTrainController
 		
 		// if we are outside of our dead zone, calculate desired power values 
 		double radius = Math.sqrt(x*x + y*y);
-		if (radius > AdvancedOneStickDriveTrainController.DEAD_ZONE)
+		if (radius > DriveTrainController.DEAD_ZONE)
 		{
 			if (simpleDriveModeEnabled)
 			{
@@ -124,8 +124,8 @@ public class AdvancedOneStickDriveTrainController
 		this.assertPowerLevelRange(rightPower, "right");
 		
 		// decrease the power based on the desired max speed
-		leftPower = leftPower * AdvancedOneStickDriveTrainController.MAX_SPEED;
-		rightPower = rightPower * AdvancedOneStickDriveTrainController.MAX_SPEED;
+		leftPower = leftPower * DriveTrainController.MAX_SPEED;
+		rightPower = rightPower * DriveTrainController.MAX_SPEED;
 		
 		// apply the speed to the motors
 		this.leftTalon.set(-leftPower); // left motors are oriented facing "backwards"
