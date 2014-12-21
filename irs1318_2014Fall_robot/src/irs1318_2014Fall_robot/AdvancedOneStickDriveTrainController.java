@@ -3,7 +3,7 @@ import com.sun.squawk.util.Assert;
 
 import edu.wpi.first.wpilibj.*;
 
-public class AdvancedOneStickDriveTrainController extends RobotComponentBase
+public class AdvancedOneStickDriveTrainController
 {
 	private static final int JOYSTICK_PORT = 1;
 	
@@ -21,9 +21,9 @@ public class AdvancedOneStickDriveTrainController extends RobotComponentBase
 	private Talon leftTalon;
 	private Talon rightTalon;
 	
-	public void robotInit()
+	public AdvancedOneStickDriveTrainController(Joystick joystick)
 	{
-		this.joystick = new Joystick(JOYSTICK_PORT);
+		this.joystick = joystick;
 		
 		this.leftTalon = new Talon(ElectronicsConstants.SIDECAR_SLOT, ElectronicsConstants.DRIVETRAIN_LEFT_TALON_CHANNEL);
 		this.rightTalon = new Talon(ElectronicsConstants.SIDECAR_SLOT, ElectronicsConstants.DRIVETRAIN_RIGHT_TALON_CHANNEL);

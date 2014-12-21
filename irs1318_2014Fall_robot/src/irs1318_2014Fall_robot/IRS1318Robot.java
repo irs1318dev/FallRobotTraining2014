@@ -2,8 +2,6 @@ package irs1318_2014Fall_robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
 
-
-
 /**
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
@@ -11,88 +9,49 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * creating this project, you must also update the manifest file in the resource
  * directory.
  */
-public class IRS1318Robot extends IterativeRobot {
-	private BotVector components;
-	private int iterator = 0;
-	
+public class IRS1318Robot extends IterativeRobot
+{
     /**
      * This function is run when the robot is first started up and should be
      * used for any initialization code.
      */
-    public void robotInit() {
-    	components = currentRobotComponents();
-    	for(iterator = 0; iterator < components.size(); iterator++) {
-    		components.get(iterator).robotInit();
-    	}
+    public void robotInit()
+    {
     }
-    
-	public BotVector currentRobotComponents() {
-		BotVector v = new BotVector();
-		v.add(new AdvancedOneStickDriveTrainController());
-		v.add(new CollectorController());
-		v.add(new CompressorController());
-		return v;
+	
+	public void disabledInit()
+	{
 	}
 	
-	public void disabledInit() {
-    	for(iterator = 0; iterator < components.size(); iterator++) {
-    		components.get(iterator).disabledInit();
-    	}
+	public void autonomousInit()
+	{
 	}
-
 	
-	public void autonomousInit() {
-    	for(iterator = 0; iterator < components.size(); iterator++) {
-    		components.get(iterator).autonomousInit();
-    	}
+	public void teleopInit()
+	{
 	}
-
 	
-	public void teleopInit() {
-    	for(iterator = 0; iterator < components.size(); iterator++) {
-    		components.get(iterator).teleopInit();
-    	}
+	public void disabledPeriodic()
+	{
 	}
-
 	
-	public void disabledPeriodic() {
-    	for(iterator = 0; iterator < components.size(); iterator++) {
-    		components.get(iterator).disabledPeriodic();
-    	}
+	public void autonomousPeriodic()
+	{
 	}
-
 	
-	public void autonomousPeriodic() {
-    	for(iterator = 0; iterator < components.size(); iterator++) {
-    		components.get(iterator).autonomousPeriodic();
-    	}
+	public void teleopPeriodic() 
+	{
 	}
-
 	
-	public void teleopPeriodic() {
-    	for(iterator = 0; iterator < components.size(); iterator++) {
-    		components.get(iterator).teleopPeriodic();
-    	}
+	public void disabledContinuous()
+	{
 	}
-
 	
-	public void disabledContinuous() {
-    	for(iterator = 0; iterator < components.size(); iterator++) {
-    		components.get(iterator).disabledContinuous();
-    	}
+	public void autonomousContinuous()
+	{
 	}
-
 	
-	public void autonomousContinuous() {
-    	for(iterator = 0; iterator < components.size(); iterator++) {
-    		components.get(iterator).autonomousContinuous();
-    	}
-	}
-
-	
-	public void teleopContinuous() {
-    	for(iterator = 0; iterator < components.size(); iterator++) {
-    		components.get(iterator).teleopContinuous();
-    	}
+	public void teleopContinuous()
+	{
 	}
 }

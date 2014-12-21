@@ -2,19 +2,17 @@ package irs1318_2014Fall_robot;
 
 import edu.wpi.first.wpilibj.*;
 
-public class CollectorController extends RobotComponentBase
-{	
-	private static final int JOYSTICK_PORT = 1;
-	
+public class CollectorController
+{
 	private static final double COLLECTOR_SPEED = 0.8;
 	
 	private Joystick joystick;	
 	private Talon collectorTalon;	
 	private DoubleSolenoid collectorSolenoid;
 	
-	public void robotInit()
+	public CollectorController(Joystick joystick)
 	{
-		this.joystick = new Joystick(JOYSTICK_PORT);
+		this.joystick = joystick;
 		
 		this.collectorSolenoid = new DoubleSolenoid(ElectronicsConstants.COLLECTOR_SOLENOID_MODULE_PORT, ElectronicsConstants.COLLECTOR_EXTENDER_SOLENOID_CHANNEL, ElectronicsConstants.COLLECTOR_RETRACTOR_SOLENOID_CHANNEL);
 	
