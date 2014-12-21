@@ -18,40 +18,40 @@ public class IRS1318Robot extends IterativeRobot
     public void robotInit()
     {
     }
-	
-	public void disabledInit()
-	{
-	}
-	
-	public void autonomousInit()
-	{
-	}
-	
-	public void teleopInit()
-	{
-	}
-	
-	public void disabledPeriodic()
-	{
-	}
-	
-	public void autonomousPeriodic()
-	{
-	}
-	
-	public void teleopPeriodic() 
-	{
-	}
-	
-	public void disabledContinuous()
-	{
-	}
-	
-	public void autonomousContinuous()
-	{
-	}
-	
-	public void teleopContinuous()
-	{
-	}
+
+    public void disabledInit()
+    {
+    }
+
+    public void autonomousInit()
+    {
+    }
+
+    public void teleopInit()
+    {
+    }
+
+    public void disabledPeriodic()
+    {
+    }
+
+    public void autonomousPeriodic()
+    {
+    }
+
+    public void teleopPeriodic()
+    {
+    }
+
+    public void disabledContinuous()
+    {
+    }
+
+    public void autonomousContinuous()
+    {
+    }
+
+    public void teleopContinuous()
+    {
+    }
 }
