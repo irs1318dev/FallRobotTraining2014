@@ -12,9 +12,15 @@ import edu.wpi.first.wpilibj.IterativeRobot;
 public class IRS1318Robot extends IterativeRobot
 {
     private IJoystick userInterface;
-    private DriveTrainController driveTrain;
-    private CollectorController collector;
-    private CompressorController compressor;
+    
+    private DriveTrainComponent driveTrainComponent;
+    private DriveTrainController driveTrainController;
+    
+    private CollectorComponent collectorComponent;
+    private CollectorController collectorController;
+    
+    private CompressorComponent compressorComponent;
+    private CompressorController compressorController;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -34,13 +40,21 @@ public class IRS1318Robot extends IterativeRobot
 
     public void teleopInit()
     {
-        // create input components
+        // create input
         this.userInterface = new UserJoystick();
         
-        // create component controllers
-        this.compressor = new CompressorController();
-        this.driveTrain = new DriveTrainController(this.userInterface);
-        this.collector = new CollectorController(this.userInterface);
+        // create components for each mechanism
+        this.compressorComponent = new CompressorComponent();
+        this.driveTrainComponent = new DriveTrainComponent();
+        this.collectorComponent = new CollectorComponent();
+        
+        // create controllers for each mechanism
+        this.compressorController = new CompressorController(this.compressorComponent);
+        this.driveTrainController = new DriveTrainController(this.userInterface, this.driveTrainComponent);
+        this.collectorController = new CollectorController(this.userInterface, this.collectorComponent);
+        
+        // we will run the compressor controller here because we should start it in advance...
+        this.compressorController.run();
     }
 
     public void disabledPeriodic()
@@ -53,8 +67,9 @@ public class IRS1318Robot extends IterativeRobot
 
     public void teleopPeriodic()
     {
-        this.driveTrain.run();
-        this.collector.run();
+        this.compressorController.run();
+        this.driveTrainController.run();
+        this.collectorController.run();
     }
 
     public void disabledContinuous()

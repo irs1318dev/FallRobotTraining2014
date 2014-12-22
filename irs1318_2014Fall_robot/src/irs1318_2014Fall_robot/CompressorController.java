@@ -1,19 +1,22 @@
 package irs1318_2014Fall_robot;
 
-import edu.wpi.first.wpilibj.*;
-
-public class CompressorController
+public class CompressorController implements IController
 {
-    private Compressor compressor;
+    private boolean isStarted;
+    private CompressorComponent component;
 
-    public CompressorController()
+    public CompressorController(CompressorComponent component)
     {
-        this.compressor = new Compressor(
-            ElectronicsConstants.SIDECAR_SLOT,
-            ElectronicsConstants.COMPRESSOR_PRESSURE_SWITCH_CHANNEL,
-            ElectronicsConstants.DIGITAL_IO,
-            ElectronicsConstants.COMPRESSOR_RELAY_CHANNEL);
-        
-        this.compressor.start();
+        this.component = component;        
+        this.isStarted = false;
+    }
+    
+    public void run()
+    {
+        if (!this.isStarted)
+        {
+            this.component.start();
+            this.isStarted = true;
+        }
     }
 }

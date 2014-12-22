@@ -2,9 +2,7 @@ package irs1318_2014Fall_robot;
 
 import com.sun.squawk.util.Assert;
 
-import edu.wpi.first.wpilibj.*;
-
-public class DriveTrainController implements IActiveComponent
+public class DriveTrainController implements IController
 {
     private static final double DEAD_ZONE = 0.1;
     private static final double MAX_SPEED = 0.8;
@@ -16,28 +14,20 @@ public class DriveTrainController implements IActiveComponent
     private static final double POWERLEVEL_MAX = 1.0;
 
     private IJoystick userInterface;
+    private IDriveTrainComponent component;
 
-    private Talon leftTalon;
-    private Talon rightTalon;
-
-    public DriveTrainController(IJoystick userInterface)
+    public DriveTrainController(IJoystick userInterface, IDriveTrainComponent component)
     {
         this.userInterface = userInterface;
-
-        this.leftTalon = new Talon(
-            ElectronicsConstants.SIDECAR_SLOT,
-            ElectronicsConstants.DRIVETRAIN_LEFT_TALON_CHANNEL);
-        
-        this.rightTalon = new Talon(
-            ElectronicsConstants.SIDECAR_SLOT,
-            ElectronicsConstants.DRIVETRAIN_RIGHT_TALON_CHANNEL);
+        this.component = component;
     }
 
     public void run()
     {
+        // get a value indicating that we should be in simple mode...
         boolean simpleDriveModeEnabled = this.userInterface.getDriveTrainSimpleModeButton();
 
-        // get the X and Y values from the joystick
+        // get the X and Y values from the user interface
         double x = this.userInterface.getDriveTrainXAxis();
         double y = this.userInterface.getDriveTrainYAxis();
 
@@ -58,15 +48,15 @@ public class DriveTrainController implements IActiveComponent
                 // simple drive enables either forward/back or in-place
                 // left/right turn only
                 //
-                // forward
-                // ---------------
-                // | | |
-                // | | |
+                //                   forward
+                //               ---------------
+                //               |      |      |
+                //               |      |      |
                 // In-place left |-------------| In-place right
-                // | | |
-                // | | |
-                // ---------------
-                // backward
+                //               |      |      |
+                //               |      |      |
+                //               ---------------
+                //                  backward
                 //
 
                 if (Math.abs(y) < Math.abs(x))
@@ -133,10 +123,8 @@ public class DriveTrainController implements IActiveComponent
         leftPower = leftPower * DriveTrainController.MAX_SPEED;
         rightPower = rightPower * DriveTrainController.MAX_SPEED;
 
-        // apply the speed to the motors
-        this.leftTalon.set(-leftPower); // left motors are oriented facing
-                                        // "backwards"
-        this.rightTalon.set(rightPower);
+        // apply the power to the motors
+        this.component.setDriveTrainPower(leftPower, rightPower);
     }
 
     private void assertPowerLevelRange(double powerLevel, String side)
