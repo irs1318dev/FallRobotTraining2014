@@ -4,11 +4,12 @@ import com.sun.squawk.util.Assert;
 
 public class DriveTrainController implements IController
 {
-    private static final double DEAD_ZONE = 0.1;
-    private static final double MAX_SPEED = 0.8;
+    // these are public only so that the test cases can access them...
+    public static final double DEAD_ZONE = 0.1;
+    public static final double MAX_SPEED = 0.8;
 
-    private static final double A = 0.2;
-    private static final double B = 1.0;
+    public static final double A = 0.2;
+    public static final double B = 1.0;
 
     private static final double POWERLEVEL_MIN = -1.0;
     private static final double POWERLEVEL_MAX = 1.0;
@@ -72,16 +73,19 @@ public class DriveTrainController implements IController
             }
             else
             {
-                // advanced drive enables varying-degree turns
+                // advanced drive enables varying-degree turns.
+                // math is derived using linear interpolation
                 //
                 //     a,1    1,1    1,a
-                //      ---------------
-                //      |      |      |
-                //      |      |      |
-                // -b,b |-------------| b,-b
-                //      |      |      |
-                //      |      |      |
-                //      ---------------
+                //      ---------------------
+                //      |         |         |
+                //      |   Q2    |   Q1    |
+                //      |         |         |
+                // -b,b |-------------------| b,-b
+                //      |         |         |
+                //      |   Q3    |   Q4    |
+                //      |         |         |
+                //      ---------------------
                 //    -a,-1  -1,-1  -1,-a
                 //
 
@@ -89,11 +93,13 @@ public class DriveTrainController implements IController
                 {
                     if (y >= 0)
                     {
+                        // Q1:
                         leftPower = x * B + y * (1 - x * B);
                         rightPower = -x * B + y * (1 - x * (1 - A) + x * B);
                     }
                     else
                     {
+                        // Q4:
                         leftPower = x * B - y * (-1 - x * B);
                         rightPower = -x * B - y * (-1 + x * (1 - A) + x * B);
                     }
@@ -102,11 +108,13 @@ public class DriveTrainController implements IController
                 {
                     if (y >= 0)
                     {
+                        // Q2:
                         leftPower = -x * B + y * (1 + x * (1 - A) + x * B);
                         rightPower = x * B + y * (1 - x * B);
                     }
                     else
                     {
+                        // Q3:
                         leftPower = -x * B - y * (-1 + x * (1 - A) + x * B);
                         rightPower = x * B - y * (-1 - x * B);
                     }
@@ -136,6 +144,13 @@ public class DriveTrainController implements IController
     private double adjustIntensity(double value)
     {
         // we will use simple quadratic scaling to adjust input intensity
-        return value * value;
+        if (value < 0)
+        {
+            return -value * value;
+        }
+        else
+        {
+            return value * value;
+        }
     }
 }

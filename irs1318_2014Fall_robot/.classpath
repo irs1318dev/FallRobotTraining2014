@@ -5,5 +5,6 @@
 	<classpathentry kind="var" path="irs1318_2014_robot/libs/squawk_device_classes.jar"/>
 	<classpathentry kind="var" path="irs1318_2014_robot/libs/squawk.jar"/>
 	<classpathentry kind="var" path="irs1318_2014_robot/libs/wpilibj.jar" sourcepath="/irs1318_2014_robot/libs/wpilibj.src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
