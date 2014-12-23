@@ -4,10 +4,10 @@ public class CollectorController implements IController
 {
     private static final double COLLECTOR_SPEED = 0.8;
 
-    private IJoystick userInterface;
+    private IJoystickComponent userInterface;
     private ICollectorComponent component;
 
-    public CollectorController(IJoystick userInterface, ICollectorComponent component)
+    public CollectorController(IJoystickComponent userInterface, ICollectorComponent component)
     {
         this.userInterface = userInterface;
         this.component = component;

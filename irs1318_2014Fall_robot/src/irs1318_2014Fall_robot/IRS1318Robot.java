@@ -15,12 +15,12 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * We have two major types of objects:
  * - Components - describe the electronics of an object.  These can be:
  *   - Mechanism components
- *   - Sensor/Joystick Input components
+ *   - General Input components (e.g. Joystick)
  * - Controllers - define the logic that controls a mechanism given inputs/outputs.
  */
 public class IRS1318Robot extends IterativeRobot
 {
-    private IJoystick userInterface;
+    private IJoystickComponent userInterfaceComponent;
     
     private DriveTrainComponent driveTrainComponent;
     private DriveTrainController driveTrainController;
@@ -54,12 +54,12 @@ public class IRS1318Robot extends IterativeRobot
     public void teleopInit()
     {
         // create input
-        this.userInterface = new UserJoystick();
+        this.userInterfaceComponent = new UserJoystickComponent();
         
         // create controllers for each mechanism
         this.compressorController = new CompressorController(this.compressorComponent);
-        this.driveTrainController = new DriveTrainController(this.userInterface, this.driveTrainComponent);
-        this.collectorController = new CollectorController(this.userInterface, this.collectorComponent);
+        this.driveTrainController = new DriveTrainController(this.userInterfaceComponent, this.driveTrainComponent);
+        this.collectorController = new CollectorController(this.userInterfaceComponent, this.collectorComponent);
         
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.run();

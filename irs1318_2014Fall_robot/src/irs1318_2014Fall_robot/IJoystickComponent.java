@@ -1,6 +1,6 @@
 package irs1318_2014Fall_robot;
 
-public interface IJoystick
+public interface IJoystickComponent
 {
     public boolean getCollectorExtendButton();
 

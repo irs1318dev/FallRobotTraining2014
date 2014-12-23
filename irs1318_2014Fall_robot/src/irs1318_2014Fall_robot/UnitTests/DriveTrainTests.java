@@ -1,7 +1,7 @@
 package irs1318_2014Fall_robot.UnitTests;
 
 import irs1318_2014Fall_robot.IDriveTrainComponent;
-import irs1318_2014Fall_robot.IJoystick;
+import irs1318_2014Fall_robot.IJoystickComponent;
 import irs1318_2014Fall_robot.DriveTrainController;
 
 import org.junit.Assert;
@@ -10,7 +10,7 @@ import org.junit.Test;
 
 public class DriveTrainTests
 {
-    private class MockDriveTrainJoystick implements IJoystick
+    private class MockDriveTrainJoystick implements IJoystickComponent
     {
         private double x;
         private double y;

@@ -12,10 +12,10 @@ public class DriveTrainController implements IController
     private static final double POWERLEVEL_MIN = -1.0;
     private static final double POWERLEVEL_MAX = 1.0;
 
-    private IJoystick userInterface;
+    private IJoystickComponent userInterface;
     private IDriveTrainComponent component;
 
-    public DriveTrainController(IJoystick userInterface, IDriveTrainComponent component)
+    public DriveTrainController(IJoystickComponent userInterface, IDriveTrainComponent component)
     {
         this.userInterface = userInterface;
         this.component = component;

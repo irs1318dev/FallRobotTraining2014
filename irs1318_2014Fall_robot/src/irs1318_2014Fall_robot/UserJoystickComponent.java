@@ -2,11 +2,11 @@ package irs1318_2014Fall_robot;
 
 import edu.wpi.first.wpilibj.*;
 
-public class UserJoystick implements IJoystick
+public class UserJoystickComponent implements IJoystickComponent
 {
     private Joystick joystick;
     
-    public UserJoystick()
+    public UserJoystickComponent()
     {
         this.joystick = new Joystick(ButtonConstants.JOYSTICK_PORT);
     }
