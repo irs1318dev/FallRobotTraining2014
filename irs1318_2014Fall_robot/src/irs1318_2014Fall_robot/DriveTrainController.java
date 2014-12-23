@@ -1,7 +1,5 @@
 package irs1318_2014Fall_robot;
 
-import com.sun.squawk.util.Assert;
-
 public class DriveTrainController implements IController
 {
     // these are public only so that the test cases can access them...
@@ -46,8 +44,7 @@ public class DriveTrainController implements IController
         {
             if (simpleDriveModeEnabled)
             {
-                // simple drive enables either forward/back or in-place
-                // left/right turn only
+                // simple drive enables either forward/back or in-place left/right turn only
                 //
                 //                   forward
                 //               ---------------
@@ -89,7 +86,7 @@ public class DriveTrainController implements IController
                 //    -a,-1     -1,-1     -1,-a
                 //
                 // for x: 0 -> 1, power(x) = power(0) + x*(power(1) - power(0)) 
-                // for y: 0 -> 1, power(x,y) = power(bottomline) + y*(power(topline) - power(bottomline))
+                // for y: 0 -> 1, power(x,y) = power(x,0) + y*(power(x,1) - power(x,0))
 
                 if (x >= 0)
                 {
@@ -155,8 +152,15 @@ public class DriveTrainController implements IController
 
     private void assertPowerLevelRange(double powerLevel, String side)
     {
-        Assert.that(powerLevel < POWERLEVEL_MIN, side + " power level too low!");
-        Assert.that(powerLevel > POWERLEVEL_MAX, side + " power level too high!");
+        if (powerLevel < POWERLEVEL_MIN)
+        {
+            throw new RuntimeException(side + " power level too low!");
+        }
+        
+        if (powerLevel > POWERLEVEL_MAX)
+        {
+            throw new RuntimeException(side + " power level too high!");
+        }
     }
 
     private double adjustIntensity(double value)

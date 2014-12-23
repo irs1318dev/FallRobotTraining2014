@@ -1,6 +1,5 @@
 package irs1318_2014Fall_robot.UnitTests;
 
-import static org.junit.Assert.*;
 import irs1318_2014Fall_robot.IDriveTrainComponent;
 import irs1318_2014Fall_robot.IJoystick;
 import irs1318_2014Fall_robot.DriveTrainController;
@@ -65,7 +64,7 @@ public class DriveTrainTests
         private double expectedLeftPower;
         private double expectedRightPower;
         
-        private static final double delta = 0.0;
+        private static final double acceptableDelta = 0.0001;
 
         public MockDriveTrainComponent(double expectedLeftPower, double expectedRightPower)
         {
@@ -75,8 +74,8 @@ public class DriveTrainTests
         
         public void setDriveTrainPower(double leftPower, double rightPower)
         {
-            Assert.assertEquals(this.expectedLeftPower, leftPower, 0.0001);
-            Assert.assertEquals(this.expectedRightPower, rightPower, 0.0001);
+            Assert.assertEquals(this.expectedLeftPower, leftPower, acceptableDelta);
+            Assert.assertEquals(this.expectedRightPower, rightPower, acceptableDelta);
         }
     }
     

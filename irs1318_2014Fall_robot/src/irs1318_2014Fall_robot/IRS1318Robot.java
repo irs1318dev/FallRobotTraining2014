@@ -8,6 +8,15 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * documentation. If you change the name of this class or the package after
  * creating this project, you must also update the manifest file in the resource
  * directory.
+ * 
+ * 
+ * 
+ * General design comments:
+ * We have two major types of objects:
+ * - Components - describe the electronics of an object.  These can be:
+ *   - Mechanism components
+ *   - Sensor/Joystick Input components
+ * - Controllers - define the logic that controls a mechanism given inputs/outputs.
  */
 public class IRS1318Robot extends IterativeRobot
 {
@@ -28,6 +37,10 @@ public class IRS1318Robot extends IterativeRobot
      */
     public void robotInit()
     {
+        // create mechanism components
+        this.compressorComponent = new CompressorComponent();
+        this.driveTrainComponent = new DriveTrainComponent();
+        this.collectorComponent = new CollectorComponent();
     }
 
     public void disabledInit()
@@ -42,11 +55,6 @@ public class IRS1318Robot extends IterativeRobot
     {
         // create input
         this.userInterface = new UserJoystick();
-        
-        // create components for each mechanism
-        this.compressorComponent = new CompressorComponent();
-        this.driveTrainComponent = new DriveTrainComponent();
-        this.collectorComponent = new CollectorComponent();
         
         // create controllers for each mechanism
         this.compressorController = new CompressorController(this.compressorComponent);
