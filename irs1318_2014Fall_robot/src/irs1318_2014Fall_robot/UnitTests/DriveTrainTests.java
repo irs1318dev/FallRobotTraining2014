@@ -75,8 +75,8 @@ public class DriveTrainTests
         
         public void setDriveTrainPower(double leftPower, double rightPower)
         {
-            Assert.assertEquals(this.expectedLeftPower, leftPower, 0.0);
-            Assert.assertEquals(this.expectedRightPower, rightPower, 0.0);
+            Assert.assertEquals(this.expectedLeftPower, leftPower, 0.0001);
+            Assert.assertEquals(this.expectedRightPower, rightPower, 0.0001);
         }
     }
     
@@ -140,7 +140,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(1.0, -1.0, false),
-            new MockDriveTrainComponent(-DriveTrainController.MAX_SPEED, -DriveTrainController.A));
+            new MockDriveTrainComponent(-DriveTrainController.MAX_SPEED, -DriveTrainController.A * DriveTrainController.MAX_SPEED));
         
         controller.run();
     }

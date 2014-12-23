@@ -62,8 +62,8 @@ public class DriveTrainController implements IController
 
                 if (Math.abs(y) < Math.abs(x))
                 {
-                    leftPower = -x;
-                    rightPower = x;
+                    leftPower = x;
+                    rightPower = -x;
                 }
                 else
                 {
@@ -76,7 +76,7 @@ public class DriveTrainController implements IController
                 // advanced drive enables varying-degree turns.
                 // math is derived using linear interpolation
                 //
-                //     a,1    1,1    1,a
+                //     a,1       1,1       1,a
                 //      ---------------------
                 //      |         |         |
                 //      |   Q2    |   Q1    |
@@ -86,22 +86,32 @@ public class DriveTrainController implements IController
                 //      |   Q3    |   Q4    |
                 //      |         |         |
                 //      ---------------------
-                //    -a,-1  -1,-1  -1,-a
+                //    -a,-1     -1,-1     -1,-a
                 //
+                // for x: 0 -> 1, power(x) = power(0) + x*(power(1) - power(0)) 
+                // for y: 0 -> 1, power(x,y) = power(bottomline) + y*(power(topline) - power(bottomline))
 
                 if (x >= 0)
                 {
                     if (y >= 0)
                     {
                         // Q1:
+                        // y=1 => lp = 1.  rp = 1 + x*(a - 1)
+                        // y=0 => lp = 0 + x*b = x*b.  rp = 0 + x*-b = -x*b
+                        // lp = x*b + y*(1 - x*b)
+                        // rp = x*-b + y*(1+x*(a-1) - x*-b)
                         leftPower = x * B + y * (1 - x * B);
-                        rightPower = -x * B + y * (1 - x * (1 - A) + x * B);
+                        rightPower = -x * B + y * (1 + x * (A - 1) + x * B);
                     }
                     else
                     {
                         // Q4:
+                        // y=-1 => lp = -1.  rp = -1 + x*(-a - -1)  
+                        // y=0  => lp = x*B.  rp = -x*B (see Q1)
+                        // lp = x*B + -1*y*(-1 - x*B)
+                        // rp = x*-B + -1*y*(-1+x*(-a - -1) - x*-B)
                         leftPower = x * B - y * (-1 - x * B);
-                        rightPower = -x * B - y * (-1 + x * (1 - A) + x * B);
+                        rightPower = -x * B - y * (-1 + x * (-A + 1) + x * B);
                     }
                 }
                 else
@@ -109,14 +119,22 @@ public class DriveTrainController implements IController
                     if (y >= 0)
                     {
                         // Q2:
-                        leftPower = -x * B + y * (1 + x * (1 - A) + x * B);
-                        rightPower = x * B + y * (1 - x * B);
+                        // y=1 => lp = 1 + -1*x*(a - 1) = 1 - x*(a - 1).  rp = 1
+                        // y=0 => lp = 0 + -1*x*(-b - 0) = x*b.  rp = 0 + -1*x*(b - 0) = -x*b
+                        // lp = x*b + y*(1 - x*(a-1) - x*b)
+                        // rp = -x*b + y*(1 - -x*B)
+                        leftPower = x * B + y * (1 - x * (A - 1) - x * B);
+                        rightPower = -x * B + y * (1 + x * B);
                     }
                     else
                     {
                         // Q3:
-                        leftPower = -x * B - y * (-1 + x * (1 - A) + x * B);
-                        rightPower = x * B - y * (-1 - x * B);
+                        // y=-1 => lp = -1 + -1*x*(-a - -1) = -1 - x*(-a + 1).  rp = -1 
+                        // y=0  => lp = x*b.  rp = -x*b (see Q2) 
+                        // lp = x*b + -1*y*(-1 - x*(-a + 1) - x*b)
+                        // rp = -x*b + -1*y*(-1 - -x*b)
+                        leftPower = x * B - y * (-1 - x * (-A + 1) - x * B);
+                        rightPower = -x * B - y * (-1 + x * B);
                     }
                 }
             }
