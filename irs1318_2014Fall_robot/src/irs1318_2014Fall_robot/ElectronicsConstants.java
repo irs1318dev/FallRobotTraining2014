@@ -16,6 +16,8 @@ public class ElectronicsConstants
 
     public static final int COLLECTOR_EXTENDER_SOLENOID_CHANNEL = 4;
     public static final int COLLECTOR_RETRACTOR_SOLENOID_CHANNEL = 3;
+    
+    public static final int COLLECTOR_LIMIT_SWITCH_PORT = 0;
 
     public static final int COMPRESSOR_PRESSURE_SWITCH_CHANNEL = 6;
     public static final int COMPRESSOR_RELAY_CHANNEL = 1;
