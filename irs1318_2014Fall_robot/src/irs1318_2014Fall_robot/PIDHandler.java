@@ -2,7 +2,6 @@ package irs1318_2014Fall_robot;
 
 import edu.wpi.first.wpilibj.Timer;
 
-
 /**
  * This class is a PID handler with a feed-forward handler that uses the
  * setpoint as input.
@@ -16,23 +15,23 @@ import edu.wpi.first.wpilibj.Timer;
  *      http://en.wikipedia.org/wiki/PID_controller
  *      http://en.wikipedia.org/wiki/Feed_forward_(control)
  * 
- * @author Graham, WRall
+ * @author WRall (adapted from old code)
  */
 
 public class PIDHandler
 {
-    // final constants (based on the expected wait used by the loop that runs robot code) 
-    private final double minTimeStep = .001;
-    private final double maxOutput = 1.0;
-    private final double minOutput = -1.0;
+    // constants
+    private static final double MinTimeStep = .001;
+    private static final double MinOutput = -1.0; // $TODO: implement
+    private static final double MaxOutput = 1.0; // $TODO: implement
 
     // instance constants
-    private double kp = 0.0;        // proportion for proportional (readonly)
-    private double ki = 0.0;        // proportion for integral (readonly)
-    private double kd = 0.0;        // proportion for derivative (readonly)
-    private double kf = 0.0;        // proportion for feed-forward (readonly)
-    // private double kFade = 0.0;  // $TODO: figure out Fade
-    // private double kScale = 0.0; // $TODO: figure out Scale
+    private final double kp;        // proportion for proportional
+    private final double ki;        // proportion for integral
+    private final double kd;        // proportion for derivative
+    private final double kf;        // proportion for feed-forward
+    // private double kFade;  // $TODO: figure out Fade
+    // private double kScale; // $TODO: figure out Scale
 
     // instance variables
     private double setpoint = 0.0;      // the input, desired value for
@@ -70,25 +69,6 @@ public class PIDHandler
     }
 
     /**
-     * This constructor initializes the object and sets constants to affect gain
-     * 
-     * @param kp scalar for proportional component
-     * @param ki scalar for integral component
-     * @param kd scalar for derivative component
-     */
-    public PIDHandler(double kp, double ki, double kd)
-    {
-        this.ki = ki;
-        this.kd = kd;
-        this.kp = kp;
-        this.kf = 0.0;
-        
-        this.timer = new Timer();
-        this.timer.start();
-        this.prevTime = this.timer.get();
-    }
-
-    /**
      * measuredValue should be in the same unit as the setpoint.  this method should be
      * called in a loop and fed feedback data and setpoint changes
      * 
@@ -105,7 +85,7 @@ public class PIDHandler
         this.dt = this.curTime - this.prevTime;
 
         // To prevent division by zero and over-aggressive measurement, output updates at a max of 1kHz
-        if (this.dt >= this.minTimeStep)
+        if (this.dt >= PIDHandler.MinTimeStep)
         {
             this.prevTime = this.curTime;
 

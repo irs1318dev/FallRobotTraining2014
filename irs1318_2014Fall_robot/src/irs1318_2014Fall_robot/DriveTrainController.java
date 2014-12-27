@@ -16,12 +16,20 @@ public class DriveTrainController implements IController
     private IDriveTrainComponent component;
 
     private boolean usePID;
+    private PIDHandler leftPID;
+    private PIDHandler rightPID;
 
     public DriveTrainController(IJoystickComponent userInterface, IDriveTrainComponent component, boolean usePID)
     {
         this.userInterface = userInterface;
         this.component = component;
         this.usePID = usePID;
+        
+        if (usePID)
+        {
+            this.leftPID = new PIDHandler(TuningConstants.DRIVETRAIN_PID_LEFT_KP, 0.0, 0.0, TuningConstants.DRIVETRAIN_PID_LEFT_KF);
+            this.rightPID = new PIDHandler(TuningConstants.DRIVETRAIN_PID_RIGHT_KP, 0.0, 0.0, TuningConstants.DRIVETRAIN_PID_RIGHT_KF);
+        }
     }
 
     public void run()
@@ -142,20 +150,34 @@ public class DriveTrainController implements IController
 
         // ensure that our algorithms are correct and don't give values outside
         // the appropriate range
-        this.assertPowerLevelRange(leftPowerGoal, "left");
-        this.assertPowerLevelRange(rightPowerGoal, "right");
+        this.assertPowerLevelRange(leftPowerGoal, "left (goal)");
+        this.assertPowerLevelRange(rightPowerGoal, "right (goal)");
 
         // decrease the power based on the desired max speed
         leftPowerGoal = leftPowerGoal * DriveTrainController.MAX_SPEED;
         rightPowerGoal = rightPowerGoal * DriveTrainController.MAX_SPEED;
 
-        double leftPower = leftPowerGoal;
-        double rightPower = rightPowerGoal;
+        double leftPower;
+        double rightPower;
         if (this.usePID)
         {
+            this.leftPID.calculate(leftPowerGoal, this.component.getLeftEncoderVelocity());
+            this.rightPID.calculate(rightPowerGoal, this.component.getLeftEncoderVelocity());
             
+            leftPower = this.leftPID.getOutput();
+            rightPower = this.rightPID.getOutput();
         }
-        
+        else
+        {
+            leftPower = leftPowerGoal;
+            rightPower = rightPowerGoal;
+        }
+
+        // ensure that our algorithms are correct and don't give values outside
+        // the appropriate range
+        this.assertPowerLevelRange(leftPower, "left");
+        this.assertPowerLevelRange(rightPower, "right");
+
         // apply the power to the motors
         this.component.setDriveTrainPower(leftPower, rightPower);
     }
