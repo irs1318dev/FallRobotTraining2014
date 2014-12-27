@@ -2,8 +2,6 @@ package irs1318_2014Fall_robot;
 
 public class CollectorController implements IController
 {
-    private static final double COLLECTOR_SPEED = 0.8;
-
     private IJoystickComponent userInterface;
     private ICollectorComponent component;
 
@@ -24,13 +22,13 @@ public class CollectorController implements IController
         double collectorPower = 0.0;
         if (collect)
         {
-            collectorPower = COLLECTOR_SPEED;
+            collectorPower = TuningConstants.COLLECTOR_SPEED;
         }
         else if (expel)
         {
-            collectorPower = -COLLECTOR_SPEED;
+            collectorPower = -TuningConstants.COLLECTOR_SPEED;
         }
-        
+
         this.component.setCollector(extend, retract, collectorPower);
     }
 }

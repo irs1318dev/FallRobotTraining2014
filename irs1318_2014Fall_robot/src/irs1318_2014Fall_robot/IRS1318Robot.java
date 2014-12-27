@@ -30,6 +30,9 @@ public class IRS1318Robot extends IterativeRobot
     
     private CompressorComponent compressorComponent;
     private CompressorController compressorController;
+    
+    private ShooterComponent shooterComponent;
+    private ShooterController shooterController;
 
     /**
      * This function is run when the robot is first started up and should be
@@ -41,6 +44,7 @@ public class IRS1318Robot extends IterativeRobot
         this.compressorComponent = new CompressorComponent();
         this.driveTrainComponent = new DriveTrainComponent();
         this.collectorComponent = new CollectorComponent();
+        this.shooterComponent = new ShooterComponent();
     }
 
     public void disabledInit()
@@ -55,12 +59,13 @@ public class IRS1318Robot extends IterativeRobot
     {
         // create input
         this.userInterfaceComponent = new UserJoystickComponent();
-        
+
         // create controllers for each mechanism
         this.compressorController = new CompressorController(this.compressorComponent);
         this.driveTrainController = new DriveTrainController(this.userInterfaceComponent, this.driveTrainComponent, false);
         this.collectorController = new CollectorController(this.userInterfaceComponent, this.collectorComponent);
-        
+        this.shooterController = new ShooterController(this.userInterfaceComponent, this.shooterComponent);
+
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.run();
     }
@@ -78,6 +83,7 @@ public class IRS1318Robot extends IterativeRobot
         this.compressorController.run();
         this.driveTrainController.run();
         this.collectorController.run();
+        this.shooterController.run();
     }
 
     public void disabledContinuous()

@@ -1,6 +1,7 @@
 package irs1318_2014Fall_robot;
 
 import edu.wpi.first.wpilibj.*;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class ShooterComponent
 {
@@ -46,9 +47,15 @@ public class ShooterComponent
     
     public void setShooterSolenoids(boolean middle, boolean innerLeft, boolean innerRight, boolean outerLeft, boolean outerRight)
     {
+        this.middlePiston.set(middle ? Value.kForward : Value.kReverse);
+        this.innerLeftPiston.set(innerLeft ? Value.kForward : Value.kReverse);
+        this.innerRightPiston.set(innerRight ? Value.kForward : Value.kReverse);
+        this.outerLeftPiston.set(outerLeft ? Value.kForward : Value.kReverse);
+        this.outerRightPiston.set(outerRight ? Value.kForward : Value.kReverse);
     }
     
-    public void setShooterAngle()
+    public void setShooterAngle(boolean extend)
     {
+        this.shooterAngle.set(extend ? Value.kForward : Value.kReverse);
     }
 }
