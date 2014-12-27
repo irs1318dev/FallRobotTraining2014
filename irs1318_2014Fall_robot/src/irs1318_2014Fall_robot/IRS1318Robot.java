@@ -80,6 +80,10 @@ public class IRS1318Robot extends IterativeRobot
 
     public void teleopPeriodic()
     {
+        // check if any toggles have occurred on the User Interface
+        this.userInterfaceComponent.checkToggles();
+        
+        // run each controller
         this.compressorController.run();
         this.driveTrainController.run();
         this.collectorController.run();

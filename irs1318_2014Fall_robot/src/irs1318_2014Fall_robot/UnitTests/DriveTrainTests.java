@@ -23,6 +23,10 @@ public class DriveTrainTests
             this.y = y;
             this.simpleModeEnabled = simpleModeEnabled;
         }
+
+        public void checkToggles()
+        {
+        }
         
         public boolean getCollectorExtendButton()
         {
@@ -40,6 +44,21 @@ public class DriveTrainTests
         }
 
         public boolean getCollectorExpelButton()
+        {
+            return false;
+        }
+
+        public boolean getShooterAngle()
+        {
+            return false;
+        }
+
+        public int getShooterMode()
+        {
+            return 0;
+        }
+
+        public boolean getShooterShoot()
         {
             return false;
         }
