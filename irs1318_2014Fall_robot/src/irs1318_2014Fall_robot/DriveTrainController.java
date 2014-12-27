@@ -15,10 +15,13 @@ public class DriveTrainController implements IController
     private IJoystickComponent userInterface;
     private IDriveTrainComponent component;
 
-    public DriveTrainController(IJoystickComponent userInterface, IDriveTrainComponent component)
+    private boolean usePID;
+
+    public DriveTrainController(IJoystickComponent userInterface, IDriveTrainComponent component, boolean usePID)
     {
         this.userInterface = userInterface;
         this.component = component;
+        this.usePID = usePID;
     }
 
     public void run()
@@ -35,8 +38,8 @@ public class DriveTrainController implements IController
         y = this.adjustIntensity(y);
 
         // default to no power
-        double leftPower = 0.0;
-        double rightPower = 0.0;
+        double leftPowerGoal = 0.0;
+        double rightPowerGoal = 0.0;
 
         // if we are outside of our dead zone, calculate desired power values
         double radius = Math.sqrt(x * x + y * y);
@@ -59,13 +62,13 @@ public class DriveTrainController implements IController
 
                 if (Math.abs(y) < Math.abs(x))
                 {
-                    leftPower = x;
-                    rightPower = -x;
+                    leftPowerGoal = x;
+                    rightPowerGoal = -x;
                 }
                 else
                 {
-                    leftPower = y;
-                    rightPower = y;
+                    leftPowerGoal = y;
+                    rightPowerGoal = y;
                 }
             }
             else
@@ -97,8 +100,8 @@ public class DriveTrainController implements IController
                         // y=0 => lp = 0 + x*b = x*b.  rp = 0 + x*-b = -x*b
                         // lp = x*b + y*(1 - x*b)
                         // rp = x*-b + y*(1+x*(a-1) - x*-b)
-                        leftPower = x * B + y * (1 - x * B);
-                        rightPower = -x * B + y * (1 + x * (A - 1) + x * B);
+                        leftPowerGoal = x * B + y * (1 - x * B);
+                        rightPowerGoal = -x * B + y * (1 + x * (A - 1) + x * B);
                     }
                     else
                     {
@@ -107,8 +110,8 @@ public class DriveTrainController implements IController
                         // y=0  => lp = x*B.  rp = -x*B (see Q1)
                         // lp = x*B + -1*y*(-1 - x*B)
                         // rp = x*-B + -1*y*(-1+x*(-a - -1) - x*-B)
-                        leftPower = x * B - y * (-1 - x * B);
-                        rightPower = -x * B - y * (-1 + x * (-A + 1) + x * B);
+                        leftPowerGoal = x * B - y * (-1 - x * B);
+                        rightPowerGoal = -x * B - y * (-1 + x * (-A + 1) + x * B);
                     }
                 }
                 else
@@ -120,8 +123,8 @@ public class DriveTrainController implements IController
                         // y=0 => lp = 0 + -1*x*(-b - 0) = x*b.  rp = 0 + -1*x*(b - 0) = -x*b
                         // lp = x*b + y*(1 - x*(a-1) - x*b)
                         // rp = -x*b + y*(1 - -x*B)
-                        leftPower = x * B + y * (1 - x * (A - 1) - x * B);
-                        rightPower = -x * B + y * (1 + x * B);
+                        leftPowerGoal = x * B + y * (1 - x * (A - 1) - x * B);
+                        rightPowerGoal = -x * B + y * (1 + x * B);
                     }
                     else
                     {
@@ -130,8 +133,8 @@ public class DriveTrainController implements IController
                         // y=0  => lp = x*b.  rp = -x*b (see Q2) 
                         // lp = x*b + -1*y*(-1 - x*(-a + 1) - x*b)
                         // rp = -x*b + -1*y*(-1 - -x*b)
-                        leftPower = x * B - y * (-1 - x * (-A + 1) - x * B);
-                        rightPower = -x * B - y * (-1 + x * B);
+                        leftPowerGoal = x * B - y * (-1 - x * (-A + 1) - x * B);
+                        rightPowerGoal = -x * B - y * (-1 + x * B);
                     }
                 }
             }
@@ -139,13 +142,20 @@ public class DriveTrainController implements IController
 
         // ensure that our algorithms are correct and don't give values outside
         // the appropriate range
-        this.assertPowerLevelRange(leftPower, "left");
-        this.assertPowerLevelRange(rightPower, "right");
+        this.assertPowerLevelRange(leftPowerGoal, "left");
+        this.assertPowerLevelRange(rightPowerGoal, "right");
 
         // decrease the power based on the desired max speed
-        leftPower = leftPower * DriveTrainController.MAX_SPEED;
-        rightPower = rightPower * DriveTrainController.MAX_SPEED;
+        leftPowerGoal = leftPowerGoal * DriveTrainController.MAX_SPEED;
+        rightPowerGoal = rightPowerGoal * DriveTrainController.MAX_SPEED;
 
+        double leftPower = leftPowerGoal;
+        double rightPower = rightPowerGoal;
+        if (this.usePID)
+        {
+            
+        }
+        
         // apply the power to the motors
         this.component.setDriveTrainPower(leftPower, rightPower);
     }

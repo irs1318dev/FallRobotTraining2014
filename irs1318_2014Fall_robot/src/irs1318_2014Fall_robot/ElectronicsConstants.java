@@ -10,6 +10,12 @@ public class ElectronicsConstants
     public static final int DRIVETRAIN_LEFT_TALON_CHANNEL = 1;
     public static final int DRIVETRAIN_RIGHT_TALON_CHANNEL = 2;
 
+    public static final int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A = 1; 
+    public static final int DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B = 5; 
+
+    public static final int DRIVETRAIN_LEFT_ENCODER_CHANNEL_A = 2;
+    public static final int DRIVETRAIN_LEFT_ENCODER_CHANNEL_B = 3;
+
     public static final int COLLECTOR_MOTOR_CHANNEL = 3;
 
     public static final int COLLECTOR_SOLENOID_MODULE_PORT = 2;

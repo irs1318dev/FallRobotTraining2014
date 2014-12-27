@@ -58,7 +58,7 @@ public class IRS1318Robot extends IterativeRobot
         
         // create controllers for each mechanism
         this.compressorController = new CompressorController(this.compressorComponent);
-        this.driveTrainController = new DriveTrainController(this.userInterfaceComponent, this.driveTrainComponent);
+        this.driveTrainController = new DriveTrainController(this.userInterfaceComponent, this.driveTrainComponent, false);
         this.collectorController = new CollectorController(this.userInterfaceComponent, this.collectorComponent);
         
         // we will run the compressor controller here because we should start it in advance...

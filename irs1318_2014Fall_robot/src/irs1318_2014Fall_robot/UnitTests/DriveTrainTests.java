@@ -77,6 +77,16 @@ public class DriveTrainTests
             Assert.assertEquals(this.expectedLeftPower, leftPower, acceptableDelta);
             Assert.assertEquals(this.expectedRightPower, rightPower, acceptableDelta);
         }
+
+        public double getLeftEncoderVelocity()
+        {
+            return 0.0;
+        }
+
+        public double getRightEncoderVelocity()
+        {
+            return 0.0;
+        }
     }
     
     @Before
@@ -89,7 +99,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(0.0, 0.0, false),
-            new MockDriveTrainComponent(0.0, 0.0));
+            new MockDriveTrainComponent(0.0, 0.0),
+            false);
         
         controller.run();
     }
@@ -99,7 +110,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(0.0, 1.0, false),
-            new MockDriveTrainComponent(DriveTrainController.MAX_SPEED, DriveTrainController.MAX_SPEED));
+            new MockDriveTrainComponent(DriveTrainController.MAX_SPEED, DriveTrainController.MAX_SPEED),
+            false);
         
         controller.run();
     }
@@ -109,7 +121,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(0.0, -1.0, false),
-            new MockDriveTrainComponent(-DriveTrainController.MAX_SPEED, -DriveTrainController.MAX_SPEED));
+            new MockDriveTrainComponent(-DriveTrainController.MAX_SPEED, -DriveTrainController.MAX_SPEED),
+            false);
         
         controller.run();
     }
@@ -119,7 +132,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(1.0, 1.0, false),
-            new MockDriveTrainComponent(DriveTrainController.MAX_SPEED, DriveTrainController.A * DriveTrainController.MAX_SPEED));
+            new MockDriveTrainComponent(DriveTrainController.MAX_SPEED, DriveTrainController.A * DriveTrainController.MAX_SPEED),
+            false);
         
         controller.run();
     }
@@ -129,7 +143,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(-1.0, 1.0, false),
-            new MockDriveTrainComponent(DriveTrainController.A * DriveTrainController.MAX_SPEED, DriveTrainController.MAX_SPEED));
+            new MockDriveTrainComponent(DriveTrainController.A * DriveTrainController.MAX_SPEED, DriveTrainController.MAX_SPEED),
+            false);
         
         controller.run();
     }
@@ -139,7 +154,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(1.0, -1.0, false),
-            new MockDriveTrainComponent(-DriveTrainController.MAX_SPEED, -DriveTrainController.A * DriveTrainController.MAX_SPEED));
+            new MockDriveTrainComponent(-DriveTrainController.MAX_SPEED, -DriveTrainController.A * DriveTrainController.MAX_SPEED),
+            false);
         
         controller.run();
     }
@@ -149,7 +165,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(-1.0, -1.0, false),
-            new MockDriveTrainComponent(-DriveTrainController.A * DriveTrainController.MAX_SPEED, -DriveTrainController.MAX_SPEED));
+            new MockDriveTrainComponent(-DriveTrainController.A * DriveTrainController.MAX_SPEED, -DriveTrainController.MAX_SPEED),
+            false);
         
         controller.run();
     }
@@ -159,7 +176,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(1.0, 0.0, false),
-            new MockDriveTrainComponent(DriveTrainController.B * DriveTrainController.MAX_SPEED, -DriveTrainController.B * DriveTrainController.MAX_SPEED));
+            new MockDriveTrainComponent(DriveTrainController.B * DriveTrainController.MAX_SPEED, -DriveTrainController.B * DriveTrainController.MAX_SPEED),
+            false);
         
         controller.run();
     }
@@ -169,7 +187,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(-1.0, 0.0, false),
-            new MockDriveTrainComponent(-DriveTrainController.B * DriveTrainController.MAX_SPEED, DriveTrainController.B * DriveTrainController.MAX_SPEED));
+            new MockDriveTrainComponent(-DriveTrainController.B * DriveTrainController.MAX_SPEED, DriveTrainController.B * DriveTrainController.MAX_SPEED),
+            false);
         
         controller.run();
     }
@@ -179,7 +198,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(0.2, 1.0, true),
-            new MockDriveTrainComponent(DriveTrainController.MAX_SPEED, DriveTrainController.MAX_SPEED));
+            new MockDriveTrainComponent(DriveTrainController.MAX_SPEED, DriveTrainController.MAX_SPEED),
+            false);
         
         controller.run();
     }
@@ -189,7 +209,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(0.2, -1.0, true),
-            new MockDriveTrainComponent(-DriveTrainController.MAX_SPEED, -DriveTrainController.MAX_SPEED));
+            new MockDriveTrainComponent(-DriveTrainController.MAX_SPEED, -DriveTrainController.MAX_SPEED),
+            false);
         
         controller.run();
     }
@@ -199,7 +220,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(1.0, 0.2, true),
-            new MockDriveTrainComponent(DriveTrainController.MAX_SPEED, -DriveTrainController.MAX_SPEED));
+            new MockDriveTrainComponent(DriveTrainController.MAX_SPEED, -DriveTrainController.MAX_SPEED),
+            false);
         
         controller.run();
     }
@@ -209,7 +231,8 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockDriveTrainJoystick(-1.0, 0.2, true),
-            new MockDriveTrainComponent(-DriveTrainController.MAX_SPEED, DriveTrainController.MAX_SPEED));
+            new MockDriveTrainComponent(-DriveTrainController.MAX_SPEED, DriveTrainController.MAX_SPEED),
+            false);
         
         controller.run();
     }
