@@ -1,6 +1,6 @@
 package irs1318_2014Fall_robot.UserInterface;
 
-import irs1318_2014Fall_robot.ButtonConstants;
+import irs1318_2014Fall_robot.JoystickButtonConstants;
 import irs1318_2014Fall_robot.TuningConstants;
 import irs1318_2014Fall_robot.Common.MultiToggleButton;
 import irs1318_2014Fall_robot.Common.SimpleTimedToggleButton;
@@ -14,20 +14,20 @@ public class UserJoystickComponent implements IJoystickComponent
 
     public UserJoystickComponent()
     {
-        this.joystick = new Joystick(ButtonConstants.JOYSTICK_PORT);
+        this.joystick = new Joystick(JoystickButtonConstants.JOYSTICK_PORT);
         this.shooterMode = new MultiToggleButton(new int[] { 3, 4, 5 });
         this.shootButton = new SimpleTimedToggleButton(TuningConstants.SHOOTER_TOGGLE_DURATION);
     }
 
     public void checkToggles()
     {
-        if (this.joystick.getRawButton(ButtonConstants.SHOOTER_MODE_TOGGLE_BUTTON))
+        if (this.joystick.getRawButton(JoystickButtonConstants.SHOOTER_MODE_TOGGLE_BUTTON))
         {
             this.shooterMode.toggle();
         }
 
         this.shootButton.tick();
-        if (this.shootButton.canToggle() && this.joystick.getRawButton(ButtonConstants.SHOOTER_SHOOT_BUTTON))
+        if (this.shootButton.canToggle() && this.joystick.getRawButton(JoystickButtonConstants.SHOOTER_SHOOT_BUTTON))
         {
             this.shootButton.toggle();
         }
@@ -35,27 +35,27 @@ public class UserJoystickComponent implements IJoystickComponent
 
     public boolean getCollectorExtendButton()
     {
-        return this.joystick.getRawButton(ButtonConstants.COLLECTOR_EXTEND_BUTTON);
+        return this.joystick.getRawButton(JoystickButtonConstants.COLLECTOR_EXTEND_BUTTON);
     }
 
     public boolean getCollectorRetractButton()
     {
-        return this.joystick.getRawButton(ButtonConstants.COLLECTOR_RETRACT_BUTTON);
+        return this.joystick.getRawButton(JoystickButtonConstants.COLLECTOR_RETRACT_BUTTON);
     }
 
     public boolean getCollectorCollectButton()
     {
-        return this.joystick.getRawButton(ButtonConstants.COLLECTOR_COLLECT_BUTTON);
+        return this.joystick.getRawButton(JoystickButtonConstants.COLLECTOR_COLLECT_BUTTON);
     }
 
     public boolean getCollectorExpelButton()
     {
-        return this.joystick.getRawButton(ButtonConstants.COLLECTOR_EXPEL_BUTTON);
+        return this.joystick.getRawButton(JoystickButtonConstants.COLLECTOR_EXPEL_BUTTON);
     }
 
     public boolean getShooterAngle()
     {
-        return this.joystick.getRawButton(ButtonConstants.SHOOTER_EXTEND_BUTTON);
+        return this.joystick.getRawButton(JoystickButtonConstants.SHOOTER_EXTEND_BUTTON);
     }
 
     public int getShooterMode()
@@ -80,6 +80,6 @@ public class UserJoystickComponent implements IJoystickComponent
 
     public boolean getDriveTrainSimpleModeButton()
     {
-        return this.joystick.getRawButton(ButtonConstants.DRIVETRAIN_SIMPLE_BUTTON);
+        return this.joystick.getRawButton(JoystickButtonConstants.DRIVETRAIN_SIMPLE_BUTTON);
     }
 }

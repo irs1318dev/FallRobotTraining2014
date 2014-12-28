@@ -1,6 +1,6 @@
 package irs1318_2014Fall_robot;
 
-public class ButtonConstants
+public class JoystickButtonConstants
 {
     public static final int JOYSTICK_PORT = 1;
 
