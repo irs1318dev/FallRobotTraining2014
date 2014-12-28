@@ -1,4 +1,4 @@
-package irs1318_2014Fall_robot;
+package irs1318_2014Fall_robot.Collector;
 
 public interface ICollectorComponent
 {

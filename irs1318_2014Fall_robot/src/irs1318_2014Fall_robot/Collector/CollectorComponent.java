@@ -1,5 +1,6 @@
-package irs1318_2014Fall_robot;
+package irs1318_2014Fall_robot.Collector;
 
+import irs1318_2014Fall_robot.ElectronicsConstants;
 import edu.wpi.first.wpilibj.*;
 
 public class CollectorComponent implements ICollectorComponent

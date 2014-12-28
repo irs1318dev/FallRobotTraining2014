@@ -1,5 +1,6 @@
-package irs1318_2014Fall_robot;
+package irs1318_2014Fall_robot.Shooter;
 
+import irs1318_2014Fall_robot.ElectronicsConstants;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 

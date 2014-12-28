@@ -1,5 +1,15 @@
 package irs1318_2014Fall_robot;
 
+import irs1318_2014Fall_robot.Collector.CollectorComponent;
+import irs1318_2014Fall_robot.Collector.CollectorController;
+import irs1318_2014Fall_robot.Compressor.CompressorComponent;
+import irs1318_2014Fall_robot.Compressor.CompressorController;
+import irs1318_2014Fall_robot.DriveTrain.DriveTrainComponent;
+import irs1318_2014Fall_robot.DriveTrain.DriveTrainController;
+import irs1318_2014Fall_robot.Shooter.ShooterComponent;
+import irs1318_2014Fall_robot.Shooter.ShooterController;
+import irs1318_2014Fall_robot.UserInterface.IJoystickComponent;
+import irs1318_2014Fall_robot.UserInterface.UserJoystickComponent;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**

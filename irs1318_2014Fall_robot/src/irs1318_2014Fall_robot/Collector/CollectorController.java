@@ -1,4 +1,8 @@
-package irs1318_2014Fall_robot;
+package irs1318_2014Fall_robot.Collector;
+
+import irs1318_2014Fall_robot.TuningConstants;
+import irs1318_2014Fall_robot.Common.IController;
+import irs1318_2014Fall_robot.UserInterface.IJoystickComponent;
 
 public class CollectorController implements IController
 {

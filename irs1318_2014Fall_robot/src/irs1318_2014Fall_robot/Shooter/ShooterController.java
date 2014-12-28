@@ -1,4 +1,7 @@
-package irs1318_2014Fall_robot;
+package irs1318_2014Fall_robot.Shooter;
+
+import irs1318_2014Fall_robot.Common.IController;
+import irs1318_2014Fall_robot.UserInterface.IJoystickComponent;
 
 public class ShooterController implements IController
 {

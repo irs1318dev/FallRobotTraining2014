@@ -1,5 +1,6 @@
-package irs1318_2014Fall_robot;
+package irs1318_2014Fall_robot.Compressor;
 
+import irs1318_2014Fall_robot.ElectronicsConstants;
 import edu.wpi.first.wpilibj.*;
 
 public class CompressorComponent

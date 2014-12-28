@@ -1,9 +1,9 @@
 package irs1318_2014Fall_robot.UnitTests;
 
-import irs1318_2014Fall_robot.IDriveTrainComponent;
-import irs1318_2014Fall_robot.IJoystickComponent;
-import irs1318_2014Fall_robot.DriveTrainController;
 import irs1318_2014Fall_robot.TuningConstants;
+import irs1318_2014Fall_robot.DriveTrain.DriveTrainController;
+import irs1318_2014Fall_robot.DriveTrain.IDriveTrainComponent;
+import irs1318_2014Fall_robot.UserInterface.IJoystickComponent;
 
 import org.junit.Assert;
 import org.junit.Before;

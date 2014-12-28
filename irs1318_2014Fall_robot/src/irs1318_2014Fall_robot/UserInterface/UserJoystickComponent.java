@@ -1,5 +1,9 @@
-package irs1318_2014Fall_robot;
+package irs1318_2014Fall_robot.UserInterface;
 
+import irs1318_2014Fall_robot.ButtonConstants;
+import irs1318_2014Fall_robot.TuningConstants;
+import irs1318_2014Fall_robot.Common.MultiToggleButton;
+import irs1318_2014Fall_robot.Common.SimpleTimedToggleButton;
 import edu.wpi.first.wpilibj.*;
 
 public class UserJoystickComponent implements IJoystickComponent
