@@ -74,7 +74,7 @@ public class ChromePearlRobot extends IterativeRobot
         this.compressorController = new CompressorController(this.compressorComponent);
         this.driveTrainController = new DriveTrainController(this.userInterfaceComponent, this.driveTrainComponent, false);
         this.collectorController = new CollectorController(this.userInterfaceComponent, this.collectorComponent);
-        this.shooterController = new ShooterController(this.userInterfaceComponent, this.shooterComponent);
+        this.shooterController = new ShooterController(this.userInterfaceComponent, this.shooterComponent, this.compressorComponent);
 
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.run();
