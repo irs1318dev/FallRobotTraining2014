@@ -22,8 +22,8 @@ public class PIDHandler
 {
     // constants
     private static final double MinTimeStep = .001;
-    private static final double MinOutput = -1.0; // $TODO: implement
-    private static final double MaxOutput = 1.0; // $TODO: implement
+    //private static final double MinOutput = -1.0; // $TODO: implement
+    //private static final double MaxOutput = 1.0; // $TODO: implement
 
     // instance constants
     private final double kp;        // proportion for proportional
