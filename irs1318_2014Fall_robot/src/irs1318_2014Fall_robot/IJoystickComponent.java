@@ -3,7 +3,7 @@ package irs1318_2014Fall_robot;
 public interface IJoystickComponent
 {
     public void checkToggles();
-    
+
     public boolean getCollectorExtendButton();
 
     public boolean getCollectorRetractButton();

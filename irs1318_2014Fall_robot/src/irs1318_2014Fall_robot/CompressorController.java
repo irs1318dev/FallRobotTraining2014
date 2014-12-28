@@ -10,7 +10,7 @@ public class CompressorController implements IController
         this.component = component;        
         this.isStarted = false;
     }
-    
+
     public void run()
     {
         if (!this.isStarted)

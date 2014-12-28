@@ -19,12 +19,12 @@ public class CompressorComponent
             ElectronicsConstants.ANALOG_MODULE,
             ElectronicsConstants.COMPRESSOR_ANALOG_PRESSURE_SENSOR);
     }
-    
+
     public void start()
     {
         this.compressor.start();
     }
-    
+
     public double getPSI()
     {
         return this.analogPressureSensor.getVoltage() * (ElectronicsConstants.COMPRESSOR_MAX_PSI / 10.0);
