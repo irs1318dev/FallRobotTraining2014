@@ -14,4 +14,5 @@ public class ButtonConstants
 
     public static final int SHOOTER_SHOOT_BUTTON = 9;
     public static final int SHOOTER_EXTEND_BUTTON = 10;
+    public static final int SHOOTER_MODE_TOGGLE_BUTTON = 11;
 }

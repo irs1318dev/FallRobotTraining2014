@@ -13,14 +13,16 @@ public class ShooterController implements IController
 
     public void run()
     {
+        this.component.setShooterAngle(this.userInterface.getShooterAngle());
+
+        boolean middle = false;
+        boolean innerLeft = false;
+        boolean innerRight = false;
+        boolean outerLeft = false;
+        boolean outerRight = false;
+
         if (this.userInterface.getShooterShoot())
         {
-            boolean middle = false;
-            boolean innerLeft = false;
-            boolean innerRight = false;
-            boolean outerLeft = false;
-            boolean outerRight = false;
-
             int shooterMode = this.userInterface.getShooterMode();
             switch (shooterMode)
             {
@@ -45,8 +47,8 @@ public class ShooterController implements IController
                     outerRight = true;
                     break;
             }
-
-            this.component.setShooterSolenoids(middle, innerLeft, innerRight, outerLeft, outerRight);
         }
+
+        this.component.setShooterSolenoids(middle, innerLeft, innerRight, outerLeft, outerRight);
     }
 }

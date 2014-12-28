@@ -2,29 +2,20 @@ package irs1318_2014Fall_robot;
 
 public class SimpleToggleButton implements ISimpleToggle
 {
+    private boolean currentState;
 
-    public boolean canToggle()
+    public SimpleToggleButton()
     {
-        // TODO Auto-generated method stub
-        return false;
+        this.currentState = false;
     }
 
     public void toggle()
     {
-        // TODO Auto-generated method stub
-
-    }
-
-    public void tick()
-    {
-        // TODO Auto-generated method stub
-
+        this.currentState = !this.currentState;
     }
 
     public boolean isToggled()
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.currentState;
     }
-
 }

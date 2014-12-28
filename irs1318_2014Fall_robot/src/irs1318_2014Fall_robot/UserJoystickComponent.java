@@ -5,15 +5,28 @@ import edu.wpi.first.wpilibj.*;
 public class UserJoystickComponent implements IJoystickComponent
 {
     private Joystick joystick;
+    private MultiToggleButton shooterMode;
+    private SimpleTimedToggleButton shootButton;
 
     public UserJoystickComponent()
     {
         this.joystick = new Joystick(ButtonConstants.JOYSTICK_PORT);
+        this.shooterMode = new MultiToggleButton(new int[] { 3, 4, 5 });
+        this.shootButton = new SimpleTimedToggleButton(TuningConstants.SHOOTER_TOGGLE_DURATION);
     }
 
     public void checkToggles()
     {
-        
+        if (this.joystick.getRawButton(ButtonConstants.SHOOTER_MODE_TOGGLE_BUTTON))
+        {
+            this.shooterMode.toggle();
+        }
+
+        this.shootButton.tick();
+        if (this.shootButton.canToggle() && this.joystick.getRawButton(ButtonConstants.SHOOTER_SHOOT_BUTTON))
+        {
+            this.shootButton.toggle();
+        }
     }
 
     public boolean getCollectorExtendButton()
@@ -43,12 +56,12 @@ public class UserJoystickComponent implements IJoystickComponent
 
     public int getShooterMode()
     {
-        return 5;
+        return this.shooterMode.getToggledState();
     }
 
     public boolean getShooterShoot()
     {
-        return this.joystick.getRawButton(ButtonConstants.SHOOTER_SHOOT_BUTTON);
+        return this.shootButton.isToggled();
     }
 
     public double getDriveTrainXAxis()
