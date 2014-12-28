@@ -7,13 +7,14 @@ public class SimpleTimedToggleButton extends SimpleToggleButton implements ITime
     private final double toggleDuration;
 
     private Timer timer;
-    private Double startTime = null;
+    private Double startTime;
 
     public SimpleTimedToggleButton(double toggleDuration)
     {
         this.toggleDuration = toggleDuration;
         this.timer = new Timer();
         this.timer.start();
+        this.startTime = null;
     }
 
     public boolean canToggle()
