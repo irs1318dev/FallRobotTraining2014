@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  *   - General Input components (e.g. Joystick)
  * - Controllers - define the logic that controls a mechanism given inputs/outputs.
  */
-public class IRS1318Robot extends IterativeRobot
+public class ChromePearlRobot extends IterativeRobot
 {
     private IJoystickComponent userInterfaceComponent;
     
