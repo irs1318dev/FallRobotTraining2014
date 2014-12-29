@@ -7,7 +7,7 @@ public class DriveTrainComponent implements IDriveTrainComponent
 {
     private Talon leftTalon;
     private Talon rightTalon;
-    
+
     private Encoder leftEncoder;
     private Encoder rightEncoder;
 
@@ -16,7 +16,7 @@ public class DriveTrainComponent implements IDriveTrainComponent
         this.leftTalon = new Talon(
             ElectronicsConstants.SIDECAR_SLOT,
             ElectronicsConstants.DRIVETRAIN_LEFT_TALON_CHANNEL);
-        
+
         this.rightTalon = new Talon(
             ElectronicsConstants.SIDECAR_SLOT,
             ElectronicsConstants.DRIVETRAIN_RIGHT_TALON_CHANNEL);
@@ -32,6 +32,9 @@ public class DriveTrainComponent implements IDriveTrainComponent
             ElectronicsConstants.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_A,
             ElectronicsConstants.SIDECAR_SLOT,
             ElectronicsConstants.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
+
+        this.leftEncoder.setDistancePerPulse(ElectronicsConstants.DRIVETRAIN_LEFT_PULSE_DISTANCE);
+        this.rightEncoder.setDistancePerPulse(ElectronicsConstants.DRIVETRAIN_RIGHT_PULSE_DISTANCE);
     }
 
     public void setDriveTrainPower(double leftPower, double rightPower)
@@ -44,9 +47,19 @@ public class DriveTrainComponent implements IDriveTrainComponent
     {
         return this.leftEncoder.getRate();
     }
-    
+
     public double getRightEncoderVelocity()
     {
         return this.rightEncoder.getRate();
+    }
+
+    public double getLeftEncoderDistance()
+    {
+        return this.leftEncoder.getDistance();
+    }
+
+    public double getRightEncoderDistance()
+    {
+        return this.leftEncoder.getDistance();
     }
 }

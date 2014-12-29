@@ -111,6 +111,16 @@ public class DriveTrainTests
         {
             return 0.0;
         }
+
+        public double getLeftEncoderDistance()
+        {
+            return 0.0;
+        }
+
+        public double getRightEncoderDistance()
+        {
+            return 0.0;
+        }
     }
     
     @Before
