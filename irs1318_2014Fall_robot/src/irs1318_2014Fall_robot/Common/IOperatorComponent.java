@@ -25,4 +25,10 @@ public interface IOperatorComponent
     public double getDriveTrainYVelocity();
 
     public boolean getDriveTrainSimpleModeButton();
+
+    public double getDriveTrainLeftPosition();
+
+    public double getDriveTrainRightPosition();
+
+    public boolean getDriveTrainPositionMode();
 }

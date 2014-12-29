@@ -30,8 +30,8 @@ public class PIDHandler
     private final double ki;        // proportion for integral
     private final double kd;        // proportion for derivative
     private final double kf;        // proportion for feed-forward
-    // private double kFade;  // $TODO: figure out Fade
-    // private double kScale; // $TODO: figure out Scale
+    // private double kFade;        // $TODO: figure out Fade
+    // private double kScale;       // $TODO: figure out Scale
 
     // instance variables
     private double setpoint = 0.0;      // the input, desired value for

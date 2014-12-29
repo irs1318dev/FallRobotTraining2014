@@ -81,6 +81,21 @@ public class DriveTrainTests
         {
             return this.simpleModeEnabled;
         }
+
+        public double getDriveTrainLeftPosition()
+        {
+            return 0.0;
+        }
+
+        public double getDriveTrainRightPosition()
+        {
+            return 0.0;
+        }
+
+        public boolean getDriveTrainPositionMode()
+        {
+            return false;
+        }
     }
     
     private class MockDriveTrainComponent implements IDriveTrainComponent

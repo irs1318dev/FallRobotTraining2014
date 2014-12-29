@@ -11,6 +11,9 @@ public class AutonomousControlData
     private boolean shooterShoot;
     private double driveTrainXVelocity;
     private double driveTrainYVelocity;
+    private double driveTrainLeftPosition;
+    private double driveTrainRightPosition;
+    private boolean driveTrainPositionMode;
     private boolean driveTrainSimpleMode;
     
     public AutonomousControlData()
@@ -25,6 +28,9 @@ public class AutonomousControlData
         this.driveTrainXVelocity = 0.0;
         this.driveTrainYVelocity = 0.0;
         this.driveTrainSimpleMode = false;
+        this.driveTrainLeftPosition = 0.0;
+        this.driveTrainRightPosition = 0.0;
+        this.driveTrainPositionMode = false;
     }
 
     public boolean getCollectorExtend()
@@ -125,5 +131,35 @@ public class AutonomousControlData
     public void setDriveTrainSimpleMode(boolean driveTrainSimpleMode)
     {
         this.driveTrainSimpleMode = driveTrainSimpleMode;
+    }
+
+    public double getDriveTrainLeftPosition()
+    {
+        return this.driveTrainLeftPosition;
+    }
+
+    public void setDriveTrainLeftPosition(double driveTrainLeftPosition)
+    {
+        this.driveTrainLeftPosition = driveTrainLeftPosition;
+    }
+
+    public double getDriveTrainRightPosition()
+    {
+        return this.driveTrainRightPosition;
+    }
+
+    public void setDriveTrainRightPosition(double driveTrainRightPosition)
+    {
+        this.driveTrainRightPosition = driveTrainRightPosition;
+    }
+
+    public boolean getDriveTrainPositionMode()
+    {
+        return this.driveTrainPositionMode;
+    }
+
+    public void setDriveTrainPositionMode(boolean driveTrainPositionMode)
+    {
+        this.driveTrainPositionMode = driveTrainPositionMode;
     }
 }

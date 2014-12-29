@@ -14,6 +14,7 @@ public class DriveTrainController implements IController
     private IDriveTrainComponent component;
 
     private boolean usePID;
+    private boolean usePositionalMode;
     private PIDHandler leftPID;
     private PIDHandler rightPID;
 
@@ -22,42 +23,108 @@ public class DriveTrainController implements IController
         this.operatorInterface = operatorInterface;
         this.component = component;
         this.usePID = usePID;
-        
-        if (usePID)
-        {
-            this.leftPID = new PIDHandler(
-                TuningConstants.DRIVETRAIN_PID_LEFT_KP,
-                TuningConstants.DRIVETRAIN_PID_LEFT_KI,
-                TuningConstants.DRIVETRAIN_PID_LEFT_KD,
-                TuningConstants.DRIVETRAIN_PID_LEFT_KF);
+        this.usePositionalMode = false;
 
-            this.rightPID = new PIDHandler(
-                TuningConstants.DRIVETRAIN_PID_RIGHT_KP,
-                TuningConstants.DRIVETRAIN_PID_RIGHT_KI,
-                TuningConstants.DRIVETRAIN_PID_RIGHT_KD,
-                TuningConstants.DRIVETRAIN_PID_RIGHT_KF);
-        }
+        this.createPID();
     }
 
     public void run()
     {
+        // check our desired PID mode
+        boolean newUsePositionalMode = this.operatorInterface.getDriveTrainPositionMode();
+        if (newUsePositionalMode != this.usePositionalMode)
+        {
+            this.usePositionalMode = newUsePositionalMode;
+
+            // re-create PID handler
+            this.createPID();
+        }
+
+        PowerSetting powerSetting;
+        if (!this.usePositionalMode)
+        {
+            powerSetting = this.calculateVelocityModePowerSetting();
+        }
+        else
+        {
+            powerSetting = this.calculatePositionModePowerSetting();
+        }
+
+        double leftPower = powerSetting.getLeftPower();
+        double rightPower = powerSetting.getRightPower();
+
+        // ensure that our algorithms are correct and don't give values outside
+        // the appropriate range
+        this.assertPowerLevelRange(leftPower, "left");
+        this.assertPowerLevelRange(rightPower, "right");
+
+        // apply the power to the motors
+        this.component.setDriveTrainPower(leftPower, rightPower);
+    }
+
+    public void stop()
+    {
+        this.component.setDriveTrainPower(0.0, 0.0);
+    }
+
+    private void createPID()
+    {
+        if (!usePID)
+        {
+            this.leftPID = null;
+            this.rightPID = null;
+        }
+        else
+        {
+            if (this.usePositionalMode)
+            {
+                this.leftPID = new PIDHandler(
+                    TuningConstants.DRIVETRAIN_POSITION_PID_LEFT_KP,
+                    TuningConstants.DRIVETRAIN_POSITION_PID_LEFT_KI,
+                    TuningConstants.DRIVETRAIN_POSITION_PID_LEFT_KD,
+                    TuningConstants.DRIVETRAIN_POSITION_PID_LEFT_KF);
+
+                this.rightPID = new PIDHandler(
+                    TuningConstants.DRIVETRAIN_POSITION_PID_RIGHT_KP,
+                    TuningConstants.DRIVETRAIN_POSITION_PID_RIGHT_KI,
+                    TuningConstants.DRIVETRAIN_POSITION_PID_RIGHT_KD,
+                    TuningConstants.DRIVETRAIN_POSITION_PID_RIGHT_KF);
+            }
+            else
+            {
+                this.leftPID = new PIDHandler(
+                    TuningConstants.DRIVETRAIN_VELOCITY_PID_LEFT_KP,
+                    TuningConstants.DRIVETRAIN_VELOCITY_PID_LEFT_KI,
+                    TuningConstants.DRIVETRAIN_VELOCITY_PID_LEFT_KD,
+                    TuningConstants.DRIVETRAIN_VELOCITY_PID_LEFT_KF);
+
+                this.rightPID = new PIDHandler(
+                    TuningConstants.DRIVETRAIN_VELOCITY_PID_RIGHT_KP,
+                    TuningConstants.DRIVETRAIN_VELOCITY_PID_RIGHT_KI,
+                    TuningConstants.DRIVETRAIN_VELOCITY_PID_RIGHT_KD,
+                    TuningConstants.DRIVETRAIN_VELOCITY_PID_RIGHT_KF);
+            }
+        }
+    }
+
+    private PowerSetting calculateVelocityModePowerSetting()
+    {
+        double leftVelocityGoal = 0.0;
+        double rightVelocityGoal = 0.0;
+
         // get a value indicating that we should be in simple mode...
         boolean simpleDriveModeEnabled = this.operatorInterface.getDriveTrainSimpleModeButton();
 
         // get the X and Y values from the user interface
-        double x = this.operatorInterface.getDriveTrainXVelocity();
-        double y = this.operatorInterface.getDriveTrainYVelocity();
+        double xVelocity = this.operatorInterface.getDriveTrainXVelocity();
+        double yVelocity = this.operatorInterface.getDriveTrainYVelocity();
 
         // adjust the intensity of the input
-        x = this.adjustIntensity(x);
-        y = this.adjustIntensity(y);
-
-        // default to no power
-        double leftPowerGoal = 0.0;
-        double rightPowerGoal = 0.0;
+        xVelocity = this.adjustIntensity(xVelocity);
+        yVelocity = this.adjustIntensity(yVelocity);
 
         // if we are outside of our dead zone, calculate desired power values
-        double radius = Math.sqrt(x * x + y * y);
+        double radius = Math.sqrt(xVelocity * xVelocity + yVelocity * yVelocity);
         if (radius > TuningConstants.DRIVETRAIN_DEAD_ZONE)
         {
             if (simpleDriveModeEnabled)
@@ -75,15 +142,17 @@ public class DriveTrainController implements IController
                 //                  backward
                 //
 
-                if (Math.abs(y) < Math.abs(x))
+                if (Math.abs(yVelocity) < Math.abs(xVelocity))
                 {
-                    leftPowerGoal = x;
-                    rightPowerGoal = -x;
+                    // in-place turn
+                    leftVelocityGoal = xVelocity;
+                    rightVelocityGoal = -xVelocity;
                 }
                 else
                 {
-                    leftPowerGoal = y;
-                    rightPowerGoal = y;
+                    // forward/backward
+                    leftVelocityGoal = yVelocity;
+                    rightVelocityGoal = yVelocity;
                 }
             }
             else
@@ -106,17 +175,17 @@ public class DriveTrainController implements IController
                 // for x: 0 -> 1, power(x) = power(0) + x*(power(1) - power(0)) 
                 // for y: 0 -> 1, power(x,y) = power(x,0) + y*(power(x,1) - power(x,0))
 
-                if (x >= 0)
+                if (xVelocity >= 0)
                 {
-                    if (y >= 0)
+                    if (yVelocity >= 0)
                     {
                         // Q1:
                         // y=1 => lp = 1.  rp = 1 + x*(a - 1)
                         // y=0 => lp = 0 + x*b = x*b.  rp = 0 + x*-b = -x*b
                         // lp = x*b + y*(1 - x*b)
                         // rp = x*-b + y*(1+x*(a-1) - x*-b)
-                        leftPowerGoal = x * TuningConstants.DRIVETRAIN_B + y * (1 - x * TuningConstants.DRIVETRAIN_B);
-                        rightPowerGoal = -x * TuningConstants.DRIVETRAIN_B + y * (1 + x * (TuningConstants.DRIVETRAIN_A - 1) + x * TuningConstants.DRIVETRAIN_B);
+                        leftVelocityGoal = xVelocity * TuningConstants.DRIVETRAIN_B + yVelocity * (1 - xVelocity * TuningConstants.DRIVETRAIN_B);
+                        rightVelocityGoal = -xVelocity * TuningConstants.DRIVETRAIN_B + yVelocity * (1 + xVelocity * (TuningConstants.DRIVETRAIN_A - 1) + xVelocity * TuningConstants.DRIVETRAIN_B);
                     }
                     else
                     {
@@ -125,21 +194,21 @@ public class DriveTrainController implements IController
                         // y=0  => lp = x*B.  rp = -x*B (see Q1)
                         // lp = x*B + -1*y*(-1 - x*B)
                         // rp = x*-B + -1*y*(-1+x*(-a - -1) - x*-B)
-                        leftPowerGoal = x * TuningConstants.DRIVETRAIN_B - y * (-1 - x * TuningConstants.DRIVETRAIN_B);
-                        rightPowerGoal = -x * TuningConstants.DRIVETRAIN_B - y * (-1 + x * (-TuningConstants.DRIVETRAIN_A + 1) + x * TuningConstants.DRIVETRAIN_B);
+                        leftVelocityGoal = xVelocity * TuningConstants.DRIVETRAIN_B - yVelocity * (-1 - xVelocity * TuningConstants.DRIVETRAIN_B);
+                        rightVelocityGoal = -xVelocity * TuningConstants.DRIVETRAIN_B - yVelocity * (-1 + xVelocity * (-TuningConstants.DRIVETRAIN_A + 1) + xVelocity * TuningConstants.DRIVETRAIN_B);
                     }
                 }
                 else
                 {
-                    if (y >= 0)
+                    if (yVelocity >= 0)
                     {
                         // Q2:
                         // y=1 => lp = 1 + -1*x*(a - 1) = 1 - x*(a - 1).  rp = 1
                         // y=0 => lp = 0 + -1*x*(-b - 0) = x*b.  rp = 0 + -1*x*(b - 0) = -x*b
                         // lp = x*b + y*(1 - x*(a-1) - x*b)
                         // rp = -x*b + y*(1 - -x*B)
-                        leftPowerGoal = x * TuningConstants.DRIVETRAIN_B + y * (1 - x * (TuningConstants.DRIVETRAIN_A - 1) - x * TuningConstants.DRIVETRAIN_B);
-                        rightPowerGoal = -x * TuningConstants.DRIVETRAIN_B + y * (1 + x * TuningConstants.DRIVETRAIN_B);
+                        leftVelocityGoal = xVelocity * TuningConstants.DRIVETRAIN_B + yVelocity * (1 - xVelocity * (TuningConstants.DRIVETRAIN_A - 1) - xVelocity * TuningConstants.DRIVETRAIN_B);
+                        rightVelocityGoal = -xVelocity * TuningConstants.DRIVETRAIN_B + yVelocity * (1 + xVelocity * TuningConstants.DRIVETRAIN_B);
                     }
                     else
                     {
@@ -148,8 +217,8 @@ public class DriveTrainController implements IController
                         // y=0  => lp = x*b.  rp = -x*b (see Q2) 
                         // lp = x*b + -1*y*(-1 - x*(-a + 1) - x*b)
                         // rp = -x*b + -1*y*(-1 - -x*b)
-                        leftPowerGoal = x * TuningConstants.DRIVETRAIN_B - y * (-1 - x * (-TuningConstants.DRIVETRAIN_A + 1) - x * TuningConstants.DRIVETRAIN_B);
-                        rightPowerGoal = -x * TuningConstants.DRIVETRAIN_B - y * (-1 + x * TuningConstants.DRIVETRAIN_B);
+                        leftVelocityGoal = xVelocity * TuningConstants.DRIVETRAIN_B - yVelocity * (-1 - xVelocity * (-TuningConstants.DRIVETRAIN_A + 1) - xVelocity * TuningConstants.DRIVETRAIN_B);
+                        rightVelocityGoal = -xVelocity * TuningConstants.DRIVETRAIN_B - yVelocity * (-1 + xVelocity * TuningConstants.DRIVETRAIN_B);
                     }
                 }
             }
@@ -157,41 +226,37 @@ public class DriveTrainController implements IController
 
         // ensure that our algorithms are correct and don't give values outside
         // the appropriate range
-        this.assertPowerLevelRange(leftPowerGoal, "left (goal)");
-        this.assertPowerLevelRange(rightPowerGoal, "right (goal)");
+        this.assertPowerLevelRange(leftVelocityGoal, "left velocity (goal)");
+        this.assertPowerLevelRange(rightVelocityGoal, "right velocity (goal)");
 
-        // decrease the power based on the desired max speed
-        leftPowerGoal = leftPowerGoal * TuningConstants.DRIVETRAIN_MAX_SPEED;
-        rightPowerGoal = rightPowerGoal * TuningConstants.DRIVETRAIN_MAX_SPEED;
+        // decrease the velocity based on the configured max speed
+        leftVelocityGoal = leftVelocityGoal * TuningConstants.DRIVETRAIN_MAX_SPEED;
+        rightVelocityGoal = rightVelocityGoal * TuningConstants.DRIVETRAIN_MAX_SPEED;
 
+        // convert velocity goal to power level...
         double leftPower;
         double rightPower;
         if (this.usePID)
         {
-            this.leftPID.calculate(leftPowerGoal, this.component.getLeftEncoderVelocity());
-            this.rightPID.calculate(rightPowerGoal, this.component.getLeftEncoderVelocity());
+            this.leftPID.calculate(leftVelocityGoal, this.component.getLeftEncoderVelocity());
+            this.rightPID.calculate(rightVelocityGoal, this.component.getLeftEncoderVelocity());
             
             leftPower = this.leftPID.getOutput();
             rightPower = this.rightPID.getOutput();
         }
         else
         {
-            leftPower = leftPowerGoal;
-            rightPower = rightPowerGoal;
+            leftPower = leftVelocityGoal;
+            rightPower = rightVelocityGoal;
         }
 
-        // ensure that our algorithms are correct and don't give values outside
-        // the appropriate range
-        this.assertPowerLevelRange(leftPower, "left");
-        this.assertPowerLevelRange(rightPower, "right");
-
-        // apply the power to the motors
-        this.component.setDriveTrainPower(leftPower, rightPower);
+        return new PowerSetting(leftPower, rightPower);
     }
 
-    public void stop()
+    private PowerSetting calculatePositionModePowerSetting()
     {
-        this.component.setDriveTrainPower(0.0, 0.0);
+        // TODO: figure out calculation...
+        return new PowerSetting(0.0, 0.0);
     }
 
     private void assertPowerLevelRange(double powerLevel, String side)
@@ -217,6 +282,28 @@ public class DriveTrainController implements IController
         else
         {
             return value * value;
+        }
+    }
+
+    private class PowerSetting
+    {
+        private double leftPower;
+        private double rightPower;
+
+        public PowerSetting(double leftPower, double rightPower)
+        {
+            this.leftPower = leftPower;
+            this.rightPower = rightPower;
+        }
+
+        public double getLeftPower()
+        {
+            return this.leftPower;
+        }
+
+        public double getRightPower()
+        {
+            return this.rightPower;
         }
     }
 }

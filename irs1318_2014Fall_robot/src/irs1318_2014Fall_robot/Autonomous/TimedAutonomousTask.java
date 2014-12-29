@@ -17,18 +17,20 @@ public abstract class TimedAutonomousTask implements IAutonomousTask
         this.startTime = null;
     }
 
-    public void start()
+    public void begin()
     {
         this.startTime = this.timer.get();
     }
 
-    public abstract void run();
-    
-    public abstract void apply(AutonomousControlData data);
+    public abstract void run(AutonomousControlData data);
 
-    public void stop()
+    public void cancel(AutonomousControlData data)
     {
         this.startTime = null;
+    }
+
+    public void end(AutonomousControlData data)
+    {
     }
 
     public boolean shouldContinue()

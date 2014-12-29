@@ -89,4 +89,22 @@ public class UserOperator implements IOperatorComponent
     {
         return this.joystick.getRawButton(JoystickButtonConstants.DRIVETRAIN_SIMPLE_BUTTON);
     }
+
+    public double getDriveTrainLeftPosition()
+    {
+        // position mode is only used for autonomous
+        return 0.0;
+    }
+
+    public double getDriveTrainRightPosition()
+    {
+        // position mode is only used for autonomous
+        return 0.0;
+    }
+
+    public boolean getDriveTrainPositionMode()
+    {
+        // position mode is only used for autonomous
+        return false;
+    }
 }

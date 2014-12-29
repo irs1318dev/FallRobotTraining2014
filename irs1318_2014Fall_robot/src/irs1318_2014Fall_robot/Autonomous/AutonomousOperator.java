@@ -27,7 +27,7 @@ public class AutonomousOperator implements IOperatorComponent
         {
             if (!this.currentTask.shouldContinue())
             {
-                this.currentTask.apply(this.controlData);
+                this.currentTask.end(this.controlData);
                 this.currentTask = null;
                 this.currentTaskPosition++;
             }
@@ -42,18 +42,16 @@ public class AutonomousOperator implements IOperatorComponent
             }
 
             this.currentTask = this.autonomousTasks[this.currentTaskPosition];
-            this.currentTask.start();
+            this.currentTask.begin();
         }
 
-        // run the current task, and then apply the result to the control data
-        this.currentTask.run();
-        this.currentTask.apply(this.controlData);
+        // run the current task and apply the result to the control data
+        this.currentTask.run(this.controlData);
     }
 
     public void stop()
     {
-        this.currentTask.stop();
-        this.currentTask.apply(this.controlData);
+        this.currentTask.cancel(this.controlData);
     }
 
     public boolean getCollectorExtendButton()
@@ -104,6 +102,21 @@ public class AutonomousOperator implements IOperatorComponent
     public boolean getDriveTrainSimpleModeButton()
     {
         return this.controlData.getDriveTrainSimpleMode();
+    }
+
+    public double getDriveTrainLeftPosition()
+    {
+        return this.controlData.getDriveTrainLeftPosition();
+    }
+
+    public double getDriveTrainRightPosition()
+    {
+        return this.controlData.getDriveTrainRightPosition();
+    }
+
+    public boolean getDriveTrainPositionMode()
+    {
+        return this.controlData.getDriveTrainPositionMode();
     }
 
     private void validateAutonomousTasks()

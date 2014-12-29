@@ -11,12 +11,7 @@ public class WaitAutonomousTask extends TimedAutonomousTask implements IAutonomo
         super(duration);
     }
 
-    public void run()
-    {
-        // no-op
-    }
-
-    public void apply(AutonomousControlData data)
+    public void run(AutonomousControlData data)
     {
         // no-op
     }
