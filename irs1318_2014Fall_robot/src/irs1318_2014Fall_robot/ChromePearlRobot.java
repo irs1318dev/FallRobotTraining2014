@@ -1,14 +1,15 @@
 package irs1318_2014Fall_robot;
 
+import irs1318_2014Fall_robot.Autonomous.AutonomousOperator;
 import irs1318_2014Fall_robot.Collector.CollectorComponent;
 import irs1318_2014Fall_robot.Collector.CollectorController;
+import irs1318_2014Fall_robot.Common.IOperatorComponent;
 import irs1318_2014Fall_robot.Compressor.CompressorComponent;
 import irs1318_2014Fall_robot.Compressor.CompressorController;
 import irs1318_2014Fall_robot.DriveTrain.DriveTrainComponent;
 import irs1318_2014Fall_robot.DriveTrain.DriveTrainController;
 import irs1318_2014Fall_robot.Shooter.ShooterComponent;
 import irs1318_2014Fall_robot.Shooter.ShooterController;
-import irs1318_2014Fall_robot.UserInterface.IJoystickComponent;
 import irs1318_2014Fall_robot.UserInterface.UserJoystickComponent;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -30,7 +31,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class ChromePearlRobot extends IterativeRobot
 {
-    private IJoystickComponent userInterfaceComponent;
+    private IOperatorComponent operatorComponent;
     
     private DriveTrainComponent driveTrainComponent;
     private DriveTrainController driveTrainController;
@@ -59,22 +60,60 @@ public class ChromePearlRobot extends IterativeRobot
 
     public void disabledInit()
     {
+        if (this.operatorComponent != null)
+        {
+            this.operatorComponent.stop();
+            this.operatorComponent = null;
+        }
+
+        if (this.compressorController != null)
+        {
+            this.compressorController.stop();
+            this.compressorController = null;
+        }
+
+        if (this.driveTrainController != null)
+        {
+            this.driveTrainController.stop();
+            this.driveTrainController = null;
+        }
+
+        if (this.collectorController != null)
+        {
+            this.collectorController.stop();
+            this.collectorController = null;
+        }
+
+        if (this.shooterController != null)
+        {
+            this.shooterController.stop();
+            this.shooterController = null;
+        }
     }
 
     public void autonomousInit()
     {
+        // create autonomous operator
+        this.operatorComponent = new AutonomousOperator();
+        
+        this.generalInit();
     }
 
     public void teleopInit()
     {
-        // create input
-        this.userInterfaceComponent = new UserJoystickComponent();
+        // create input for user's joystick
+        this.operatorComponent = new UserJoystickComponent();
+        
+        this.generalInit();
+    }
 
+    public void generalInit()
+    {
         // create controllers for each mechanism
         this.compressorController = new CompressorController(this.compressorComponent);
-        this.driveTrainController = new DriveTrainController(this.userInterfaceComponent, this.driveTrainComponent, false);
-        this.collectorController = new CollectorController(this.userInterfaceComponent, this.collectorComponent);
-        this.shooterController = new ShooterController(this.userInterfaceComponent, this.shooterComponent, this.compressorComponent);
+        this.driveTrainController = new DriveTrainController(this.operatorComponent, this.driveTrainComponent, false);
+        this.collectorController = new CollectorController(this.operatorComponent, this.collectorComponent);
+        this.shooterController = new ShooterController(this.operatorComponent, this.shooterComponent);
 
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.run();
@@ -86,13 +125,18 @@ public class ChromePearlRobot extends IterativeRobot
 
     public void autonomousPeriodic()
     {
+        this.generalPeriodic();
     }
 
     public void teleopPeriodic()
     {
-        // check if any toggles have occurred on the User Interface
-        this.userInterfaceComponent.checkToggles();
-        
+        this.generalPeriodic();
+    }
+
+    public void generalPeriodic()
+    {
+        this.operatorComponent.tick();
+
         // run each controller
         this.compressorController.run();
         this.driveTrainController.run();

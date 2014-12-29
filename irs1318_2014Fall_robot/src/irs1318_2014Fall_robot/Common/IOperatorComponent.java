@@ -1,8 +1,10 @@
-package irs1318_2014Fall_robot.UserInterface;
+package irs1318_2014Fall_robot.Common;
 
-public interface IJoystickComponent
+public interface IOperatorComponent
 {
-    public void checkToggles();
+    public void tick();
+
+    public void stop();
 
     public boolean getCollectorExtendButton();
 

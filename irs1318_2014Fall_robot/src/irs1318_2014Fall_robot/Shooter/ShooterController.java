@@ -1,25 +1,22 @@
 package irs1318_2014Fall_robot.Shooter;
 
 import irs1318_2014Fall_robot.Common.IController;
-import irs1318_2014Fall_robot.UserInterface.IJoystickComponent;
-import irs1318_2014Fall_robot.Compressor.CompressorComponent;
+import irs1318_2014Fall_robot.Common.IOperatorComponent;
 
 public class ShooterController implements IController
 {
-    private IJoystickComponent userInterface;
+    private IOperatorComponent operatorInterface;
     private ShooterComponent component;
-    private CompressorComponent compressor;
 
-    public ShooterController(IJoystickComponent userInterface, ShooterComponent component, CompressorComponent compressor)
+    public ShooterController(IOperatorComponent operatorInterface, ShooterComponent component)
     {
-        this.userInterface = userInterface;
+        this.operatorInterface = operatorInterface;
         this.component = component;
-        this.compressor = compressor;
     }
 
     public void run()
     {
-        this.component.setShooterAngle(this.userInterface.getShooterAngle());
+        this.component.setShooterAngle(this.operatorInterface.getShooterAngle());
 
         boolean middle = false;
         boolean innerLeft = false;
@@ -27,9 +24,9 @@ public class ShooterController implements IController
         boolean outerLeft = false;
         boolean outerRight = false;
 
-        if (this.userInterface.getShooterShoot())
+        if (this.operatorInterface.getShooterShoot())
         {
-            int shooterMode = this.userInterface.getShooterMode();
+            int shooterMode = this.operatorInterface.getShooterMode();
             switch (shooterMode)
             {
                 case 3:
@@ -56,5 +53,11 @@ public class ShooterController implements IController
         }
 
         this.component.setShooterSolenoids(middle, innerLeft, innerRight, outerLeft, outerRight);
+    }
+
+    public void stop()
+    {
+        this.component.setShooterAngle(false);
+        this.component.setShooterSolenoids(false, false, false, false, false);
     }
 }

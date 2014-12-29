@@ -26,8 +26,13 @@ public class CompressorComponent
         this.compressor.start();
     }
 
+    public void stop()
+    {
+        this.compressor.stop();
+    }
+
     public double getPSI()
     {
-        return this.analogPressureSensor.getVoltage() * (ElectronicsConstants.COMPRESSOR_MAX_PSI / 10.0);
+        return this.analogPressureSensor.getVoltage() * (ElectronicsConstants.COMPRESSOR_MAX_PSI / ElectronicsConstants.COMPRESSOR_MAX_VOLTAGE);
     }
 }

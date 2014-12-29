@@ -21,4 +21,10 @@ public class CompressorController implements IController
             this.isStarted = true;
         }
     }
+
+    public void stop()
+    {
+        this.component.stop();
+        this.isStarted = false;
+    }
 }

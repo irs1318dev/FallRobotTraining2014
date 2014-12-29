@@ -34,7 +34,8 @@ public class ElectronicsConstants
     
     public static final int COMPRESSOR_ANALOG_PRESSURE_SENSOR = 4;
     
-    public static final int COMPRESSOR_MAX_PSI = 150;
+    public static final double COMPRESSOR_MAX_PSI = 150.0;
+    public static final double COMPRESSOR_MAX_VOLTAGE = 10.0;
     
     public static final int SHOOTER_ANGLE_EXTENDER_SOLENOID_PORT = 4;
     public static final int SHOOTER_ANGLE_RETRACTOR_SOLENOID_PORT = 3;

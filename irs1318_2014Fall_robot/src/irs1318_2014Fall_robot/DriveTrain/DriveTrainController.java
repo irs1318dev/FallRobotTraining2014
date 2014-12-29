@@ -2,24 +2,24 @@ package irs1318_2014Fall_robot.DriveTrain;
 
 import irs1318_2014Fall_robot.TuningConstants;
 import irs1318_2014Fall_robot.Common.IController;
+import irs1318_2014Fall_robot.Common.IOperatorComponent;
 import irs1318_2014Fall_robot.Common.PIDHandler;
-import irs1318_2014Fall_robot.UserInterface.IJoystickComponent;
 
 public class DriveTrainController implements IController
 {
     private static final double POWERLEVEL_MIN = -1.0;
     private static final double POWERLEVEL_MAX = 1.0;
 
-    private IJoystickComponent userInterface;
+    private IOperatorComponent operatorInterface;
     private IDriveTrainComponent component;
 
     private boolean usePID;
     private PIDHandler leftPID;
     private PIDHandler rightPID;
 
-    public DriveTrainController(IJoystickComponent userInterface, IDriveTrainComponent component, boolean usePID)
+    public DriveTrainController(IOperatorComponent operatorInterface, IDriveTrainComponent component, boolean usePID)
     {
-        this.userInterface = userInterface;
+        this.operatorInterface = operatorInterface;
         this.component = component;
         this.usePID = usePID;
         
@@ -33,11 +33,11 @@ public class DriveTrainController implements IController
     public void run()
     {
         // get a value indicating that we should be in simple mode...
-        boolean simpleDriveModeEnabled = this.userInterface.getDriveTrainSimpleModeButton();
+        boolean simpleDriveModeEnabled = this.operatorInterface.getDriveTrainSimpleModeButton();
 
         // get the X and Y values from the user interface
-        double x = this.userInterface.getDriveTrainXAxis();
-        double y = this.userInterface.getDriveTrainYAxis();
+        double x = this.operatorInterface.getDriveTrainXAxis();
+        double y = this.operatorInterface.getDriveTrainYAxis();
 
         // adjust the intensity of the input
         x = this.adjustIntensity(x);
@@ -178,6 +178,11 @@ public class DriveTrainController implements IController
 
         // apply the power to the motors
         this.component.setDriveTrainPower(leftPower, rightPower);
+    }
+
+    public void stop()
+    {
+        this.component.setDriveTrainPower(0.0, 0.0);
     }
 
     private void assertPowerLevelRange(double powerLevel, String side)

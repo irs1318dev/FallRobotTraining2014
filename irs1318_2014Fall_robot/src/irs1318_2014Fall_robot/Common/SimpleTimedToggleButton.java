@@ -36,4 +36,9 @@ public class SimpleTimedToggleButton extends SimpleToggleButton implements ITime
         super.toggle();
         this.startTime = this.timer.get();
     }
+
+    public void cancel()
+    {
+        this.startTime = null;
+    }
 }

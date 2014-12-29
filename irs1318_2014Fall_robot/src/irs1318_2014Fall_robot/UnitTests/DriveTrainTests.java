@@ -1,9 +1,9 @@
 package irs1318_2014Fall_robot.UnitTests;
 
 import irs1318_2014Fall_robot.TuningConstants;
+import irs1318_2014Fall_robot.Common.IOperatorComponent;
 import irs1318_2014Fall_robot.DriveTrain.DriveTrainController;
 import irs1318_2014Fall_robot.DriveTrain.IDriveTrainComponent;
-import irs1318_2014Fall_robot.UserInterface.IJoystickComponent;
 
 import org.junit.Assert;
 import org.junit.Before;
@@ -11,23 +11,27 @@ import org.junit.Test;
 
 public class DriveTrainTests
 {
-    private class MockDriveTrainJoystick implements IJoystickComponent
+    private class MockOperator implements IOperatorComponent
     {
         private double x;
         private double y;
         private boolean simpleModeEnabled;
         
-        public MockDriveTrainJoystick(double x, double y, boolean simpleModeEnabled)
+        public MockOperator(double x, double y, boolean simpleModeEnabled)
         {
             this.x = x;
             this.y = y;
             this.simpleModeEnabled = simpleModeEnabled;
         }
 
-        public void checkToggles()
+        public void tick()
         {
         }
-        
+
+        public void stop()
+        {
+        }
+
         public boolean getCollectorExtendButton()
         {
             return false;
@@ -118,7 +122,7 @@ public class DriveTrainTests
     public void testSteady()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(0.0, 0.0, false),
+            new MockOperator(0.0, 0.0, false),
             new MockDriveTrainComponent(0.0, 0.0),
             false);
         
@@ -129,7 +133,7 @@ public class DriveTrainTests
     public void testForward()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(0.0, 1.0, false),
+            new MockOperator(0.0, 1.0, false),
             new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_SPEED, TuningConstants.DRIVETRAIN_MAX_SPEED),
             false);
         
@@ -140,7 +144,7 @@ public class DriveTrainTests
     public void testBackward()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(0.0, -1.0, false),
+            new MockOperator(0.0, -1.0, false),
             new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_SPEED, -TuningConstants.DRIVETRAIN_MAX_SPEED),
             false);
         
@@ -151,7 +155,7 @@ public class DriveTrainTests
     public void testUpRight()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(1.0, 1.0, false),
+            new MockOperator(1.0, 1.0, false),
             new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_SPEED, TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_SPEED),
             false);
         
@@ -162,7 +166,7 @@ public class DriveTrainTests
     public void testUpLeft()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(-1.0, 1.0, false),
+            new MockOperator(-1.0, 1.0, false),
             new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_SPEED, TuningConstants.DRIVETRAIN_MAX_SPEED),
             false);
         
@@ -173,7 +177,7 @@ public class DriveTrainTests
     public void testBackRight()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(1.0, -1.0, false),
+            new MockOperator(1.0, -1.0, false),
             new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_SPEED, -TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_SPEED),
             false);
         
@@ -184,7 +188,7 @@ public class DriveTrainTests
     public void testBackLeft()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(-1.0, -1.0, false),
+            new MockOperator(-1.0, -1.0, false),
             new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_SPEED, -TuningConstants.DRIVETRAIN_MAX_SPEED),
             false);
         
@@ -195,7 +199,7 @@ public class DriveTrainTests
     public void testInPlaceRight()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(1.0, 0.0, false),
+            new MockOperator(1.0, 0.0, false),
             new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_SPEED, -TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_SPEED),
             false);
         
@@ -206,7 +210,7 @@ public class DriveTrainTests
     public void testInPlaceLeft()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(-1.0, 0.0, false),
+            new MockOperator(-1.0, 0.0, false),
             new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_SPEED, TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_SPEED),
             false);
         
@@ -217,7 +221,7 @@ public class DriveTrainTests
     public void testSimpleForward()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(0.2, 1.0, true),
+            new MockOperator(0.2, 1.0, true),
             new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_SPEED, TuningConstants.DRIVETRAIN_MAX_SPEED),
             false);
         
@@ -228,7 +232,7 @@ public class DriveTrainTests
     public void testSimpleBackward()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(0.2, -1.0, true),
+            new MockOperator(0.2, -1.0, true),
             new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_SPEED, -TuningConstants.DRIVETRAIN_MAX_SPEED),
             false);
         
@@ -239,7 +243,7 @@ public class DriveTrainTests
     public void testSimpleRight()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(1.0, 0.2, true),
+            new MockOperator(1.0, 0.2, true),
             new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_SPEED, -TuningConstants.DRIVETRAIN_MAX_SPEED),
             false);
         
@@ -250,7 +254,7 @@ public class DriveTrainTests
     public void testSimpleLeft()
     {
         DriveTrainController controller = new DriveTrainController(
-            new MockDriveTrainJoystick(-1.0, 0.2, true),
+            new MockOperator(-1.0, 0.2, true),
             new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_SPEED, TuningConstants.DRIVETRAIN_MAX_SPEED),
             false);
         

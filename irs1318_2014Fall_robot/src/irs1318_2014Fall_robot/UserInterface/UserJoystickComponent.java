@@ -2,11 +2,12 @@ package irs1318_2014Fall_robot.UserInterface;
 
 import irs1318_2014Fall_robot.JoystickButtonConstants;
 import irs1318_2014Fall_robot.TuningConstants;
+import irs1318_2014Fall_robot.Common.IOperatorComponent;
 import irs1318_2014Fall_robot.Common.MultiToggleButton;
 import irs1318_2014Fall_robot.Common.SimpleTimedToggleButton;
 import edu.wpi.first.wpilibj.*;
 
-public class UserJoystickComponent implements IJoystickComponent
+public class UserJoystickComponent implements IOperatorComponent
 {
     private Joystick joystick;
     private MultiToggleButton shooterMode;
@@ -19,8 +20,9 @@ public class UserJoystickComponent implements IJoystickComponent
         this.shootButton = new SimpleTimedToggleButton(TuningConstants.SHOOTER_TOGGLE_DURATION);
     }
 
-    public void checkToggles()
+    public void tick()
     {
+        // check the toggles
         if (this.joystick.getRawButton(JoystickButtonConstants.SHOOTER_MODE_TOGGLE_BUTTON))
         {
             this.shooterMode.toggle();
@@ -31,6 +33,11 @@ public class UserJoystickComponent implements IJoystickComponent
         {
             this.shootButton.toggle();
         }
+    }
+    
+    public void stop()
+    {
+        this.shootButton.cancel();
     }
 
     public boolean getCollectorExtendButton()
