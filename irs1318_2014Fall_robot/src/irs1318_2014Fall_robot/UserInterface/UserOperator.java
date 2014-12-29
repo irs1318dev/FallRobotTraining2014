@@ -75,12 +75,12 @@ public class UserOperator implements IOperatorComponent
         return this.shootButton.isToggled();
     }
 
-    public double getDriveTrainXAxis()
+    public double getDriveTrainXVelocity()
     {
         return this.joystick.getX();
     }
 
-    public double getDriveTrainYAxis()
+    public double getDriveTrainYVelocity()
     {
         return this.joystick.getY();
     }

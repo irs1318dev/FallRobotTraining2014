@@ -6,4 +6,5 @@ public interface IAutonomousTask
     public void run();
     public void stop();
     public boolean shouldContinue();
+    public void apply(AutonomousControlData data);
 }

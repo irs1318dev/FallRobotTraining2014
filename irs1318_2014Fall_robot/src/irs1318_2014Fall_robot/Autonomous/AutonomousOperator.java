@@ -7,6 +7,7 @@ public class AutonomousOperator implements IOperatorComponent
     private IAutonomousTask[] autonomousTasks;
     private int currentTaskPosition;
     private IAutonomousTask currentTask;
+    private AutonomousControlData controlData;
 
     public AutonomousOperator(IAutonomousTask[] autonomousTasks)
     {
@@ -14,6 +15,7 @@ public class AutonomousOperator implements IOperatorComponent
         this.autonomousTasks = autonomousTasks;
         this.currentTaskPosition = 0;
         this.currentTask = null;
+        this.controlData = new AutonomousControlData(); 
 
         this.validateAutonomousTasks();
     }
@@ -25,6 +27,7 @@ public class AutonomousOperator implements IOperatorComponent
         {
             if (!this.currentTask.shouldContinue())
             {
+                this.currentTask.apply(this.controlData);
                 this.currentTask = null;
                 this.currentTaskPosition++;
             }
@@ -42,73 +45,65 @@ public class AutonomousOperator implements IOperatorComponent
             this.currentTask.start();
         }
 
-        // run the current task
+        // run the current task, and then apply the result to the control data
         this.currentTask.run();
+        this.currentTask.apply(this.controlData);
     }
 
     public void stop()
     {
         this.currentTask.stop();
+        this.currentTask.apply(this.controlData);
     }
 
     public boolean getCollectorExtendButton()
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.controlData.getCollectorExtend();
     }
 
     public boolean getCollectorRetractButton()
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.controlData.getCollectorRetract();
     }
 
     public boolean getCollectorCollectButton()
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.controlData.getCollectorCollect();
     }
 
     public boolean getCollectorExpelButton()
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.controlData.getCollectorExpel();
     }
 
     public boolean getShooterAngle()
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.controlData.getShooterAngle();
     }
 
     public int getShooterMode()
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.controlData.getShooterMode();
     }
 
     public boolean getShooterShoot()
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.controlData.getShooterShoot();
     }
 
-    public double getDriveTrainXAxis()
+    public double getDriveTrainXVelocity()
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.controlData.getDriveTrainXVelocity();
     }
 
-    public double getDriveTrainYAxis()
+    public double getDriveTrainYVelocity()
     {
-        // TODO Auto-generated method stub
-        return 0;
+        return this.controlData.getDriveTrainYVelocity();
     }
 
     public boolean getDriveTrainSimpleModeButton()
     {
-        // TODO Auto-generated method stub
-        return false;
+        return this.controlData.getDriveTrainSimpleMode();
     }
 
     private void validateAutonomousTasks()

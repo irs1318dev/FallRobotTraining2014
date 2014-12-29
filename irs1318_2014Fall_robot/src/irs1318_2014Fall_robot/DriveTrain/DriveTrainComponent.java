@@ -1,6 +1,7 @@
 package irs1318_2014Fall_robot.DriveTrain;
 
 import irs1318_2014Fall_robot.ElectronicsConstants;
+import irs1318_2014Fall_robot.HardwareConstants;
 import edu.wpi.first.wpilibj.*;
 
 public class DriveTrainComponent implements IDriveTrainComponent
@@ -33,8 +34,8 @@ public class DriveTrainComponent implements IDriveTrainComponent
             ElectronicsConstants.SIDECAR_SLOT,
             ElectronicsConstants.DRIVETRAIN_RIGHT_ENCODER_CHANNEL_B);
 
-        this.leftEncoder.setDistancePerPulse(ElectronicsConstants.DRIVETRAIN_LEFT_PULSE_DISTANCE);
-        this.rightEncoder.setDistancePerPulse(ElectronicsConstants.DRIVETRAIN_RIGHT_PULSE_DISTANCE);
+        this.leftEncoder.setDistancePerPulse(HardwareConstants.DRIVETRAIN_LEFT_PULSE_DISTANCE);
+        this.rightEncoder.setDistancePerPulse(HardwareConstants.DRIVETRAIN_RIGHT_PULSE_DISTANCE);
     }
 
     public void setDriveTrainPower(double leftPower, double rightPower)

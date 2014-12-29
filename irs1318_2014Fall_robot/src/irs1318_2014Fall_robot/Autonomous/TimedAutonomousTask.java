@@ -23,6 +23,8 @@ public abstract class TimedAutonomousTask implements IAutonomousTask
     }
 
     public abstract void run();
+    
+    public abstract void apply(AutonomousControlData data);
 
     public void stop()
     {

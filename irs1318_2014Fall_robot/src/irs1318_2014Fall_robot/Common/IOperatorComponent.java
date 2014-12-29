@@ -20,9 +20,9 @@ public interface IOperatorComponent
 
     public boolean getShooterShoot();
 
-    public double getDriveTrainXAxis();
+    public double getDriveTrainXVelocity();
 
-    public double getDriveTrainYAxis();
+    public double getDriveTrainYVelocity();
 
     public boolean getDriveTrainSimpleModeButton();
 }

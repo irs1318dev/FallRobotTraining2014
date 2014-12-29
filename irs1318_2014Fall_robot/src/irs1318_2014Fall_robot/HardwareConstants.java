@@ -1,0 +1,12 @@
+package irs1318_2014Fall_robot;
+
+public class HardwareConstants
+{
+    public static final double DRIVETRAIN_LEFT_WHEEL_DIAMETER = 6 * 2.54; // (in centimeters)
+    public static final double DRIVETRAIN_LEFT_PULSE_DISTANCE = Math.PI * HardwareConstants.DRIVETRAIN_LEFT_WHEEL_DIAMETER;
+
+    public static final double DRIVETRAIN_RIGHT_WHEEL_DIAMETER = 6 * 2.54; // (in centimeters)
+    public static final double DRIVETRAIN_RIGHT_PULSE_DISTANCE = Math.PI * HardwareConstants.DRIVETRAIN_LEFT_WHEEL_DIAMETER;
+    
+    public static final double DRIVETRAIN_WHEEL_SEPARATION_DISTANCE = 16.33 * 2.54; // (in centimeters)
+}

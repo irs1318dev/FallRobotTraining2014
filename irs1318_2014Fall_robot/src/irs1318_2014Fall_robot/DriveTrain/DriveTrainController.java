@@ -25,8 +25,17 @@ public class DriveTrainController implements IController
         
         if (usePID)
         {
-            this.leftPID = new PIDHandler(TuningConstants.DRIVETRAIN_PID_LEFT_KP, 0.0, 0.0, TuningConstants.DRIVETRAIN_PID_LEFT_KF);
-            this.rightPID = new PIDHandler(TuningConstants.DRIVETRAIN_PID_RIGHT_KP, 0.0, 0.0, TuningConstants.DRIVETRAIN_PID_RIGHT_KF);
+            this.leftPID = new PIDHandler(
+                TuningConstants.DRIVETRAIN_PID_LEFT_KP,
+                TuningConstants.DRIVETRAIN_PID_LEFT_KI,
+                TuningConstants.DRIVETRAIN_PID_LEFT_KD,
+                TuningConstants.DRIVETRAIN_PID_LEFT_KF);
+
+            this.rightPID = new PIDHandler(
+                TuningConstants.DRIVETRAIN_PID_RIGHT_KP,
+                TuningConstants.DRIVETRAIN_PID_RIGHT_KI,
+                TuningConstants.DRIVETRAIN_PID_RIGHT_KD,
+                TuningConstants.DRIVETRAIN_PID_RIGHT_KF);
         }
     }
 
@@ -36,8 +45,8 @@ public class DriveTrainController implements IController
         boolean simpleDriveModeEnabled = this.operatorInterface.getDriveTrainSimpleModeButton();
 
         // get the X and Y values from the user interface
-        double x = this.operatorInterface.getDriveTrainXAxis();
-        double y = this.operatorInterface.getDriveTrainYAxis();
+        double x = this.operatorInterface.getDriveTrainXVelocity();
+        double y = this.operatorInterface.getDriveTrainYVelocity();
 
         // adjust the intensity of the input
         x = this.adjustIntensity(x);

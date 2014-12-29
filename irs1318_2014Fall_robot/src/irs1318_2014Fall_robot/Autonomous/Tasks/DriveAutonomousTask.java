@@ -1,5 +1,6 @@
 package irs1318_2014Fall_robot.Autonomous.Tasks;
 
+import irs1318_2014Fall_robot.Autonomous.AutonomousControlData;
 import irs1318_2014Fall_robot.Autonomous.IAutonomousTask;
 
 public class DriveAutonomousTask implements IAutonomousTask
@@ -20,13 +21,16 @@ public class DriveAutonomousTask implements IAutonomousTask
     {
     }
 
+    public void apply(AutonomousControlData data)
+    {
+    }
+
     public void stop()
     {
     }
 
     public boolean shouldContinue()
     {
-        // TODO Auto-generated method stub
         return false;
     }
 }

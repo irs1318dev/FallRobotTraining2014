@@ -67,12 +67,12 @@ public class DriveTrainTests
             return false;
         }
 
-        public double getDriveTrainXAxis()
+        public double getDriveTrainXVelocity()
         {
             return this.x;
         }
 
-        public double getDriveTrainYAxis()
+        public double getDriveTrainYVelocity()
         {
             return this.y;
         }
