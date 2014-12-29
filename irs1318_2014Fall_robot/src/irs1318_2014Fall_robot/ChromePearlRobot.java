@@ -94,7 +94,7 @@ public class ChromePearlRobot extends IterativeRobot
     public void autonomousInit()
     {
         // create autonomous operator
-        this.operatorComponent = new AutonomousOperator();
+        this.operatorComponent = new AutonomousOperator(null);
         
         this.generalInit();
     }
