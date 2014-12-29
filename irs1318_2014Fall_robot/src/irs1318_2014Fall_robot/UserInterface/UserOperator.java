@@ -7,13 +7,13 @@ import irs1318_2014Fall_robot.Common.MultiToggleButton;
 import irs1318_2014Fall_robot.Common.SimpleTimedToggleButton;
 import edu.wpi.first.wpilibj.*;
 
-public class UserJoystickComponent implements IOperatorComponent
+public class UserOperator implements IOperatorComponent
 {
     private Joystick joystick;
     private MultiToggleButton shooterMode;
     private SimpleTimedToggleButton shootButton;
 
-    public UserJoystickComponent()
+    public UserOperator()
     {
         this.joystick = new Joystick(JoystickButtonConstants.JOYSTICK_PORT);
         this.shooterMode = new MultiToggleButton(new int[] { 3, 4, 5 });

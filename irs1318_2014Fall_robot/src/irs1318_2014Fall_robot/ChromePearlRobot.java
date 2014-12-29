@@ -10,7 +10,7 @@ import irs1318_2014Fall_robot.DriveTrain.DriveTrainComponent;
 import irs1318_2014Fall_robot.DriveTrain.DriveTrainController;
 import irs1318_2014Fall_robot.Shooter.ShooterComponent;
 import irs1318_2014Fall_robot.Shooter.ShooterController;
-import irs1318_2014Fall_robot.UserInterface.UserJoystickComponent;
+import irs1318_2014Fall_robot.UserInterface.UserOperator;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
@@ -102,7 +102,7 @@ public class ChromePearlRobot extends IterativeRobot
     public void teleopInit()
     {
         // create input for user's joystick
-        this.operatorComponent = new UserJoystickComponent();
+        this.operatorComponent = new UserOperator();
         
         this.generalInit();
     }
