@@ -18,6 +18,12 @@ public class DriveTrainController implements IController
     private PIDHandler leftPID;
     private PIDHandler rightPID;
 
+    /**
+     * Initializes a new DriveTrainController
+     * @param operatorInterface to use to control the drive train
+     * @param component to control
+     * @param usePID indicates whether we should use PID control
+     */
     public DriveTrainController(IOperatorComponent operatorInterface, IDriveTrainComponent component, boolean usePID)
     {
         this.operatorInterface = operatorInterface;
@@ -25,9 +31,12 @@ public class DriveTrainController implements IController
         this.usePID = usePID;
         this.usePositionalMode = false;
 
-        this.createPID();
+        this.createPIDHandler();
     }
 
+    /**
+     * calculate the various outputs to use based on the inputs and apply them to the outputs for the relevant component
+     */
     public void run()
     {
         // check our desired PID mode
@@ -37,7 +46,7 @@ public class DriveTrainController implements IController
             this.usePositionalMode = newUsePositionalMode;
 
             // re-create PID handler
-            this.createPID();
+            this.createPIDHandler();
         }
 
         PowerSetting powerSetting;
@@ -62,12 +71,18 @@ public class DriveTrainController implements IController
         this.component.setDriveTrainPower(leftPower, rightPower);
     }
 
+    /**
+     * stop the relevant component
+     */
     public void stop()
     {
         this.component.setDriveTrainPower(0.0, 0.0);
     }
 
-    private void createPID()
+    /**
+     * create a PIDHandler based on our current settings
+     */
+    private void createPIDHandler()
     {
         if (!usePID)
         {
@@ -107,6 +122,10 @@ public class DriveTrainController implements IController
         }
     }
 
+    /**
+     * Calculate the power setting to use based on the inputs when in velocity mode
+     * @return power settings for left and right motor
+     */
     private PowerSetting calculateVelocityModePowerSetting()
     {
         double leftVelocityGoal = 0.0;
@@ -253,12 +272,21 @@ public class DriveTrainController implements IController
         return new PowerSetting(leftPower, rightPower);
     }
 
+    /**
+     * Calculate the power setting to use based on the inputs when in position mode
+     * @return power settings for left and right motor
+     */
     private PowerSetting calculatePositionModePowerSetting()
     {
         // TODO: figure out calculation...
         return new PowerSetting(0.0, 0.0);
     }
 
+    /**
+     * Assert that the power level is within the required range
+     * @param powerLevel to verify
+     * @param side indicator for the exception message if incorrect
+     */
     private void assertPowerLevelRange(double powerLevel, String side)
     {
         if (powerLevel < DriveTrainController.POWERLEVEL_MIN)
@@ -272,6 +300,11 @@ public class DriveTrainController implements IController
         }
     }
 
+    /**
+     * Adjust the intensity of the input value
+     * @param value to adjust
+     * @return adjusted value
+     */
     private double adjustIntensity(double value)
     {
         // we will use simple quadratic scaling to adjust input intensity
@@ -285,22 +318,39 @@ public class DriveTrainController implements IController
         }
     }
 
+    /**
+     * Simple holder of power setting information for the left and right motor
+     * (This exists only to allow splitting out common code and have only one return value, because Java doesn't support multi-return)
+     */
     private class PowerSetting
     {
         private double leftPower;
         private double rightPower;
 
+        /**
+         * Initializes a new PowerSetting
+         * @param leftPower to apply
+         * @param rightPower to apply
+         */
         public PowerSetting(double leftPower, double rightPower)
         {
             this.leftPower = leftPower;
             this.rightPower = rightPower;
         }
 
+        /**
+         * gets the left power setting 
+         * @return value between -1.0 and 1.0
+         */
         public double getLeftPower()
         {
             return this.leftPower;
         }
 
+        /**
+         * gets the right power setting 
+         * @return value between -1.0 and 1.0
+         */
         public double getRightPower()
         {
             return this.rightPower;

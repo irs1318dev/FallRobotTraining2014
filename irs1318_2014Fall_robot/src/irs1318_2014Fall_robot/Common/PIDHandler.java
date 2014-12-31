@@ -69,6 +69,7 @@ public class PIDHandler
     }
 
     /**
+     * Calculate the desired output value based on the history, setpoint, and measured value.
      * measuredValue should be in the same unit as the setpoint.  this method should be
      * called in a loop and fed feedback data and setpoint changes
      * 
@@ -112,7 +113,7 @@ public class PIDHandler
     }
 
     /**
-     * this returns the output of the PID controller.  The goal of PID is for this value to eventually reach the setpoint
+     * this returns the output of the PID controller.  The goal of PID is for this value to eventually reach the setpoint.
      * 
      * @return output value to be used
      */

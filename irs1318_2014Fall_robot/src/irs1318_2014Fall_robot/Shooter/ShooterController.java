@@ -8,12 +8,20 @@ public class ShooterController implements IController
     private IOperatorComponent operatorInterface;
     private ShooterComponent component;
 
+    /**
+     * Initializes a new ShooterController
+     * @param operatorInterface to use to operate the shooter
+     * @param component to control
+     */
     public ShooterController(IOperatorComponent operatorInterface, ShooterComponent component)
     {
         this.operatorInterface = operatorInterface;
         this.component = component;
     }
 
+    /**
+     * calculate the various outputs to use based on the inputs and apply them to the outputs for the relevant component
+     */
     public void run()
     {
         this.component.setShooterAngle(this.operatorInterface.getShooterAngle());
@@ -55,6 +63,9 @@ public class ShooterController implements IController
         this.component.setShooterSolenoids(middle, innerLeft, innerRight, outerLeft, outerRight);
     }
 
+    /**
+     * stop the relevant component
+     */
     public void stop()
     {
         this.component.setShooterAngle(false);

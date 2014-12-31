@@ -9,6 +9,10 @@ public abstract class TimedAutonomousTask implements IAutonomousTask
     private Timer timer;
     private Double startTime;
 
+    /**
+     * Initializes a new TimedAutonomousTask
+     * @param duration to perform the task
+     */
     protected TimedAutonomousTask(double duration)
     {
         this.duration = duration;
@@ -17,22 +21,41 @@ public abstract class TimedAutonomousTask implements IAutonomousTask
         this.startTime = null;
     }
 
+    /**
+     * Begin the current task
+     */
     public void begin()
     {
         this.startTime = this.timer.get();
     }
 
+    /**
+     * Run an iteration of the current task and apply any control changes 
+     * @param data to which we should apply updated settings
+     */
     public abstract void run(AutonomousControlData data);
 
+    /**
+     * Cancel the current task and clear control changes
+     * @param data to which we should clear any updated control settings
+     */
     public void cancel(AutonomousControlData data)
     {
         this.startTime = null;
     }
 
+    /**
+     * End the current task and reset control changes appropriately
+     * @param data to which we should apply updated settings
+     */
     public void end(AutonomousControlData data)
     {
     }
 
+    /**
+     * Checks whether we should continue processing this task or whether it should end
+     * @return true if we should continue, otherwise false
+     */
     public boolean shouldContinue()
     {
         return timer.get() > this.startTime + this.duration;

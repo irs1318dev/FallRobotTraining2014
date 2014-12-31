@@ -31,17 +31,22 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class ChromePearlRobot extends IterativeRobot
 {
+    // operator component (joystick, autonomous)
     private IOperatorComponent operatorComponent;
-    
-    private DriveTrainComponent driveTrainComponent;
-    private DriveTrainController driveTrainController;
-    
-    private CollectorComponent collectorComponent;
-    private CollectorController collectorController;
-    
+
+    // Compressor
     private CompressorComponent compressorComponent;
     private CompressorController compressorController;
-    
+
+    // DriveTrain
+    private DriveTrainComponent driveTrainComponent;
+    private DriveTrainController driveTrainController;
+
+    // Collector
+    private CollectorComponent collectorComponent;
+    private CollectorController collectorController;
+
+    // Shooter
     private ShooterComponent shooterComponent;
     private ShooterController shooterController;
 

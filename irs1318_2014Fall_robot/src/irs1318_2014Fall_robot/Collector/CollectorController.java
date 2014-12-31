@@ -9,12 +9,20 @@ public class CollectorController implements IController
     private IOperatorComponent operatorInterface;
     private ICollectorComponent component;
 
+    /**
+     * Initializes a new CollectorController
+     * @param operatorInterface to control the collector
+     * @param component to control
+     */
     public CollectorController(IOperatorComponent operatorInterface, ICollectorComponent component)
     {
         this.operatorInterface = operatorInterface;
         this.component = component;
     }
 
+    /**
+     * calculate the various outputs to use based on the inputs and apply them to the outputs for the relevant component
+     */
     public void run()
     {
         // get the various values from the user interface
@@ -36,6 +44,9 @@ public class CollectorController implements IController
         this.component.setCollector(extend, retract, collectorPower);
     }
 
+    /**
+     * stop the relevant component
+     */
     public void stop()
     {
         this.component.setCollector(false, false, 0.0);

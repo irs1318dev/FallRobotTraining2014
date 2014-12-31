@@ -13,6 +13,9 @@ public class ShooterComponent
     private DoubleSolenoid outerLeftPiston;
     private DoubleSolenoid outerRightPiston;
 
+    /**
+     * Initializes a new ShooterComponent
+     */
     public ShooterComponent()
     {
         this.shooterAngle = new DoubleSolenoid(
@@ -46,6 +49,14 @@ public class ShooterComponent
             ElectronicsConstants.SHOOTER_OUTER_RIGHT_SOLENOID_RETRACTOR_PORT);
     }
 
+    /**
+     * Set shooter solenoids to forward (true) or reverse (false)
+     * @param middle solenoid choice
+     * @param innerLeft solenoid choice
+     * @param innerRight solenoid choice
+     * @param outerLeft solenoid choice
+     * @param outerRight solenoid choice
+     */
     public void setShooterSolenoids(boolean middle, boolean innerLeft, boolean innerRight, boolean outerLeft, boolean outerRight)
     {
         this.middlePiston.set(middle ? Value.kForward : Value.kReverse);
@@ -55,6 +66,10 @@ public class ShooterComponent
         this.outerRightPiston.set(outerRight ? Value.kForward : Value.kReverse);
     }
 
+    /**
+     * Sets a value indicating whether we should extend or retract the shooter
+     * @param extend the shooter
+     */
     public void setShooterAngle(boolean extend)
     {
         this.shooterAngle.set(extend ? Value.kForward : Value.kReverse);

@@ -7,12 +7,19 @@ public class CompressorController implements IController
     private boolean isStarted;
     private CompressorComponent component;
 
+    /**
+     * Initializes a new CompressorController
+     * @param component to control
+     */
     public CompressorController(CompressorComponent component)
     {
         this.component = component;        
         this.isStarted = false;
     }
 
+    /**
+     * calculate the various outputs to use based on the inputs and apply them to the outputs for the relevant component
+     */
     public void run()
     {
         if (!this.isStarted)
@@ -22,6 +29,9 @@ public class CompressorController implements IController
         }
     }
 
+    /**
+     * stop the relevant component
+     */
     public void stop()
     {
         this.component.stop();

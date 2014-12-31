@@ -11,6 +11,9 @@ import org.junit.Test;
 
 public class DriveTrainTests
 {
+    /**
+     * Mock operator that makes it easy to test the drive train
+     */
     private class MockOperator implements IOperatorComponent
     {
         private double x;
@@ -98,6 +101,9 @@ public class DriveTrainTests
         }
     }
     
+    /**
+     * Mock DriveTrain Component to verify the inputs result in the correct outputs
+     */
     private class MockDriveTrainComponent implements IDriveTrainComponent
     {
         private double expectedLeftPower;

@@ -16,6 +16,9 @@ public class AutonomousControlData
     private boolean driveTrainPositionMode;
     private boolean driveTrainSimpleMode;
     
+    /**
+     * Initializes a new AutonomousControlData
+     */
     public AutonomousControlData()
     {
         this.collectorExtend = false;

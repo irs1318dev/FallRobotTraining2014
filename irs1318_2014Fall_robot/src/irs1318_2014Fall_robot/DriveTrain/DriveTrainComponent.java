@@ -12,6 +12,9 @@ public class DriveTrainComponent implements IDriveTrainComponent
     private Encoder leftEncoder;
     private Encoder rightEncoder;
 
+    /**
+     * Initializes a new DriveTrainComponent
+     */
     public DriveTrainComponent()
     {
         this.leftTalon = new Talon(
@@ -38,27 +41,48 @@ public class DriveTrainComponent implements IDriveTrainComponent
         this.rightEncoder.setDistancePerPulse(HardwareConstants.DRIVETRAIN_RIGHT_PULSE_DISTANCE);
     }
 
+    /**
+     * set the power levels to the drive train
+     * @param leftPower level to apply to the left motor
+     * @param rightPower level to apply to the right motor
+     */
     public void setDriveTrainPower(double leftPower, double rightPower)
     {
         this.leftTalon.set(-leftPower); // note: left motors are oriented facing "backwards"
         this.rightTalon.set(rightPower);
     }
 
+    /**
+     * get the velocity from the left encoder
+     * @return a value indicating the velocity
+     */
     public double getLeftEncoderVelocity()
     {
         return this.leftEncoder.getRate();
     }
 
+    /**
+     * get the velocity from the right encoder
+     * @return a value indicating the velocity
+     */
     public double getRightEncoderVelocity()
     {
         return this.rightEncoder.getRate();
     }
 
+    /**
+     * get the distance from the left encoder
+     * @return a value indicating the distance
+     */
     public double getLeftEncoderDistance()
     {
         return this.leftEncoder.getDistance();
     }
 
+    /**
+     * get the distance from the right encoder
+     * @return a value indicating the distance
+     */
     public double getRightEncoderDistance()
     {
         return this.leftEncoder.getDistance();
