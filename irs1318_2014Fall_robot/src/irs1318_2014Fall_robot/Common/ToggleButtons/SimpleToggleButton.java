@@ -1,4 +1,4 @@
-package irs1318_2014Fall_robot.Common;
+package irs1318_2014Fall_robot.Common.ToggleButtons;
 
 public class SimpleToggleButton implements ISimpleToggle
 {

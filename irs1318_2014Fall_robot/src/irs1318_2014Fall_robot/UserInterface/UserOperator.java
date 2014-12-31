@@ -3,8 +3,8 @@ package irs1318_2014Fall_robot.UserInterface;
 import irs1318_2014Fall_robot.JoystickButtonConstants;
 import irs1318_2014Fall_robot.TuningConstants;
 import irs1318_2014Fall_robot.Common.IOperatorComponent;
-import irs1318_2014Fall_robot.Common.MultiToggleButton;
-import irs1318_2014Fall_robot.Common.SimpleTimedToggleButton;
+import irs1318_2014Fall_robot.Common.ToggleButtons.MultiToggleButton;
+import irs1318_2014Fall_robot.Common.ToggleButtons.SimpleTimedToggleButton;
 import edu.wpi.first.wpilibj.*;
 
 public class UserOperator implements IOperatorComponent

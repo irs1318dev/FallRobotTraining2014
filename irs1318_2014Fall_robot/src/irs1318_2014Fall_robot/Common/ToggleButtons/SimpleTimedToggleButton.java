@@ -1,4 +1,4 @@
-package irs1318_2014Fall_robot.Common;
+package irs1318_2014Fall_robot.Common.ToggleButtons;
 
 import edu.wpi.first.wpilibj.Timer;
 
