@@ -21,17 +21,15 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * directory.
  * 
  * 
- * 
  * General design comments:
- * We have two major types of objects:
- * - Components - describe the electronics of an object.  These can be:
- *   - Mechanism components
- *   - General Input components (e.g. Joystick)
+ * We have three types of objects:
+ * - Operator - describes the operator
+ * - Components - describe the electronics of an object and defines the abstract way to control those electronics.
  * - Controllers - define the logic that controls a mechanism given inputs/outputs.
  */
 public class ChromePearlRobot extends IterativeRobot
 {
-    // operator component (joystick, autonomous)
+    // operator component (e.g. joystick, autonomous)
     private IOperatorComponent operatorComponent;
 
     // Compressor
@@ -51,8 +49,9 @@ public class ChromePearlRobot extends IterativeRobot
     private ShooterController shooterController;
 
     /**
-     * This function is run when the robot is first started up and should be
-     * used for any initialization code.
+     * Robot-wide initialization code should go here.
+     * This default Robot-wide initialization code will be called when 
+     * the robot is first powered on.  It will be called exactly 1 time.
      */
     public void robotInit()
     {
@@ -63,6 +62,10 @@ public class ChromePearlRobot extends IterativeRobot
         this.shooterComponent = new ShooterComponent();
     }
 
+    /**
+     * Initialization code for disabled mode should go here.
+     * This code will be called each time the robot enters disabled mode.
+     */
     public void disabledInit()
     {
         if (this.operatorComponent != null)
@@ -96,6 +99,10 @@ public class ChromePearlRobot extends IterativeRobot
         }
     }
 
+    /**
+     * Initialization code for autonomous mode should go here.
+     * This code will be called each time the robot enters autonomous mode.
+     */
     public void autonomousInit()
     {
         // create autonomous operator
@@ -104,6 +111,10 @@ public class ChromePearlRobot extends IterativeRobot
         this.generalInit();
     }
 
+    /**
+     * Initialization code for teleop mode should go here.
+     * This code will be called each time the robot enters teleop mode.
+     */
     public void teleopInit()
     {
         // create input for user's joystick
@@ -112,6 +123,9 @@ public class ChromePearlRobot extends IterativeRobot
         this.generalInit();
     }
 
+    /**
+     * General initialization code for teleop/autonomous mode should go here.
+     */
     public void generalInit()
     {
         // create controllers for each mechanism
@@ -124,20 +138,35 @@ public class ChromePearlRobot extends IterativeRobot
         this.compressorController.run();
     }
 
+    /**
+     * Periodic code for disabled mode should go here.
+     * This code will be called periodically at a regular rate while the robot is in disabled mode.
+     */
     public void disabledPeriodic()
     {
     }
 
+    /**
+     * Periodic code for autonomous mode should go here.
+     * This code will be called periodically at a regular rate while the robot is in autonomous mode.
+     */
     public void autonomousPeriodic()
     {
         this.generalPeriodic();
     }
 
+    /**
+     * Periodic code for teleop mode should go here.
+     * This code will be called periodically at a regular rate while the robot is in teleop mode.
+     */
     public void teleopPeriodic()
     {
         this.generalPeriodic();
     }
 
+    /**
+     * General periodic code for teleop/autonomous mode should go here.
+     */
     public void generalPeriodic()
     {
         this.operatorComponent.tick();
@@ -147,17 +176,5 @@ public class ChromePearlRobot extends IterativeRobot
         this.driveTrainController.run();
         this.collectorController.run();
         this.shooterController.run();
-    }
-
-    public void disabledContinuous()
-    {
-    }
-
-    public void autonomousContinuous()
-    {
-    }
-
-    public void teleopContinuous()
-    {
     }
 }

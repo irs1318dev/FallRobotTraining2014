@@ -114,7 +114,7 @@ public class UserOperator implements IOperatorComponent
 
     /**
      * Get a value indicating the desired drive train X Velocity 
-     * @return value between -1.0 and 1.0
+     * @return value between -1.0 and 1.0 (percentage of max right turn velocity)
      */
     public double getDriveTrainXVelocity()
     {
@@ -123,7 +123,7 @@ public class UserOperator implements IOperatorComponent
 
     /**
      * Get a value indicating the desired drive train Y velocity (turn amount) 
-     * @return value between -1.0 and 1.0
+     * @return value between -1.0 and 1.0 (percentage of max forward velocity)
      */
     public double getDriveTrainYVelocity()
     {
