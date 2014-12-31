@@ -1,6 +1,6 @@
 package irs1318_2014Fall_robot.Common;
 
-public interface IOperatorComponent
+public interface IOperator
 {
     /**
      * Tell the operator component that some time has passed

@@ -2,21 +2,21 @@ package irs1318_2014Fall_robot.Collector;
 
 import irs1318_2014Fall_robot.TuningConstants;
 import irs1318_2014Fall_robot.Common.IController;
-import irs1318_2014Fall_robot.Common.IOperatorComponent;
+import irs1318_2014Fall_robot.Common.IOperator;
 
 public class CollectorController implements IController
 {
-    private IOperatorComponent operatorInterface;
+    private IOperator operator;
     private ICollectorComponent component;
 
     /**
      * Initializes a new CollectorController
-     * @param operatorInterface to control the collector
+     * @param operator to control the collector
      * @param component to control
      */
-    public CollectorController(IOperatorComponent operatorInterface, ICollectorComponent component)
+    public CollectorController(IOperator operator, ICollectorComponent component)
     {
-        this.operatorInterface = operatorInterface;
+        this.operator = operator;
         this.component = component;
     }
 
@@ -26,10 +26,10 @@ public class CollectorController implements IController
     public void run()
     {
         // get the various values from the user interface
-        boolean extend = this.operatorInterface.getCollectorExtendButton();
-        boolean retract = this.operatorInterface.getCollectorRetractButton();
-        boolean collect = this.operatorInterface.getCollectorCollectButton();
-        boolean expel = this.operatorInterface.getCollectorExpelButton();
+        boolean extend = this.operator.getCollectorExtendButton();
+        boolean retract = this.operator.getCollectorRetractButton();
+        boolean collect = this.operator.getCollectorCollectButton();
+        boolean expel = this.operator.getCollectorExpelButton();
 
         double collectorPower = 0.0;
         if (collect)

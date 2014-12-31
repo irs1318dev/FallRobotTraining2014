@@ -1,21 +1,21 @@
 package irs1318_2014Fall_robot.Shooter;
 
 import irs1318_2014Fall_robot.Common.IController;
-import irs1318_2014Fall_robot.Common.IOperatorComponent;
+import irs1318_2014Fall_robot.Common.IOperator;
 
 public class ShooterController implements IController
 {
-    private IOperatorComponent operatorInterface;
+    private IOperator operator;
     private ShooterComponent component;
 
     /**
      * Initializes a new ShooterController
-     * @param operatorInterface to use to operate the shooter
+     * @param operator to use to operate the shooter
      * @param component to control
      */
-    public ShooterController(IOperatorComponent operatorInterface, ShooterComponent component)
+    public ShooterController(IOperator operator, ShooterComponent component)
     {
-        this.operatorInterface = operatorInterface;
+        this.operator = operator;
         this.component = component;
     }
 
@@ -24,7 +24,7 @@ public class ShooterController implements IController
      */
     public void run()
     {
-        this.component.setShooterAngle(this.operatorInterface.getShooterAngle());
+        this.component.setShooterAngle(this.operator.getShooterAngle());
 
         boolean middle = false;
         boolean innerLeft = false;
@@ -32,9 +32,9 @@ public class ShooterController implements IController
         boolean outerLeft = false;
         boolean outerRight = false;
 
-        if (this.operatorInterface.getShooterShoot())
+        if (this.operator.getShooterShoot())
         {
-            int shooterMode = this.operatorInterface.getShooterMode();
+            int shooterMode = this.operator.getShooterMode();
             switch (shooterMode)
             {
                 case 3:

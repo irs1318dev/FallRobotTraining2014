@@ -3,7 +3,7 @@ package irs1318_2014Fall_robot;
 import irs1318_2014Fall_robot.Autonomous.AutonomousOperator;
 import irs1318_2014Fall_robot.Collector.CollectorComponent;
 import irs1318_2014Fall_robot.Collector.CollectorController;
-import irs1318_2014Fall_robot.Common.IOperatorComponent;
+import irs1318_2014Fall_robot.Common.IOperator;
 import irs1318_2014Fall_robot.Compressor.CompressorComponent;
 import irs1318_2014Fall_robot.Compressor.CompressorController;
 import irs1318_2014Fall_robot.DriveTrain.DriveTrainComponent;
@@ -29,8 +29,8 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class ChromePearlRobot extends IterativeRobot
 {
-    // operator component (e.g. joystick, autonomous)
-    private IOperatorComponent operatorComponent;
+    // Operator (e.g. joystick, autonomous)
+    private IOperator operator;
 
     // Compressor
     private CompressorComponent compressorComponent;
@@ -68,10 +68,10 @@ public class ChromePearlRobot extends IterativeRobot
      */
     public void disabledInit()
     {
-        if (this.operatorComponent != null)
+        if (this.operator != null)
         {
-            this.operatorComponent.stop();
-            this.operatorComponent = null;
+            this.operator.stop();
+            this.operator = null;
         }
 
         if (this.compressorController != null)
@@ -106,7 +106,7 @@ public class ChromePearlRobot extends IterativeRobot
     public void autonomousInit()
     {
         // create autonomous operator
-        this.operatorComponent = new AutonomousOperator(null);
+        this.operator = new AutonomousOperator(null);
         
         this.generalInit();
     }
@@ -117,8 +117,8 @@ public class ChromePearlRobot extends IterativeRobot
      */
     public void teleopInit()
     {
-        // create input for user's joystick
-        this.operatorComponent = new UserOperator();
+        // create operator for user's joystick
+        this.operator = new UserOperator();
         
         this.generalInit();
     }
@@ -130,9 +130,9 @@ public class ChromePearlRobot extends IterativeRobot
     {
         // create controllers for each mechanism
         this.compressorController = new CompressorController(this.compressorComponent);
-        this.driveTrainController = new DriveTrainController(this.operatorComponent, this.driveTrainComponent, false);
-        this.collectorController = new CollectorController(this.operatorComponent, this.collectorComponent);
-        this.shooterController = new ShooterController(this.operatorComponent, this.shooterComponent);
+        this.driveTrainController = new DriveTrainController(this.operator, this.driveTrainComponent, false);
+        this.collectorController = new CollectorController(this.operator, this.collectorComponent);
+        this.shooterController = new ShooterController(this.operator, this.shooterComponent);
 
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.run();
@@ -169,7 +169,7 @@ public class ChromePearlRobot extends IterativeRobot
      */
     public void generalPeriodic()
     {
-        this.operatorComponent.tick();
+        this.operator.tick();
 
         // run each controller
         this.compressorController.run();

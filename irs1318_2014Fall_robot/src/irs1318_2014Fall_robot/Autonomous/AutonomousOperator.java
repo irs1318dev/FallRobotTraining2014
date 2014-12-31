@@ -1,8 +1,8 @@
 package irs1318_2014Fall_robot.Autonomous;
 
-import irs1318_2014Fall_robot.Common.IOperatorComponent;
+import irs1318_2014Fall_robot.Common.IOperator;
 
-public class AutonomousOperator implements IOperatorComponent
+public class AutonomousOperator implements IOperator
 {
     private IAutonomousTask[] autonomousTasks;
     private int currentTaskPosition;

@@ -2,7 +2,7 @@ package irs1318_2014Fall_robot.DriveTrain;
 
 import irs1318_2014Fall_robot.TuningConstants;
 import irs1318_2014Fall_robot.Common.IController;
-import irs1318_2014Fall_robot.Common.IOperatorComponent;
+import irs1318_2014Fall_robot.Common.IOperator;
 import irs1318_2014Fall_robot.Common.PIDHandler;
 
 public class DriveTrainController implements IController
@@ -10,7 +10,7 @@ public class DriveTrainController implements IController
     private static final double POWERLEVEL_MIN = -1.0;
     private static final double POWERLEVEL_MAX = 1.0;
 
-    private IOperatorComponent operatorInterface;
+    private IOperator operator;
     private IDriveTrainComponent component;
 
     private boolean usePID;
@@ -20,13 +20,13 @@ public class DriveTrainController implements IController
 
     /**
      * Initializes a new DriveTrainController
-     * @param operatorInterface to use to control the drive train
+     * @param operator to use to control the drive train
      * @param component to control
      * @param usePID indicates whether we should use PID control
      */
-    public DriveTrainController(IOperatorComponent operatorInterface, IDriveTrainComponent component, boolean usePID)
+    public DriveTrainController(IOperator operator, IDriveTrainComponent component, boolean usePID)
     {
-        this.operatorInterface = operatorInterface;
+        this.operator = operator;
         this.component = component;
         this.usePID = usePID;
         this.usePositionalMode = false;
@@ -40,7 +40,7 @@ public class DriveTrainController implements IController
     public void run()
     {
         // check our desired PID mode
-        boolean newUsePositionalMode = this.operatorInterface.getDriveTrainPositionMode();
+        boolean newUsePositionalMode = this.operator.getDriveTrainPositionMode();
         if (newUsePositionalMode != this.usePositionalMode)
         {
             this.usePositionalMode = newUsePositionalMode;
@@ -132,11 +132,11 @@ public class DriveTrainController implements IController
         double rightVelocityGoal = 0.0;
 
         // get a value indicating that we should be in simple mode...
-        boolean simpleDriveModeEnabled = this.operatorInterface.getDriveTrainSimpleModeButton();
+        boolean simpleDriveModeEnabled = this.operator.getDriveTrainSimpleModeButton();
 
         // get the X and Y values from the user interface
-        double xVelocity = this.operatorInterface.getDriveTrainXVelocity();
-        double yVelocity = this.operatorInterface.getDriveTrainYVelocity();
+        double xVelocity = this.operator.getDriveTrainXVelocity();
+        double yVelocity = this.operator.getDriveTrainYVelocity();
 
         // adjust the intensity of the input
         xVelocity = this.adjustIntensity(xVelocity);
