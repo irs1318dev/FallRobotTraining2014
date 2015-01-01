@@ -1,9 +1,25 @@
 package irs1318_2014Fall_robot.Autonomous;
 
 import irs1318_2014Fall_robot.Common.IOperator;
+import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 
 public class AutonomousOperator implements IOperator
 {
+    // logging constants
+    private static final String COLLECTOR_EXTEND_LOG_KEY = "a.cxt";
+    private static final String COLLECTOR_RETRACT_LOG_KEY = "a.cr";
+    private static final String COLLECTOR_COLLECT_LOG_KEY = "a.cc";
+    private static final String COLLECTOR_EXPEL_LOG_KEY = "a.cxp";
+    private static final String SHOOTER_ANGLE_LOG_KEY = "a.sa";
+    private static final String SHOOTER_MODE_LOG_KEY = "a.sm";
+    private static final String SHOOTER_SHOOT_LOG_KEY = "a.ss";
+    private static final String DRIVETRAIN_X_VELOCITY_LOG_KEY = "a.dxv";
+    private static final String DRIVETRAIN_Y_VELOCITY_LOG_KEY = "a.dyv";
+    private static final String DRIVETRAIN_SIMPLE_MODE_LOG_KEY = "a.dsm";
+    private static final String DRIVETRAIN_LEFT_POSITION_LOG_KEY = "a.dlp";
+    private static final String DRIVETRAIN_RIGHT_POSITION_LOG_KEY = "a.drp";
+    private static final String DRIVETRAIN_POSITION_MODE_LOG_KEY = "a.dpm";
+
     private IAutonomousTask[] autonomousTasks;
     private int currentTaskPosition;
     private IAutonomousTask currentTask;
@@ -70,7 +86,11 @@ public class AutonomousOperator implements IOperator
      */
     public boolean getCollectorExtendButton()
     {
-        return this.controlData.getCollectorExtend();
+        boolean collectorExtend = this.controlData.getCollectorExtend();
+
+        SmartDashboardLogger.putBoolean(AutonomousOperator.COLLECTOR_EXTEND_LOG_KEY, collectorExtend);
+
+        return collectorExtend;
     }
 
     /**
@@ -79,7 +99,11 @@ public class AutonomousOperator implements IOperator
      */
     public boolean getCollectorRetractButton()
     {
-        return this.controlData.getCollectorRetract();
+        boolean collectorRetract = this.controlData.getCollectorRetract();
+
+        SmartDashboardLogger.putBoolean(AutonomousOperator.COLLECTOR_RETRACT_LOG_KEY, collectorRetract);
+
+        return collectorRetract;
     }
 
     /**
@@ -88,7 +112,11 @@ public class AutonomousOperator implements IOperator
      */
     public boolean getCollectorCollectButton()
     {
-        return this.controlData.getCollectorCollect();
+        boolean collectorCollect = this.controlData.getCollectorCollect();
+
+        SmartDashboardLogger.putBoolean(AutonomousOperator.COLLECTOR_COLLECT_LOG_KEY, collectorCollect);
+
+        return collectorCollect;
     }
 
     /**
@@ -97,7 +125,11 @@ public class AutonomousOperator implements IOperator
      */
     public boolean getCollectorExpelButton()
     {
-        return this.controlData.getCollectorExpel();
+        boolean collectorExpel = this.controlData.getCollectorExpel();
+
+        SmartDashboardLogger.putBoolean(AutonomousOperator.COLLECTOR_EXPEL_LOG_KEY, collectorExpel);
+
+        return collectorExpel;
     }
 
     /**
@@ -106,7 +138,11 @@ public class AutonomousOperator implements IOperator
      */
     public boolean getShooterAngle()
     {
-        return this.controlData.getShooterAngle();
+        boolean shooterAngle = this.controlData.getShooterAngle();
+
+        SmartDashboardLogger.putBoolean(AutonomousOperator.SHOOTER_ANGLE_LOG_KEY, shooterAngle);
+
+        return shooterAngle;
     }
 
     /**
@@ -115,7 +151,11 @@ public class AutonomousOperator implements IOperator
      */
     public int getShooterMode()
     {
-        return this.controlData.getShooterMode();
+        int shooterMode = this.controlData.getShooterMode();
+
+        SmartDashboardLogger.putNumber(AutonomousOperator.SHOOTER_MODE_LOG_KEY, shooterMode);
+
+        return shooterMode;
     }
 
     /**
@@ -124,7 +164,11 @@ public class AutonomousOperator implements IOperator
      */
     public boolean getShooterShoot()
     {
-        return this.controlData.getShooterShoot();
+        boolean shooterShoot = this.controlData.getShooterShoot();
+
+        SmartDashboardLogger.putBoolean(AutonomousOperator.SHOOTER_SHOOT_LOG_KEY, shooterShoot);
+
+        return shooterShoot;
     }
 
     /**
@@ -133,7 +177,11 @@ public class AutonomousOperator implements IOperator
      */
     public double getDriveTrainXVelocity()
     {
-        return this.controlData.getDriveTrainXVelocity();
+        double xVelocity = this.controlData.getDriveTrainXVelocity();
+
+        SmartDashboardLogger.putNumber(AutonomousOperator.DRIVETRAIN_X_VELOCITY_LOG_KEY, xVelocity);
+
+        return xVelocity;
     }
 
     /**
@@ -142,7 +190,11 @@ public class AutonomousOperator implements IOperator
      */
     public double getDriveTrainYVelocity()
     {
-        return this.controlData.getDriveTrainYVelocity();
+        double yVelocity = this.controlData.getDriveTrainYVelocity();
+
+        SmartDashboardLogger.putNumber(AutonomousOperator.DRIVETRAIN_Y_VELOCITY_LOG_KEY, yVelocity);
+
+        return yVelocity;
     }
 
     /**
@@ -151,7 +203,11 @@ public class AutonomousOperator implements IOperator
      */
     public boolean getDriveTrainSimpleModeButton()
     {
-        return this.controlData.getDriveTrainSimpleMode();
+        boolean simpleMode = this.controlData.getDriveTrainSimpleMode();
+
+        SmartDashboardLogger.putBoolean(AutonomousOperator.DRIVETRAIN_SIMPLE_MODE_LOG_KEY, simpleMode);
+
+        return simpleMode;
     }
 
     /**
@@ -160,7 +216,11 @@ public class AutonomousOperator implements IOperator
      */
     public double getDriveTrainLeftPosition()
     {
-        return this.controlData.getDriveTrainLeftPosition();
+        double leftPosition = this.controlData.getDriveTrainLeftPosition();
+
+        SmartDashboardLogger.putNumber(AutonomousOperator.DRIVETRAIN_LEFT_POSITION_LOG_KEY, leftPosition);
+
+        return leftPosition;
     }
 
     /**
@@ -169,7 +229,11 @@ public class AutonomousOperator implements IOperator
      */
     public double getDriveTrainRightPosition()
     {
-        return this.controlData.getDriveTrainRightPosition();
+        double rightPosition = this.controlData.getDriveTrainRightPosition();
+
+        SmartDashboardLogger.putNumber(AutonomousOperator.DRIVETRAIN_RIGHT_POSITION_LOG_KEY, rightPosition);
+
+        return rightPosition;
     }
 
     /**
@@ -178,7 +242,11 @@ public class AutonomousOperator implements IOperator
      */
     public boolean getDriveTrainPositionMode()
     {
-        return this.controlData.getDriveTrainPositionMode();
+        boolean positionMode = this.controlData.getDriveTrainPositionMode();
+
+        SmartDashboardLogger.putBoolean(AutonomousOperator.DRIVETRAIN_POSITION_MODE_LOG_KEY, positionMode);
+
+        return positionMode;
     }
 
     private void validateAutonomousTasks()
