@@ -11,7 +11,7 @@ public abstract class TimedAutonomousTask implements IAutonomousTask
 
     /**
      * Initializes a new TimedAutonomousTask
-     * @param duration to perform the task
+     * @param duration to perform the task in seconds
      */
     protected TimedAutonomousTask(double duration)
     {

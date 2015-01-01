@@ -9,7 +9,7 @@ public class DriveAutonomousTask extends MoveAutonomousTaskBase implements IAuto
 
     /**
      * Initializes a new DriveAutonomousTask
-     * @param distance from the current location to move (positive => move forward, negative => move backwards)
+     * @param distance from the current location to move (positive => move forward, negative => move backwards) in centimeters
      * @param driveTrain component to use to detect our current position
      */
     public DriveAutonomousTask(double distance, IDriveTrainComponent driveTrain)

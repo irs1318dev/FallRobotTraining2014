@@ -8,7 +8,7 @@ public class WaitAutonomousTask extends TimedAutonomousTask implements IAutonomo
 {
     /**
      * Initializes a new WaitAutonomousTask
-     * @param duration to wait
+     * @param duration to wait in seconds
      */
     public WaitAutonomousTask(double duration)
     {

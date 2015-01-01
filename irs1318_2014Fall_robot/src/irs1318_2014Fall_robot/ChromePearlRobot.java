@@ -1,6 +1,10 @@
 package irs1318_2014Fall_robot;
 
 import irs1318_2014Fall_robot.Autonomous.AutonomousOperator;
+import irs1318_2014Fall_robot.Autonomous.IAutonomousTask;
+import irs1318_2014Fall_robot.Autonomous.Tasks.DriveAutonomousTask;
+import irs1318_2014Fall_robot.Autonomous.Tasks.TurnAutonomousTask;
+import irs1318_2014Fall_robot.Autonomous.Tasks.WaitAutonomousTask;
 import irs1318_2014Fall_robot.Collector.CollectorComponent;
 import irs1318_2014Fall_robot.Collector.CollectorController;
 import irs1318_2014Fall_robot.Common.IOperator;
@@ -118,7 +122,23 @@ public class ChromePearlRobot extends IterativeRobot
     public void autonomousInit()
     {
         // create autonomous operator
-        this.operator = new AutonomousOperator(null);
+        this.operator = new AutonomousOperator(
+            // drive in a square:
+            new IAutonomousTask[]
+            {
+                new DriveAutonomousTask(600, this.driveTrainComponent),
+                new WaitAutonomousTask(5),
+                new TurnAutonomousTask(90, this.driveTrainComponent),
+                new DriveAutonomousTask(600, this.driveTrainComponent),
+                new WaitAutonomousTask(5),
+                new TurnAutonomousTask(90, this.driveTrainComponent),
+                new DriveAutonomousTask(600, this.driveTrainComponent),
+                new WaitAutonomousTask(5),
+                new TurnAutonomousTask(90, this.driveTrainComponent),
+                new DriveAutonomousTask(600, this.driveTrainComponent),
+                new WaitAutonomousTask(5),
+                new TurnAutonomousTask(90, this.driveTrainComponent),
+            });
 
         this.generalInit();
 
