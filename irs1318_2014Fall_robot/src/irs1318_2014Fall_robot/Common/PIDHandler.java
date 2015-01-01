@@ -3,13 +3,11 @@ package irs1318_2014Fall_robot.Common;
 import edu.wpi.first.wpilibj.Timer;
 
 /**
- * This class is a PID handler with a feed-forward handler that uses the
- * setpoint as input.
+ * This class is a PID handler with a feed-forward handler.
  * 
  * To use PID control:
- *      set the setpoint
- *      feed input values regularly
- *      use output values 
+ *      set the kp/ki/kd/kf tuning values
+ *      calculate based on the setpoint and measured value regularly
  * 
  * for reference:
  *      http://en.wikipedia.org/wiki/PID_controller
@@ -22,16 +20,14 @@ public class PIDHandler
 {
     // constants
     private static final double MinTimeStep = .001;
-    //private static final double MinOutput = -1.0; // $TODO: implement
-    //private static final double MaxOutput = 1.0; // $TODO: implement
+    private final Double minOutput;
+    private final Double maxOutput;
 
     // instance constants
     private final double kp;        // proportion for proportional
     private final double ki;        // proportion for integral
     private final double kd;        // proportion for derivative
     private final double kf;        // proportion for feed-forward
-    // private double kFade;        // $TODO: figure out Fade
-    // private double kScale;       // $TODO: figure out Scale
 
     // instance variables
     private double setpoint = 0.0;      // the input, desired value for
@@ -55,14 +51,19 @@ public class PIDHandler
      * @param ki scalar for integral component
      * @param kd scalar for derivative component
      * @param kf scalar for feed-forward control
+     * @param minOutput indicates the minimum output value acceptable, or null
+     * @param maxOutput indicates the maximum output value acceptable, or null
      */
-    public PIDHandler(double kp, double ki, double kd, double kf)
+    public PIDHandler(double kp, double ki, double kd, double kf, Double minOutput, Double maxOutput)
     {
         this.ki = ki;
         this.kd = kd;
         this.kp = kp;
         this.kf = kf;
-        
+
+        this.minOutput = minOutput;
+        this.maxOutput = maxOutput;
+
         this.timer = new Timer();
         this.timer.start();
         this.prevTime = this.timer.get();
@@ -70,8 +71,8 @@ public class PIDHandler
 
     /**
      * Calculate the desired output value based on the history, setpoint, and measured value.
-     * measuredValue should be in the same unit as the setpoint.  this method should be
-     * called in a loop and fed feedback data and setpoint changes
+     * measuredValue should be in the same unit as the setpoint, basically a positive or negative percentage 
+     * between -1 and 1.  This method should be called in a loop and fed feedback data and setpoint changes
      * 
      * @param setpoint describes the goal value
      * @param measuredValue describes the measured value
@@ -94,9 +95,20 @@ public class PIDHandler
             // this.error = this.setpoint * this.kScale - this.measuredValue;
             this.error = this.setpoint - this.measuredValue;
 
-            // calculate integral
-            // this.integral *= this.kFade;
-            this.integral += this.error * this.dt;
+            // calculate integral, limiting it based on MaxOutput/MinOutput
+            double potentialI = this.ki * (this.integral + this.error * this.dt);
+            if (this.maxOutput != null && potentialI > this.maxOutput)
+            {
+                this.integral = this.maxOutput / this.ki;
+            }
+            else if (this.minOutput != null && potentialI < this.minOutput)
+            {
+                this.integral = this.minOutput / this.ki;
+            }
+            else
+            {
+                this.integral += this.error * this.dt;
+            }
 
             // calculate derivative
             this.derivative = (this.error - this.prevError) / this.dt;
@@ -104,11 +116,22 @@ public class PIDHandler
             // store error
             this.prevError = this.error;
 
-            this.output =
+            double result =
                     this.kp * this.error +      // proportional
                     this.ki * this.integral +   // integral
                     this.kd * this.derivative + // derivative
                     this.kf * this.setpoint;    // feed-forward
+
+            if (this.maxOutput != null && result > this.maxOutput)
+            {
+                result = this.maxOutput;
+            }
+            else if (this.minOutput != null && result < this.minOutput)
+            {
+                result = this.minOutput;
+            }
+
+            this.output = result;
         }
     }
 

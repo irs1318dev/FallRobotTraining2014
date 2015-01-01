@@ -165,7 +165,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockOperator(0.0, 1.0, false),
-            new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_SPEED, TuningConstants.DRIVETRAIN_MAX_SPEED),
+            new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
         controller.run();
@@ -176,7 +176,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockOperator(0.0, -1.0, false),
-            new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_SPEED, -TuningConstants.DRIVETRAIN_MAX_SPEED),
+            new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, -TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
         controller.run();
@@ -187,7 +187,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockOperator(1.0, 1.0, false),
-            new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_SPEED, TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_SPEED),
+            new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
         controller.run();
@@ -198,7 +198,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockOperator(-1.0, 1.0, false),
-            new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_SPEED, TuningConstants.DRIVETRAIN_MAX_SPEED),
+            new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
         controller.run();
@@ -209,7 +209,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockOperator(1.0, -1.0, false),
-            new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_SPEED, -TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_SPEED),
+            new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, -TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
         controller.run();
@@ -220,7 +220,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockOperator(-1.0, -1.0, false),
-            new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_SPEED, -TuningConstants.DRIVETRAIN_MAX_SPEED),
+            new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, -TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
         controller.run();
@@ -231,7 +231,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockOperator(1.0, 0.0, false),
-            new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_SPEED, -TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_SPEED),
+            new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, -TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
         controller.run();
@@ -242,7 +242,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockOperator(-1.0, 0.0, false),
-            new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_SPEED, TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_SPEED),
+            new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
         controller.run();
@@ -253,7 +253,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockOperator(0.2, 1.0, true),
-            new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_SPEED, TuningConstants.DRIVETRAIN_MAX_SPEED),
+            new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
         controller.run();
@@ -264,7 +264,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockOperator(0.2, -1.0, true),
-            new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_SPEED, -TuningConstants.DRIVETRAIN_MAX_SPEED),
+            new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, -TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
         controller.run();
@@ -275,7 +275,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockOperator(1.0, 0.2, true),
-            new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_SPEED, -TuningConstants.DRIVETRAIN_MAX_SPEED),
+            new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, -TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
         controller.run();
@@ -286,7 +286,7 @@ public class DriveTrainTests
     {
         DriveTrainController controller = new DriveTrainController(
             new MockOperator(-1.0, 0.2, true),
-            new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_SPEED, TuningConstants.DRIVETRAIN_MAX_SPEED),
+            new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
         controller.run();

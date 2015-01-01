@@ -97,13 +97,17 @@ public class DriveTrainController implements IController
                     TuningConstants.DRIVETRAIN_POSITION_PID_LEFT_KP,
                     TuningConstants.DRIVETRAIN_POSITION_PID_LEFT_KI,
                     TuningConstants.DRIVETRAIN_POSITION_PID_LEFT_KD,
-                    TuningConstants.DRIVETRAIN_POSITION_PID_LEFT_KF);
+                    TuningConstants.DRIVETRAIN_POSITION_PID_LEFT_KF,
+                    null,
+                    null);
 
                 this.rightPID = new PIDHandler(
                     TuningConstants.DRIVETRAIN_POSITION_PID_RIGHT_KP,
                     TuningConstants.DRIVETRAIN_POSITION_PID_RIGHT_KI,
                     TuningConstants.DRIVETRAIN_POSITION_PID_RIGHT_KD,
-                    TuningConstants.DRIVETRAIN_POSITION_PID_RIGHT_KF);
+                    TuningConstants.DRIVETRAIN_POSITION_PID_RIGHT_KF,
+                    null,
+                    null);
             }
             else
             {
@@ -111,13 +115,17 @@ public class DriveTrainController implements IController
                     TuningConstants.DRIVETRAIN_VELOCITY_PID_LEFT_KP,
                     TuningConstants.DRIVETRAIN_VELOCITY_PID_LEFT_KI,
                     TuningConstants.DRIVETRAIN_VELOCITY_PID_LEFT_KD,
-                    TuningConstants.DRIVETRAIN_VELOCITY_PID_LEFT_KF);
+                    TuningConstants.DRIVETRAIN_VELOCITY_PID_LEFT_KF,
+                    DriveTrainController.POWERLEVEL_MIN,
+                    DriveTrainController.POWERLEVEL_MAX);
 
                 this.rightPID = new PIDHandler(
                     TuningConstants.DRIVETRAIN_VELOCITY_PID_RIGHT_KP,
                     TuningConstants.DRIVETRAIN_VELOCITY_PID_RIGHT_KI,
                     TuningConstants.DRIVETRAIN_VELOCITY_PID_RIGHT_KD,
-                    TuningConstants.DRIVETRAIN_VELOCITY_PID_RIGHT_KF);
+                    TuningConstants.DRIVETRAIN_VELOCITY_PID_RIGHT_KF,
+                    DriveTrainController.POWERLEVEL_MIN,
+                    DriveTrainController.POWERLEVEL_MAX);
             }
         }
     }
@@ -128,13 +136,15 @@ public class DriveTrainController implements IController
      */
     private PowerSetting calculateVelocityModePowerSetting()
     {
+        // velocity goals represent the desired percentage of the max velocity
         double leftVelocityGoal = 0.0;
         double rightVelocityGoal = 0.0;
 
         // get a value indicating that we should be in simple mode...
         boolean simpleDriveModeEnabled = this.operator.getDriveTrainSimpleModeButton();
 
-        // get the X and Y values from the user interface
+        // get the X and Y values from the operator.  We expect these to be between -1.0 and 1.0,
+        // with this value representing the forward velocity percentage and right turn percentage (of max speed)
         double xVelocity = this.operator.getDriveTrainXVelocity();
         double yVelocity = this.operator.getDriveTrainYVelocity();
 
@@ -248,18 +258,18 @@ public class DriveTrainController implements IController
         this.assertPowerLevelRange(leftVelocityGoal, "left velocity (goal)");
         this.assertPowerLevelRange(rightVelocityGoal, "right velocity (goal)");
 
-        // decrease the velocity based on the configured max speed
-        leftVelocityGoal = leftVelocityGoal * TuningConstants.DRIVETRAIN_MAX_SPEED;
-        rightVelocityGoal = rightVelocityGoal * TuningConstants.DRIVETRAIN_MAX_SPEED;
+        // decrease the desired velocity based on the configured max power level
+        leftVelocityGoal = leftVelocityGoal * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL;
+        rightVelocityGoal = rightVelocityGoal * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL;
 
         // convert velocity goal to power level...
         double leftPower;
         double rightPower;
         if (this.usePID)
         {
-            this.leftPID.calculate(leftVelocityGoal, this.component.getLeftEncoderVelocity());
-            this.rightPID.calculate(rightVelocityGoal, this.component.getLeftEncoderVelocity());
-            
+            this.leftPID.calculate(leftVelocityGoal, this.component.getLeftEncoderVelocity() / TuningConstants.DRIVETRAIN_LEFT_ENCODER_MAX_SPEED);
+            this.rightPID.calculate(rightVelocityGoal, this.component.getRightEncoderVelocity() / TuningConstants.DRIVETRAIN_RIGHT_ENCODER_MAX_SPEED);
+
             leftPower = this.leftPID.getOutput();
             rightPower = this.rightPID.getOutput();
         }
@@ -268,6 +278,11 @@ public class DriveTrainController implements IController
             leftPower = leftVelocityGoal;
             rightPower = rightVelocityGoal;
         }
+
+        // ensure that our algorithms are correct and don't give values outside
+        // the appropriate range
+        this.assertPowerLevelRange(leftPower, "left velocity (goal)");
+        this.assertPowerLevelRange(rightPower, "right velocity (goal)");
 
         return new PowerSetting(leftPower, rightPower);
     }
@@ -278,8 +293,29 @@ public class DriveTrainController implements IController
      */
     private PowerSetting calculatePositionModePowerSetting()
     {
-        // TODO: figure out calculation...
-        return new PowerSetting(0.0, 0.0);
+        // get the desired left and right values from the operator.
+        double leftPosition = this.operator.getDriveTrainLeftPosition();
+        double rightPosition = this.operator.getDriveTrainRightPosition();
+
+        this.leftPID.calculate(leftPosition, this.component.getLeftEncoderDistance());
+        this.rightPID.calculate(rightPosition, this.component.getRightEncoderDistance());
+
+        // result represents the distance we want to travel
+        double leftResult = this.leftPID.getOutput();
+        double rightResult = this.rightPID.getOutput();
+
+        // use power setting based on:
+        // desiredTravelDistance (centimeters) / (maxMeasurableSpeed (centimeters/second))
+        // equals seconds we will need to travel
+        double leftSeconds = leftResult / TuningConstants.DRIVETRAIN_LEFT_ENCODER_MAX_SPEED;
+        double rightSeconds = rightResult / TuningConstants.DRIVETRAIN_RIGHT_ENCODER_MAX_SPEED;
+
+        double leftPower = this.applyPowerLevelRange(leftSeconds);
+        double rightPower = this.applyPowerLevelRange(rightSeconds);
+
+        return new PowerSetting(
+            TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL * leftPower,
+            TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL * rightPower);
     }
 
     /**
@@ -298,6 +334,26 @@ public class DriveTrainController implements IController
         {
             throw new RuntimeException(side + " power level too high!");
         }
+    }
+
+    /**
+     * Reset the power level to be within the required range
+     * @param powerLevel to reset
+     * @return power level
+     */
+    private double applyPowerLevelRange(double powerLevel)
+    {
+        if (powerLevel < DriveTrainController.POWERLEVEL_MIN)
+        {
+            return DriveTrainController.POWERLEVEL_MIN;
+        }
+
+        if (powerLevel > DriveTrainController.POWERLEVEL_MAX)
+        {
+            return DriveTrainController.POWERLEVEL_MAX;
+        }
+
+        return powerLevel;
     }
 
     /**
