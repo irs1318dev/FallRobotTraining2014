@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.*;
 
 public class DriveTrainComponent implements IDriveTrainComponent
 {
+    // logging constants
     public static final String LEFT_TALON_POWER_LOG_KEY = "dt.re";
     public static final String RIGHT_TALON_POWER_LOG_KEY = "dt.le";
     public static final String LEFT_ENCODER_VELOCITY_LOG_KEY = "dt.lev";

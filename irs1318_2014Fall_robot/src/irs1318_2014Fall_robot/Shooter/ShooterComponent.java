@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class ShooterComponent
 {
+    // logging constants
     private static final String SHOOT_LOG_KEY = "s.se";
     private static final String ANGLE_LOG_KEY = "s.ae";
 
