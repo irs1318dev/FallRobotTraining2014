@@ -1,11 +1,15 @@
 package irs1318_2014Fall_robot.Shooter;
 
 import irs1318_2014Fall_robot.ElectronicsConstants;
+import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
 public class ShooterComponent
 {
+    private static final String SHOOT_LOG_KEY = "s.se";
+    private static final String ANGLE_LOG_KEY = "s.ae";
+
     private DoubleSolenoid shooterAngle;
     private DoubleSolenoid middlePiston;
     private DoubleSolenoid innerLeftPiston;
@@ -50,7 +54,7 @@ public class ShooterComponent
     }
 
     /**
-     * Set shooter solenoids to forward (true) or reverse (false)
+     * Set shooter solenoids to forward (true, shoot) or reverse (false, end shot)
      * @param middle solenoid choice
      * @param innerLeft solenoid choice
      * @param innerRight solenoid choice
@@ -64,6 +68,9 @@ public class ShooterComponent
         this.innerRightPiston.set(innerRight ? Value.kForward : Value.kReverse);
         this.outerLeftPiston.set(outerLeft ? Value.kForward : Value.kReverse);
         this.outerRightPiston.set(outerRight ? Value.kForward : Value.kReverse);
+
+        boolean shooting = middle || innerLeft || innerRight || outerLeft || outerRight;
+        SmartDashboardLogger.putBoolean(ShooterComponent.SHOOT_LOG_KEY, shooting);
     }
 
     /**
@@ -73,5 +80,7 @@ public class ShooterComponent
     public void setShooterAngle(boolean extend)
     {
         this.shooterAngle.set(extend ? Value.kForward : Value.kReverse);
+
+        SmartDashboardLogger.putBoolean(ShooterComponent.ANGLE_LOG_KEY, extend);
     }
 }

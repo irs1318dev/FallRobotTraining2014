@@ -1,10 +1,17 @@
 package irs1318_2014Fall_robot.Collector;
 
 import irs1318_2014Fall_robot.ElectronicsConstants;
+import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 import edu.wpi.first.wpilibj.*;
 
 public class CollectorComponent implements ICollectorComponent
 {
+    // logging constants
+    private static final String BALL_PRESENT_LOG_KEY = "cl.bp";
+    private static final String COLLECT_POWER_LOG_KEY = "cl.ms";
+    private static final String EXTEND_LOG_KEY = "cl.es";
+    private static final String RETRACT_LOG_KEY = "cl.rs";
+
     private Talon collectorTalon;
     private DoubleSolenoid collectorSolenoid;
     private DigitalInput collectorLimitSwitch;
@@ -34,8 +41,11 @@ public class CollectorComponent implements ICollectorComponent
      */
     public boolean readLimitSwitch()
     {
-        // note: this wasn't really used last year except possibly for the "SmartDash"
-        return this.collectorLimitSwitch.get();
+        boolean ballPresent = this.collectorLimitSwitch.get();
+
+        SmartDashboardLogger.putBoolean(CollectorComponent.BALL_PRESENT_LOG_KEY, ballPresent);
+
+        return ballPresent;
     }
 
     /**
@@ -60,5 +70,9 @@ public class CollectorComponent implements ICollectorComponent
         }
 
         this.collectorTalon.set(collectorPower);
+
+        SmartDashboardLogger.putNumber(CollectorComponent.COLLECT_POWER_LOG_KEY, collectorPower);
+        SmartDashboardLogger.putBoolean(CollectorComponent.EXTEND_LOG_KEY, extend);
+        SmartDashboardLogger.putBoolean(CollectorComponent.RETRACT_LOG_KEY, retract);
     }
 }

@@ -42,6 +42,9 @@ public class CollectorController implements IController
         }
 
         this.component.setCollector(extend, retract, collectorPower);
+
+        // this is never called except for logging...  so, call it here:
+        this.component.readLimitSwitch();
     }
 
     /**

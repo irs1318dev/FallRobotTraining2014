@@ -2,10 +2,18 @@ package irs1318_2014Fall_robot.DriveTrain;
 
 import irs1318_2014Fall_robot.ElectronicsConstants;
 import irs1318_2014Fall_robot.HardwareConstants;
+import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 import edu.wpi.first.wpilibj.*;
 
 public class DriveTrainComponent implements IDriveTrainComponent
 {
+    public static final String LEFT_TALON_POWER_LOG_KEY = "dt.re";
+    public static final String RIGHT_TALON_POWER_LOG_KEY = "dt.le";
+    public static final String LEFT_ENCODER_VELOCITY_LOG_KEY = "dt.lev";
+    public static final String RIGHT_ENCODER_VELOCITY_LOG_KEY = "dt.rev";
+    public static final String LEFT_ENCODER_DISTANCE_LOG_KEY = "dt.led";
+    public static final String RIGHT_ENCODER_DISTANCE_LOG_KEY = "dt.red";
+
     private Talon leftTalon;
     private Talon rightTalon;
 
@@ -50,6 +58,9 @@ public class DriveTrainComponent implements IDriveTrainComponent
     {
         this.leftTalon.set(-leftPower); // note: left motors are oriented facing "backwards"
         this.rightTalon.set(rightPower);
+
+        SmartDashboardLogger.putNumber(DriveTrainComponent.LEFT_TALON_POWER_LOG_KEY, leftPower);
+        SmartDashboardLogger.putNumber(DriveTrainComponent.RIGHT_TALON_POWER_LOG_KEY, rightPower);
     }
 
     /**
@@ -58,7 +69,11 @@ public class DriveTrainComponent implements IDriveTrainComponent
      */
     public double getLeftEncoderVelocity()
     {
-        return this.leftEncoder.getRate();
+        double leftRate = this.leftEncoder.getRate();
+
+        SmartDashboardLogger.putNumber(DriveTrainComponent.LEFT_ENCODER_VELOCITY_LOG_KEY, leftRate);
+
+        return leftRate;
     }
 
     /**
@@ -67,7 +82,11 @@ public class DriveTrainComponent implements IDriveTrainComponent
      */
     public double getRightEncoderVelocity()
     {
-        return this.rightEncoder.getRate();
+        double rightRate = this.rightEncoder.getRate();
+
+        SmartDashboardLogger.putNumber(DriveTrainComponent.RIGHT_ENCODER_VELOCITY_LOG_KEY, rightRate);
+
+        return rightRate;
     }
 
     /**
@@ -76,7 +95,11 @@ public class DriveTrainComponent implements IDriveTrainComponent
      */
     public double getLeftEncoderDistance()
     {
-        return this.leftEncoder.getDistance();
+        double leftDistance = this.leftEncoder.getDistance(); 
+
+        SmartDashboardLogger.putNumber(DriveTrainComponent.LEFT_ENCODER_DISTANCE_LOG_KEY, leftDistance);
+
+        return leftDistance;
     }
 
     /**
@@ -85,6 +108,10 @@ public class DriveTrainComponent implements IDriveTrainComponent
      */
     public double getRightEncoderDistance()
     {
-        return this.leftEncoder.getDistance();
+        double rightDistance = this.rightEncoder.getDistance(); 
+
+        SmartDashboardLogger.putNumber(DriveTrainComponent.RIGHT_ENCODER_DISTANCE_LOG_KEY, rightDistance);
+
+        return rightDistance;
     }
 }

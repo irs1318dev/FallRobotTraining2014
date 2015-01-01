@@ -11,6 +11,7 @@ import irs1318_2014Fall_robot.DriveTrain.DriveTrainController;
 import irs1318_2014Fall_robot.Shooter.ShooterComponent;
 import irs1318_2014Fall_robot.Shooter.ShooterController;
 import irs1318_2014Fall_robot.UserInterface.UserOperator;
+import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
@@ -29,6 +30,9 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  */
 public class ChromePearlRobot extends IterativeRobot
 {
+    // logging constants
+    private static final String ROBOT_STATE_LOG_KEY = "r.s";
+
     // Operator (e.g. joystick, autonomous)
     private IOperator operator;
 
@@ -60,6 +64,8 @@ public class ChromePearlRobot extends IterativeRobot
         this.driveTrainComponent = new DriveTrainComponent();
         this.collectorComponent = new CollectorComponent();
         this.shooterComponent = new ShooterComponent();
+
+        SmartDashboardLogger.putString(ChromePearlRobot.ROBOT_STATE_LOG_KEY, "Init");
     }
 
     /**
@@ -97,6 +103,8 @@ public class ChromePearlRobot extends IterativeRobot
             this.shooterController.stop();
             this.shooterController = null;
         }
+
+        SmartDashboardLogger.putString(ChromePearlRobot.ROBOT_STATE_LOG_KEY, "Disabled");
     }
 
     /**
@@ -109,6 +117,8 @@ public class ChromePearlRobot extends IterativeRobot
         this.operator = new AutonomousOperator(null);
         
         this.generalInit();
+
+        SmartDashboardLogger.putString(ChromePearlRobot.ROBOT_STATE_LOG_KEY, "Autonomous");
     }
 
     /**
@@ -121,6 +131,8 @@ public class ChromePearlRobot extends IterativeRobot
         this.operator = new UserOperator();
         
         this.generalInit();
+
+        SmartDashboardLogger.putString(ChromePearlRobot.ROBOT_STATE_LOG_KEY, "Teleop");
     }
 
     /**

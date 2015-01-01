@@ -1,10 +1,15 @@
 package irs1318_2014Fall_robot.Compressor;
 
 import irs1318_2014Fall_robot.ElectronicsConstants;
+import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 import edu.wpi.first.wpilibj.*;
 
 public class CompressorComponent
 {
+    // logging constants
+    private static final String RUNNING_LOG_KEY = "cm.r";
+    private static final String PSI_LOG_KEY = "cm.p";
+
     private Compressor compressor;
     private AnalogChannel analogPressureSensor;
 
@@ -30,6 +35,8 @@ public class CompressorComponent
     public void start()
     {
         this.compressor.start();
+
+        SmartDashboardLogger.putBoolean(CompressorComponent.RUNNING_LOG_KEY, true);
     }
 
     /**
@@ -38,6 +45,8 @@ public class CompressorComponent
     public void stop()
     {
         this.compressor.stop();
+
+        SmartDashboardLogger.putBoolean(CompressorComponent.RUNNING_LOG_KEY, false);
     }
 
     /**
@@ -46,6 +55,10 @@ public class CompressorComponent
      */
     public double getPSI()
     {
-        return this.analogPressureSensor.getVoltage() * (ElectronicsConstants.COMPRESSOR_MAX_PSI / ElectronicsConstants.COMPRESSOR_MAX_VOLTAGE);
+        double psi = this.analogPressureSensor.getVoltage() * (ElectronicsConstants.COMPRESSOR_MAX_PSI / ElectronicsConstants.COMPRESSOR_MAX_VOLTAGE);
+
+        SmartDashboardLogger.putNumber(CompressorComponent.PSI_LOG_KEY, psi);
+
+        return psi;
     }
 }
