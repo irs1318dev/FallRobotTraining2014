@@ -15,18 +15,22 @@ import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
 /**
+ * Main class for the FRC 2014 Robot for IRS1318 - The Chrome Pearl
+ * 
+ * 
  * The VM is configured to automatically run this class, and to call the
  * functions corresponding to each mode, as described in the IterativeRobot
- * documentation. If you change the name of this class or the package after
- * creating this project, you must also update the manifest file in the resource
- * directory.
+ * documentation. If you change the name of this class or the package, you
+ * must also update the manifest file in the resource directory.
  * 
  * 
  * General design comments:
  * We have three types of objects:
- * - Operator - describes the operator
+ * - Operator - describes the operator ("autonomous" or "user")
  * - Components - describe the electronics of an object and defines the abstract way to control those electronics.
  * - Controllers - define the logic that controls a mechanism given inputs/outputs.
+ * 
+ * @author Will
  */
 public class ChromePearlRobot extends IterativeRobot
 {
@@ -115,7 +119,7 @@ public class ChromePearlRobot extends IterativeRobot
     {
         // create autonomous operator
         this.operator = new AutonomousOperator(null);
-        
+
         this.generalInit();
 
         SmartDashboardLogger.putString(ChromePearlRobot.ROBOT_STATE_LOG_KEY, "Autonomous");
@@ -129,7 +133,7 @@ public class ChromePearlRobot extends IterativeRobot
     {
         // create operator for user's joystick
         this.operator = new UserOperator();
-        
+
         this.generalInit();
 
         SmartDashboardLogger.putString(ChromePearlRobot.ROBOT_STATE_LOG_KEY, "Teleop");
