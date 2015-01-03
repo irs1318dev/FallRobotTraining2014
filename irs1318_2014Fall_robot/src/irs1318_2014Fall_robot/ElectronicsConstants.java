@@ -2,6 +2,12 @@ package irs1318_2014Fall_robot;
 
 import edu.wpi.first.wpilibj.SensorBase;
 
+/**
+ * All constants describing how the electronics are plugged together.
+ * 
+ * @author Will
+ * 
+ */
 public class ElectronicsConstants
 {
     public static final int SIDECAR_SLOT = SensorBase.getDefaultDigitalModule();

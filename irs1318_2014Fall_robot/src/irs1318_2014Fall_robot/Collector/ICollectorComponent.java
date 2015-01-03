@@ -1,5 +1,11 @@
 package irs1318_2014Fall_robot.Collector;
 
+/**
+ * Interface describing the collector component, so that it could be mock-implemented for unit tests.
+ * 
+ * @author Will
+ *
+ */
 public interface ICollectorComponent
 {
     /**

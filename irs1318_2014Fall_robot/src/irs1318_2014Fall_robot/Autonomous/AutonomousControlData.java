@@ -1,5 +1,11 @@
 package irs1318_2014Fall_robot.Autonomous;
 
+/**
+ * Class simply holding data about the current control settings for autonomous mode.  
+ * 
+ * @author Will
+ *
+ */
 public class AutonomousControlData
 {
     private boolean collectorExtend;

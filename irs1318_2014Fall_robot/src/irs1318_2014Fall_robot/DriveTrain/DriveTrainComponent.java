@@ -5,6 +5,13 @@ import irs1318_2014Fall_robot.HardwareConstants;
 import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 import edu.wpi.first.wpilibj.*;
 
+/**
+ * The drivetrain component class describes the electronics of the drivetrain and defines the abstract way to control it.
+ * The drivetrain electronics include two talons (left and right), and two encoders (left and right). 
+ *  
+ * @author Will
+ *
+ */
 public class DriveTrainComponent implements IDriveTrainComponent
 {
     // logging constants

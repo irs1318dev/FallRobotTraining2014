@@ -4,6 +4,13 @@ import irs1318_2014Fall_robot.ElectronicsConstants;
 import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 import edu.wpi.first.wpilibj.*;
 
+/**
+ * The compressor component class describes the electronics of the compressor and defines the abstract way to control it.
+ * The electronics include a compressor, and an analog pressure sensor. 
+ *  
+ * @author Will
+ *
+ */
 public class CompressorComponent
 {
     // logging constants

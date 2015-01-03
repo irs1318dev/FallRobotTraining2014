@@ -4,6 +4,12 @@ import irs1318_2014Fall_robot.Autonomous.AutonomousControlData;
 import irs1318_2014Fall_robot.Autonomous.IAutonomousTask;
 import irs1318_2014Fall_robot.Autonomous.TimedAutonomousTask;
 
+/**
+ * Autonomous task that simply waits for a short period of time.
+ * 
+ * @author Will
+ *
+ */
 public class WaitAutonomousTask extends TimedAutonomousTask implements IAutonomousTask
 {
     /**

@@ -31,7 +31,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * General design comments:
  * We have three types of objects:
  * - Operator - describes the operator ("autonomous" or "user")
- * - Components - describe the electronics of an object and defines the abstract way to control those electronics.
+ * - Components - describe the electronics of an mechanism and defines the abstract way to control those electronics.
  * - Controllers - define the logic that controls a mechanism given inputs/outputs.
  * 
  * @author Will

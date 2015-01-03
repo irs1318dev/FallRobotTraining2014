@@ -7,13 +7,13 @@ import edu.wpi.first.wpilibj.Timer;
  * 
  * To use PID control:
  *      set the kp/ki/kd/kf tuning values
- *      calculate based on the setpoint and measured value regularly
+ *      calculate output based on the setpoint and measured value regularly
  * 
  * for reference:
  *      http://en.wikipedia.org/wiki/PID_controller
  *      http://en.wikipedia.org/wiki/Feed_forward_(control)
  * 
- * @author WRall (adapted from old code)
+ * @author Will (adapted from old code)
  */
 
 public class PIDHandler

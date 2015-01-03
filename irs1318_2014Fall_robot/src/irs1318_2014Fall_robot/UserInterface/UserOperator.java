@@ -8,6 +8,13 @@ import irs1318_2014Fall_robot.Common.ToggleButtons.MultiToggleButton;
 import irs1318_2014Fall_robot.Common.ToggleButtons.SimpleTimedToggleButton;
 import edu.wpi.first.wpilibj.*;
 
+/**
+ * Operator for teleop mode.  User operator translates current toggle state and joystick state into
+ * the specific actions that should be taken by the robot.
+ * 
+ * @author Will
+ *
+ */
 public class UserOperator implements IOperator
 {
     // logging constants

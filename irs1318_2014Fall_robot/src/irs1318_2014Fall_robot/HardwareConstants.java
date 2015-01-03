@@ -1,5 +1,11 @@
 package irs1318_2014Fall_robot;
 
+/**
+ * All constants describing the physical structure of the robot (distances and sizes of things).
+ * 
+ * @author Will
+ * 
+ */
 public class HardwareConstants
 {
     public static final double DRIVETRAIN_LEFT_ENCODER_PULSES_PER_REVOLUTION = 1.0; // TODO: validate this number

@@ -2,6 +2,12 @@ package irs1318_2014Fall_robot.Common.ToggleButtons;
 
 import edu.wpi.first.wpilibj.Timer;
 
+/**
+ * Defines a simple true/false toggle that gets un-toggled automatically after a certain period of time elapses.
+ * 
+ * @author Will
+ *
+ */
 public class SimpleTimedToggleButton extends SimpleToggleButton implements ITimedToggle
 {
     private final double toggleDuration;

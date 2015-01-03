@@ -5,6 +5,14 @@ import irs1318_2014Fall_robot.Common.IController;
 import irs1318_2014Fall_robot.Common.IOperator;
 import irs1318_2014Fall_robot.Common.PIDHandler;
 
+/**
+ * Drivetrain controller.
+ * The controller defines the logic that controls a mechanism given inputs (component) and operator-requested actions, and 
+ * translates those into the abstract functions that should be applied to the outputs (component).
+ * 
+ * @author Will
+ *
+ */
 public class DriveTrainController implements IController
 {
     private static final double POWERLEVEL_MIN = -1.0;

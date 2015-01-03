@@ -1,5 +1,11 @@
 package irs1318_2014Fall_robot.Common.ToggleButtons;
 
+/**
+ * Describes a toggle that gets un-toggled automatically after a certain period of time elapses.
+ * 
+ * @author Will
+ *
+ */
 public interface ITimedToggle
 {
     /**

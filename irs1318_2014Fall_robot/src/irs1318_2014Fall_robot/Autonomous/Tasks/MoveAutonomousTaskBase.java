@@ -5,6 +5,12 @@ import irs1318_2014Fall_robot.Autonomous.AutonomousControlData;
 import irs1318_2014Fall_robot.Autonomous.IAutonomousTask;
 import irs1318_2014Fall_robot.DriveTrain.IDriveTrainComponent;
 
+/**
+ * Abstract class defining a task that moves the robot using the drive train.
+ * 
+ * @author Will
+ *
+ */
 public abstract class MoveAutonomousTaskBase implements IAutonomousTask
 {
     private final IDriveTrainComponent driveTrain;

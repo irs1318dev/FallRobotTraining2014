@@ -2,6 +2,12 @@ package irs1318_2014Fall_robot.Autonomous;
 
 import edu.wpi.first.wpilibj.Timer;
 
+/**
+ * Abstract class defining a task that lasts only for a certain duration.
+ * 
+ * @author Will
+ *
+ */
 public abstract class TimedAutonomousTask implements IAutonomousTask
 {
     private final double duration;

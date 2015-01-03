@@ -9,6 +9,12 @@ import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+/**
+ * Unit tests testing the logic of the drivetrain controller.
+ * 
+ * @author Will
+ *
+ */
 public class DriveTrainTests
 {
     /**

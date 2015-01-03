@@ -4,6 +4,13 @@ import irs1318_2014Fall_robot.ElectronicsConstants;
 import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 import edu.wpi.first.wpilibj.*;
 
+/**
+ * The collector component class describes the electronics of the collector and defines the abstract way to control it.
+ * The collector electronics include a solenoid, a talon, and a digital switch. 
+ *  
+ * @author Will
+ *
+ */
 public class CollectorComponent implements ICollectorComponent
 {
     // logging constants

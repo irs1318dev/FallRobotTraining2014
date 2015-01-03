@@ -1,5 +1,11 @@
 package irs1318_2014Fall_robot;
 
+/**
+ * All constants related to tuning the operation of the robot.
+ * 
+ * @author Will
+ * 
+ */
 public class TuningConstants
 {
     public static final double COLLECTOR_SPEED = 0.8;

@@ -1,5 +1,12 @@
 package irs1318_2014Fall_robot.Common;
 
+/**
+ * The controller defines the logic that controls a mechanism given inputs (component) and operator-requested actions, and 
+ * translates those into the abstract functions that should be applied to the outputs (component).
+ * 
+ * @author Will
+ *
+ */
 public interface IController
 {
     /**

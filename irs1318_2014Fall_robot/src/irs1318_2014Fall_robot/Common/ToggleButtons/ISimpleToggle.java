@@ -1,5 +1,11 @@
 package irs1318_2014Fall_robot.Common.ToggleButtons;
 
+/**
+ * Describes a toggle that switches between true and false.
+ * 
+ * @author Will
+ *
+ */
 public interface ISimpleToggle extends IToggle
 {
     /**

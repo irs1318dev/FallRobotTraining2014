@@ -1,5 +1,13 @@
 package irs1318_2014Fall_robot.Autonomous;
 
+/**
+ * Interface describing a task that is performed in autonomous mode.  The autonomous
+ * task takes in the current control data as used by the autonomous operator and modifies
+ * it.
+ * 
+ * @author Will
+ *
+ */
 public interface IAutonomousTask
 {
     /**

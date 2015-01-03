@@ -4,13 +4,19 @@ import irs1318_2014Fall_robot.HardwareConstants;
 import irs1318_2014Fall_robot.Autonomous.IAutonomousTask;
 import irs1318_2014Fall_robot.DriveTrain.IDriveTrainComponent;
 
+/**
+ * Autonomous task that turns the robot a certain amount clockwise or counterclockwise in-place.
+ * 
+ * @author Will
+ *
+ */
 public class TurnAutonomousTask extends MoveAutonomousTaskBase implements IAutonomousTask
 {
     private final double degrees;
 
     /**
      * Initializes a new TurnAutonomousTask
-     * @param degrees from the current orientation to rotate (positive => turn right, negative => turn left)
+     * @param degrees from the current orientation to rotate (positive means turn right/clockwise, negative means turn left/counter-clockwise)
      * @param driveTrain component to use to detect our current position
      */
     public TurnAutonomousTask(double degrees, IDriveTrainComponent driveTrain)

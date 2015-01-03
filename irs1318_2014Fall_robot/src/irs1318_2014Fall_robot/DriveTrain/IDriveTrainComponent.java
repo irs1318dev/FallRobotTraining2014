@@ -1,5 +1,11 @@
 package irs1318_2014Fall_robot.DriveTrain;
 
+/**
+ * Interface describing the drivetrain component, so that it could be mock-implemented for unit tests.
+ * 
+ * @author Will
+ *
+ */
 public interface IDriveTrainComponent
 {
     /**

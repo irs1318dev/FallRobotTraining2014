@@ -3,6 +3,12 @@ package irs1318_2014Fall_robot.Common;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj.networktables.NetworkTableKeyNotDefined;
 
+/**
+ * Logger that logs current values to the smart dashboard. 
+ * 
+ * @author Will
+ *
+ */
 public class SmartDashboardLogger
 {
     /**

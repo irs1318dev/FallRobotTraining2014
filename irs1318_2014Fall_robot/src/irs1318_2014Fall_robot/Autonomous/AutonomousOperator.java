@@ -3,6 +3,14 @@ package irs1318_2014Fall_robot.Autonomous;
 import irs1318_2014Fall_robot.Common.IOperator;
 import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 
+/**
+ * Operator for autonomous mode.  Autonomous operator acts as the driver of the robot,
+ * telling it what actions to perform as determined by the current task and tasks that have
+ * come before it that intentionally don't reset their state.
+ * 
+ * @author Will
+ *
+ */
 public class AutonomousOperator implements IOperator
 {
     // logging constants

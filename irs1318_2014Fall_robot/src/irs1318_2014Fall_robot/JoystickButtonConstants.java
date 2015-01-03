@@ -1,5 +1,11 @@
 package irs1318_2014Fall_robot;
 
+/**
+ * All constants that describe which button on the joystick maps to which action in the user operator.
+ * 
+ * @author Will
+ * 
+ */
 public class JoystickButtonConstants
 {
     public static final int JOYSTICK_PORT = 1;

@@ -5,6 +5,13 @@ import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 
+/**
+ * The shooter component class describes the electronics of the shooter and defines the abstract way to control it.
+ * The shooter electronics include five shooting solenoids, and one angle solenoid. 
+ *  
+ * @author Will
+ *
+ */
 public class ShooterComponent
 {
     // logging constants
