@@ -77,7 +77,7 @@ public class AutonomousOperator implements IOperator
         }
 
         // run the current task and apply the result to the control data
-        this.currentTask.run(this.controlData);
+        this.currentTask.update(this.controlData);
     }
 
     /**

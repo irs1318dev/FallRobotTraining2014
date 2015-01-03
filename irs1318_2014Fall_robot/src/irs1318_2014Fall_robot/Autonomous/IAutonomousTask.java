@@ -19,7 +19,7 @@ public interface IAutonomousTask
      * Run an iteration of the current task and apply any control changes 
      * @param data to which we should apply updated settings
      */
-    public void run(AutonomousControlData data);
+    public void update(AutonomousControlData data);
 
     /**
      * Cancel the current task and clear control changes

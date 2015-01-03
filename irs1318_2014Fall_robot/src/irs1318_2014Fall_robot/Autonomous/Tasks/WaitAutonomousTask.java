@@ -25,7 +25,7 @@ public class WaitAutonomousTask extends TimedAutonomousTask implements IAutonomo
      * Run an iteration of the current task and apply any control changes 
      * @param data to which we should apply updated settings
      */
-    public void run(AutonomousControlData data)
+    public void update(AutonomousControlData data)
     {
         // no-op
     }

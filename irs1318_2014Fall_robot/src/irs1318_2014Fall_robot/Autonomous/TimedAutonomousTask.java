@@ -39,7 +39,7 @@ public abstract class TimedAutonomousTask implements IAutonomousTask
      * Run an iteration of the current task and apply any control changes 
      * @param data to which we should apply updated settings
      */
-    public abstract void run(AutonomousControlData data);
+    public abstract void update(AutonomousControlData data);
 
     /**
      * Cancel the current task and clear control changes
