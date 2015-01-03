@@ -28,7 +28,7 @@ public class CompressorController implements IController
     /**
      * calculate the various outputs to use based on the inputs and apply them to the outputs for the relevant component
      */
-    public void run()
+    public void update()
     {
         if (!this.isStarted)
         {

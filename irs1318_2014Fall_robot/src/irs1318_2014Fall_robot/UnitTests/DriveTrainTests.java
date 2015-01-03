@@ -33,7 +33,7 @@ public class DriveTrainTests
             this.simpleModeEnabled = simpleModeEnabled;
         }
 
-        public void tick()
+        public void update()
         {
         }
 
@@ -163,7 +163,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(0.0, 0.0),
             false);
         
-        controller.run();
+        controller.update();
     }
 
     @Test
@@ -174,7 +174,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
-        controller.run();
+        controller.update();
     }
 
     @Test
@@ -185,7 +185,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, -TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
-        controller.run();
+        controller.update();
     }
 
     @Test
@@ -196,7 +196,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
-        controller.run();
+        controller.update();
     }
 
     @Test
@@ -207,7 +207,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
-        controller.run();
+        controller.update();
     }
 
     @Test
@@ -218,7 +218,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, -TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
-        controller.run();
+        controller.update();
     }
 
     @Test
@@ -229,7 +229,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_A * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, -TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
-        controller.run();
+        controller.update();
     }
 
     @Test
@@ -240,7 +240,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, -TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
-        controller.run();
+        controller.update();
     }
 
     @Test
@@ -251,7 +251,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, TuningConstants.DRIVETRAIN_B * TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
-        controller.run();
+        controller.update();
     }
     
     @Test
@@ -262,7 +262,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
-        controller.run();
+        controller.update();
     }
     
     @Test
@@ -273,7 +273,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, -TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
-        controller.run();
+        controller.update();
     }
     
     @Test
@@ -284,7 +284,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, -TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
-        controller.run();
+        controller.update();
     }
     
     @Test
@@ -295,7 +295,7 @@ public class DriveTrainTests
             new MockDriveTrainComponent(-TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL, TuningConstants.DRIVETRAIN_MAX_POWER_LEVEL),
             false);
         
-        controller.run();
+        controller.update();
     }
 
 }

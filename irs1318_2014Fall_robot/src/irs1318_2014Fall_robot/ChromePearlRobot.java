@@ -171,7 +171,7 @@ public class ChromePearlRobot extends IterativeRobot
         this.shooterController = new ShooterController(this.operator, this.shooterComponent);
 
         // we will run the compressor controller here because we should start it in advance...
-        this.compressorController.run();
+        this.compressorController.update();
     }
 
     /**
@@ -205,12 +205,12 @@ public class ChromePearlRobot extends IterativeRobot
      */
     public void generalPeriodic()
     {
-        this.operator.tick();
+        this.operator.update();
 
         // run each controller
-        this.compressorController.run();
-        this.driveTrainController.run();
-        this.collectorController.run();
-        this.shooterController.run();
+        this.compressorController.update();
+        this.driveTrainController.update();
+        this.collectorController.update();
+        this.shooterController.update();
     }
 }

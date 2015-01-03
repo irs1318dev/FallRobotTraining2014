@@ -46,7 +46,7 @@ public class UserOperator implements IOperator
     /**
      * Tell the operator component that some time has passed
      */
-    public void tick()
+    public void update()
     {
         // check the toggles
         if (this.joystick.getRawButton(JoystickButtonConstants.SHOOTER_MODE_TOGGLE_BUTTON))

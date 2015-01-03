@@ -51,7 +51,7 @@ public class AutonomousOperator implements IOperator
     /**
      * Tell the operator component that some time has passed
      */
-    public void tick()
+    public void update()
     {
         // check whether we should continue with the current task
         if (this.currentTask != null)

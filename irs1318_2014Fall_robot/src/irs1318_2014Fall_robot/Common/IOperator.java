@@ -13,7 +13,7 @@ public interface IOperator
     /**
      * Tell the operator that some time has passed
      */
-    public void tick();
+    public void update();
 
     /**
      * Tell the operator that operation is stopping
