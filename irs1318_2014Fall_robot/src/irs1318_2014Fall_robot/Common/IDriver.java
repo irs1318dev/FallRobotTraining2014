@@ -1,22 +1,22 @@
 package irs1318_2014Fall_robot.Common;
 
 /**
- * Operator describes the currently requested actions that the robot should be performing.  Operator could be either
+ * The "driver" describes the currently requested actions that the robot should be performing.  The driver could be either
  * a user controlling the robot with a joystick, or autonomous mode controlling the robot based on a list of pre-determined
  * task which each have their own lifecycle. 
  * 
  * @author Will
  *
  */
-public interface IOperator
+public interface IDriver
 {
     /**
-     * Tell the operator that some time has passed
+     * Tell the driver that some time has passed
      */
     public void update();
 
     /**
-     * Tell the operator that operation is stopping
+     * Tell the driver that operation is stopping
      */
     public void stop();
 

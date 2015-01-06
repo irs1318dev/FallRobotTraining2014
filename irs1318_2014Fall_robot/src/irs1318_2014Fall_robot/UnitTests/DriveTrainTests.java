@@ -1,7 +1,7 @@
 package irs1318_2014Fall_robot.UnitTests;
 
 import irs1318_2014Fall_robot.TuningConstants;
-import irs1318_2014Fall_robot.Common.IOperator;
+import irs1318_2014Fall_robot.Common.IDriver;
 import irs1318_2014Fall_robot.DriveTrain.DriveTrainController;
 import irs1318_2014Fall_robot.DriveTrain.IDriveTrainComponent;
 
@@ -20,7 +20,7 @@ public class DriveTrainTests
     /**
      * Mock operator that makes it easy to test the drive train
      */
-    private class MockOperator implements IOperator
+    private class MockOperator implements IDriver
     {
         private double x;
         private double y;

@@ -1,20 +1,20 @@
 package irs1318_2014Fall_robot;
 
-import irs1318_2014Fall_robot.Autonomous.AutonomousOperator;
+import irs1318_2014Fall_robot.Autonomous.AutonomousDriver;
 import irs1318_2014Fall_robot.Autonomous.IAutonomousTask;
 import irs1318_2014Fall_robot.Autonomous.Tasks.DriveAutonomousTask;
 import irs1318_2014Fall_robot.Autonomous.Tasks.TurnAutonomousTask;
 import irs1318_2014Fall_robot.Autonomous.Tasks.WaitAutonomousTask;
 import irs1318_2014Fall_robot.Collector.CollectorComponent;
 import irs1318_2014Fall_robot.Collector.CollectorController;
-import irs1318_2014Fall_robot.Common.IOperator;
+import irs1318_2014Fall_robot.Common.IDriver;
 import irs1318_2014Fall_robot.Compressor.CompressorComponent;
 import irs1318_2014Fall_robot.Compressor.CompressorController;
 import irs1318_2014Fall_robot.DriveTrain.DriveTrainComponent;
 import irs1318_2014Fall_robot.DriveTrain.DriveTrainController;
 import irs1318_2014Fall_robot.Shooter.ShooterComponent;
 import irs1318_2014Fall_robot.Shooter.ShooterController;
-import irs1318_2014Fall_robot.UserInterface.UserOperator;
+import irs1318_2014Fall_robot.UserInterface.UserDriver;
 import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 import edu.wpi.first.wpilibj.IterativeRobot;
 
@@ -30,7 +30,7 @@ import edu.wpi.first.wpilibj.IterativeRobot;
  * 
  * General design comments:
  * We have three types of objects:
- * - Operator - describes the operator ("autonomous" or "user")
+ * - Driver - describes the driver ("autonomous" or "user")
  * - Components - describe the electronics of an mechanism and defines the abstract way to control those electronics.
  * - Controllers - define the logic that controls a mechanism given inputs/outputs.
  * 
@@ -41,8 +41,8 @@ public class ChromePearlRobot extends IterativeRobot
     // logging constants
     private static final String ROBOT_STATE_LOG_KEY = "r.s";
 
-    // Operator (e.g. joystick, autonomous)
-    private IOperator operator;
+    // Driver (e.g. joystick, autonomous)
+    private IDriver driver;
 
     // Compressor
     private CompressorComponent compressorComponent;
@@ -82,10 +82,10 @@ public class ChromePearlRobot extends IterativeRobot
      */
     public void disabledInit()
     {
-        if (this.operator != null)
+        if (this.driver != null)
         {
-            this.operator.stop();
-            this.operator = null;
+            this.driver.stop();
+            this.driver = null;
         }
 
         if (this.compressorController != null)
@@ -122,7 +122,7 @@ public class ChromePearlRobot extends IterativeRobot
     public void autonomousInit()
     {
         // create autonomous operator
-        this.operator = new AutonomousOperator(
+        this.driver = new AutonomousDriver(
             // drive in a square:
             new IAutonomousTask[]
             {
@@ -151,8 +151,8 @@ public class ChromePearlRobot extends IterativeRobot
      */
     public void teleopInit()
     {
-        // create operator for user's joystick
-        this.operator = new UserOperator();
+        // create driver for user's joystick
+        this.driver = new UserDriver();
 
         this.generalInit();
 
@@ -166,9 +166,9 @@ public class ChromePearlRobot extends IterativeRobot
     {
         // create controllers for each mechanism
         this.compressorController = new CompressorController(this.compressorComponent);
-        this.driveTrainController = new DriveTrainController(this.operator, this.driveTrainComponent, false);
-        this.collectorController = new CollectorController(this.operator, this.collectorComponent);
-        this.shooterController = new ShooterController(this.operator, this.shooterComponent);
+        this.driveTrainController = new DriveTrainController(this.driver, this.driveTrainComponent, false);
+        this.collectorController = new CollectorController(this.driver, this.collectorComponent);
+        this.shooterController = new ShooterController(this.driver, this.shooterComponent);
 
         // we will run the compressor controller here because we should start it in advance...
         this.compressorController.update();
@@ -205,7 +205,7 @@ public class ChromePearlRobot extends IterativeRobot
      */
     public void generalPeriodic()
     {
-        this.operator.update();
+        this.driver.update();
 
         // run each controller
         this.compressorController.update();

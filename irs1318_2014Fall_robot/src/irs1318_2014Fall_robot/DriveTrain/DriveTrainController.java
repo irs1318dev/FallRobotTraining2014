@@ -2,7 +2,7 @@ package irs1318_2014Fall_robot.DriveTrain;
 
 import irs1318_2014Fall_robot.TuningConstants;
 import irs1318_2014Fall_robot.Common.IController;
-import irs1318_2014Fall_robot.Common.IOperator;
+import irs1318_2014Fall_robot.Common.IDriver;
 import irs1318_2014Fall_robot.Common.PIDHandler;
 
 /**
@@ -18,7 +18,7 @@ public class DriveTrainController implements IController
     private static final double POWERLEVEL_MIN = -1.0;
     private static final double POWERLEVEL_MAX = 1.0;
 
-    private IOperator operator;
+    private IDriver driver;
     private IDriveTrainComponent component;
 
     private boolean usePID;
@@ -32,9 +32,9 @@ public class DriveTrainController implements IController
      * @param component to control
      * @param usePID indicates whether we should use PID control
      */
-    public DriveTrainController(IOperator operator, IDriveTrainComponent component, boolean usePID)
+    public DriveTrainController(IDriver operator, IDriveTrainComponent component, boolean usePID)
     {
-        this.operator = operator;
+        this.driver = operator;
         this.component = component;
         this.usePID = usePID;
         this.usePositionalMode = false;
@@ -48,7 +48,7 @@ public class DriveTrainController implements IController
     public void update()
     {
         // check our desired PID mode
-        boolean newUsePositionalMode = this.operator.getDriveTrainPositionMode();
+        boolean newUsePositionalMode = this.driver.getDriveTrainPositionMode();
         if (newUsePositionalMode != this.usePositionalMode)
         {
             this.usePositionalMode = newUsePositionalMode;
@@ -149,12 +149,12 @@ public class DriveTrainController implements IController
         double rightVelocityGoal = 0.0;
 
         // get a value indicating that we should be in simple mode...
-        boolean simpleDriveModeEnabled = this.operator.getDriveTrainSimpleModeButton();
+        boolean simpleDriveModeEnabled = this.driver.getDriveTrainSimpleModeButton();
 
         // get the X and Y values from the operator.  We expect these to be between -1.0 and 1.0,
         // with this value representing the forward velocity percentage and right turn percentage (of max speed)
-        double xVelocity = this.operator.getDriveTrainXVelocity();
-        double yVelocity = this.operator.getDriveTrainYVelocity();
+        double xVelocity = this.driver.getDriveTrainXVelocity();
+        double yVelocity = this.driver.getDriveTrainYVelocity();
 
         // adjust the intensity of the input
         xVelocity = this.adjustIntensity(xVelocity);
@@ -302,8 +302,8 @@ public class DriveTrainController implements IController
     private PowerSetting calculatePositionModePowerSetting()
     {
         // get the desired left and right values from the operator.
-        double leftPosition = this.operator.getDriveTrainLeftPosition();
-        double rightPosition = this.operator.getDriveTrainRightPosition();
+        double leftPosition = this.driver.getDriveTrainLeftPosition();
+        double rightPosition = this.driver.getDriveTrainRightPosition();
 
         this.leftPID.calculate(leftPosition, this.component.getLeftEncoderDistance());
         this.rightPID.calculate(rightPosition, this.component.getRightEncoderDistance());

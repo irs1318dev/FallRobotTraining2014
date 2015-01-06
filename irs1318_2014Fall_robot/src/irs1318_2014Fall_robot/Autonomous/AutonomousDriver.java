@@ -1,6 +1,6 @@
 package irs1318_2014Fall_robot.Autonomous;
 
-import irs1318_2014Fall_robot.Common.IOperator;
+import irs1318_2014Fall_robot.Common.IDriver;
 import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 
 /**
@@ -11,7 +11,7 @@ import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
  * @author Will
  *
  */
-public class AutonomousOperator implements IOperator
+public class AutonomousDriver implements IDriver
 {
     // logging constants
     private static final String COLLECTOR_EXTEND_LOG_KEY = "a.cxt";
@@ -37,7 +37,7 @@ public class AutonomousOperator implements IOperator
      * Initializes a new AutonomousOperator
      * @param autonomousTasks to execute as a part of this operator
      */
-    public AutonomousOperator(IAutonomousTask[] autonomousTasks)
+    public AutonomousDriver(IAutonomousTask[] autonomousTasks)
     {
         // switch to Queue when available to get rid of currentTaskPosition...
         this.autonomousTasks = autonomousTasks;
@@ -96,7 +96,7 @@ public class AutonomousOperator implements IOperator
     {
         boolean collectorExtend = this.controlData.getCollectorExtend();
 
-        SmartDashboardLogger.putBoolean(AutonomousOperator.COLLECTOR_EXTEND_LOG_KEY, collectorExtend);
+        SmartDashboardLogger.putBoolean(AutonomousDriver.COLLECTOR_EXTEND_LOG_KEY, collectorExtend);
 
         return collectorExtend;
     }
@@ -109,7 +109,7 @@ public class AutonomousOperator implements IOperator
     {
         boolean collectorRetract = this.controlData.getCollectorRetract();
 
-        SmartDashboardLogger.putBoolean(AutonomousOperator.COLLECTOR_RETRACT_LOG_KEY, collectorRetract);
+        SmartDashboardLogger.putBoolean(AutonomousDriver.COLLECTOR_RETRACT_LOG_KEY, collectorRetract);
 
         return collectorRetract;
     }
@@ -122,7 +122,7 @@ public class AutonomousOperator implements IOperator
     {
         boolean collectorCollect = this.controlData.getCollectorCollect();
 
-        SmartDashboardLogger.putBoolean(AutonomousOperator.COLLECTOR_COLLECT_LOG_KEY, collectorCollect);
+        SmartDashboardLogger.putBoolean(AutonomousDriver.COLLECTOR_COLLECT_LOG_KEY, collectorCollect);
 
         return collectorCollect;
     }
@@ -135,7 +135,7 @@ public class AutonomousOperator implements IOperator
     {
         boolean collectorExpel = this.controlData.getCollectorExpel();
 
-        SmartDashboardLogger.putBoolean(AutonomousOperator.COLLECTOR_EXPEL_LOG_KEY, collectorExpel);
+        SmartDashboardLogger.putBoolean(AutonomousDriver.COLLECTOR_EXPEL_LOG_KEY, collectorExpel);
 
         return collectorExpel;
     }
@@ -148,7 +148,7 @@ public class AutonomousOperator implements IOperator
     {
         boolean shooterAngle = this.controlData.getShooterAngle();
 
-        SmartDashboardLogger.putBoolean(AutonomousOperator.SHOOTER_ANGLE_LOG_KEY, shooterAngle);
+        SmartDashboardLogger.putBoolean(AutonomousDriver.SHOOTER_ANGLE_LOG_KEY, shooterAngle);
 
         return shooterAngle;
     }
@@ -161,7 +161,7 @@ public class AutonomousOperator implements IOperator
     {
         int shooterMode = this.controlData.getShooterMode();
 
-        SmartDashboardLogger.putNumber(AutonomousOperator.SHOOTER_MODE_LOG_KEY, shooterMode);
+        SmartDashboardLogger.putNumber(AutonomousDriver.SHOOTER_MODE_LOG_KEY, shooterMode);
 
         return shooterMode;
     }
@@ -174,7 +174,7 @@ public class AutonomousOperator implements IOperator
     {
         boolean shooterShoot = this.controlData.getShooterShoot();
 
-        SmartDashboardLogger.putBoolean(AutonomousOperator.SHOOTER_SHOOT_LOG_KEY, shooterShoot);
+        SmartDashboardLogger.putBoolean(AutonomousDriver.SHOOTER_SHOOT_LOG_KEY, shooterShoot);
 
         return shooterShoot;
     }
@@ -187,7 +187,7 @@ public class AutonomousOperator implements IOperator
     {
         double xVelocity = this.controlData.getDriveTrainXVelocity();
 
-        SmartDashboardLogger.putNumber(AutonomousOperator.DRIVETRAIN_X_VELOCITY_LOG_KEY, xVelocity);
+        SmartDashboardLogger.putNumber(AutonomousDriver.DRIVETRAIN_X_VELOCITY_LOG_KEY, xVelocity);
 
         return xVelocity;
     }
@@ -200,7 +200,7 @@ public class AutonomousOperator implements IOperator
     {
         double yVelocity = this.controlData.getDriveTrainYVelocity();
 
-        SmartDashboardLogger.putNumber(AutonomousOperator.DRIVETRAIN_Y_VELOCITY_LOG_KEY, yVelocity);
+        SmartDashboardLogger.putNumber(AutonomousDriver.DRIVETRAIN_Y_VELOCITY_LOG_KEY, yVelocity);
 
         return yVelocity;
     }
@@ -213,7 +213,7 @@ public class AutonomousOperator implements IOperator
     {
         boolean simpleMode = this.controlData.getDriveTrainSimpleMode();
 
-        SmartDashboardLogger.putBoolean(AutonomousOperator.DRIVETRAIN_SIMPLE_MODE_LOG_KEY, simpleMode);
+        SmartDashboardLogger.putBoolean(AutonomousDriver.DRIVETRAIN_SIMPLE_MODE_LOG_KEY, simpleMode);
 
         return simpleMode;
     }
@@ -226,7 +226,7 @@ public class AutonomousOperator implements IOperator
     {
         double leftPosition = this.controlData.getDriveTrainLeftPosition();
 
-        SmartDashboardLogger.putNumber(AutonomousOperator.DRIVETRAIN_LEFT_POSITION_LOG_KEY, leftPosition);
+        SmartDashboardLogger.putNumber(AutonomousDriver.DRIVETRAIN_LEFT_POSITION_LOG_KEY, leftPosition);
 
         return leftPosition;
     }
@@ -239,7 +239,7 @@ public class AutonomousOperator implements IOperator
     {
         double rightPosition = this.controlData.getDriveTrainRightPosition();
 
-        SmartDashboardLogger.putNumber(AutonomousOperator.DRIVETRAIN_RIGHT_POSITION_LOG_KEY, rightPosition);
+        SmartDashboardLogger.putNumber(AutonomousDriver.DRIVETRAIN_RIGHT_POSITION_LOG_KEY, rightPosition);
 
         return rightPosition;
     }
@@ -252,7 +252,7 @@ public class AutonomousOperator implements IOperator
     {
         boolean positionMode = this.controlData.getDriveTrainPositionMode();
 
-        SmartDashboardLogger.putBoolean(AutonomousOperator.DRIVETRAIN_POSITION_MODE_LOG_KEY, positionMode);
+        SmartDashboardLogger.putBoolean(AutonomousDriver.DRIVETRAIN_POSITION_MODE_LOG_KEY, positionMode);
 
         return positionMode;
     }

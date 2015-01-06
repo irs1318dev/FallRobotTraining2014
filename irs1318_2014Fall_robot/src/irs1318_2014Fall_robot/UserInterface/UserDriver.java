@@ -2,7 +2,7 @@ package irs1318_2014Fall_robot.UserInterface;
 
 import irs1318_2014Fall_robot.JoystickButtonConstants;
 import irs1318_2014Fall_robot.TuningConstants;
-import irs1318_2014Fall_robot.Common.IOperator;
+import irs1318_2014Fall_robot.Common.IDriver;
 import irs1318_2014Fall_robot.Common.SmartDashboardLogger;
 import irs1318_2014Fall_robot.Common.ToggleButtons.MultiToggleButton;
 import irs1318_2014Fall_robot.Common.ToggleButtons.SimpleTimedToggleButton;
@@ -15,7 +15,7 @@ import edu.wpi.first.wpilibj.*;
  * @author Will
  *
  */
-public class UserOperator implements IOperator
+public class UserDriver implements IDriver
 {
     // logging constants
     private static final String COLLECTOR_EXTEND_LOG_KEY = "u.cxt";
@@ -36,7 +36,7 @@ public class UserOperator implements IOperator
     /**
      * Initializes a new UserOperator
      */
-    public UserOperator()
+    public UserDriver()
     {
         this.joystick = new Joystick(JoystickButtonConstants.JOYSTICK_PORT);
         this.shooterMode = new MultiToggleButton(new int[] { 3, 4, 5 });
@@ -77,7 +77,7 @@ public class UserOperator implements IOperator
     {
         boolean collectorExtend = this.joystick.getRawButton(JoystickButtonConstants.COLLECTOR_EXTEND_BUTTON);
 
-        SmartDashboardLogger.putBoolean(UserOperator.COLLECTOR_EXTEND_LOG_KEY, collectorExtend);
+        SmartDashboardLogger.putBoolean(UserDriver.COLLECTOR_EXTEND_LOG_KEY, collectorExtend);
 
         return collectorExtend;
     }
@@ -90,7 +90,7 @@ public class UserOperator implements IOperator
     {
         boolean collectorRetract = this.joystick.getRawButton(JoystickButtonConstants.COLLECTOR_RETRACT_BUTTON);
 
-        SmartDashboardLogger.putBoolean(UserOperator.COLLECTOR_RETRACT_LOG_KEY, collectorRetract);
+        SmartDashboardLogger.putBoolean(UserDriver.COLLECTOR_RETRACT_LOG_KEY, collectorRetract);
 
         return collectorRetract;
     }
@@ -103,7 +103,7 @@ public class UserOperator implements IOperator
     {
         boolean collectorCollect = this.joystick.getRawButton(JoystickButtonConstants.COLLECTOR_COLLECT_BUTTON);
 
-        SmartDashboardLogger.putBoolean(UserOperator.COLLECTOR_COLLECT_LOG_KEY, collectorCollect);
+        SmartDashboardLogger.putBoolean(UserDriver.COLLECTOR_COLLECT_LOG_KEY, collectorCollect);
 
         return collectorCollect;
     }
@@ -116,7 +116,7 @@ public class UserOperator implements IOperator
     {
         boolean collectorExpel = this.joystick.getRawButton(JoystickButtonConstants.COLLECTOR_EXPEL_BUTTON);
 
-        SmartDashboardLogger.putBoolean(UserOperator.COLLECTOR_EXPEL_LOG_KEY, collectorExpel);
+        SmartDashboardLogger.putBoolean(UserDriver.COLLECTOR_EXPEL_LOG_KEY, collectorExpel);
 
         return collectorExpel;
     }
@@ -129,7 +129,7 @@ public class UserOperator implements IOperator
     {
         boolean shooterAngle = this.joystick.getRawButton(JoystickButtonConstants.SHOOTER_EXTEND_BUTTON);
 
-        SmartDashboardLogger.putBoolean(UserOperator.SHOOTER_ANGLE_LOG_KEY, shooterAngle);
+        SmartDashboardLogger.putBoolean(UserDriver.SHOOTER_ANGLE_LOG_KEY, shooterAngle);
 
         return shooterAngle;
     }
@@ -142,7 +142,7 @@ public class UserOperator implements IOperator
     {
         int shooterMode = this.shooterMode.getToggledState();
 
-        SmartDashboardLogger.putNumber(UserOperator.SHOOTER_MODE_LOG_KEY, shooterMode);
+        SmartDashboardLogger.putNumber(UserDriver.SHOOTER_MODE_LOG_KEY, shooterMode);
 
         return shooterMode;
     }
@@ -155,7 +155,7 @@ public class UserOperator implements IOperator
     {
         boolean shooterShoot = this.shootButton.isToggled();
 
-        SmartDashboardLogger.putBoolean(UserOperator.SHOOTER_SHOOT_LOG_KEY, shooterShoot);
+        SmartDashboardLogger.putBoolean(UserDriver.SHOOTER_SHOOT_LOG_KEY, shooterShoot);
 
         return shooterShoot;
     }
@@ -168,7 +168,7 @@ public class UserOperator implements IOperator
     {
         double xVelocity = this.joystick.getX();
 
-        SmartDashboardLogger.putNumber(UserOperator.DRIVETRAIN_X_VELOCITY_LOG_KEY, xVelocity);
+        SmartDashboardLogger.putNumber(UserDriver.DRIVETRAIN_X_VELOCITY_LOG_KEY, xVelocity);
 
         return xVelocity;
     }
@@ -181,7 +181,7 @@ public class UserOperator implements IOperator
     {
         double yVelocity = this.joystick.getY();
 
-        SmartDashboardLogger.putNumber(UserOperator.DRIVETRAIN_Y_VELOCITY_LOG_KEY, yVelocity);
+        SmartDashboardLogger.putNumber(UserDriver.DRIVETRAIN_Y_VELOCITY_LOG_KEY, yVelocity);
 
         return yVelocity;
     }
@@ -194,7 +194,7 @@ public class UserOperator implements IOperator
     {
         boolean simpleMode = this.joystick.getRawButton(JoystickButtonConstants.DRIVETRAIN_SIMPLE_BUTTON);
 
-        SmartDashboardLogger.putBoolean(UserOperator.DRIVETRAIN_SIMPLE_MODE_LOG_KEY, simpleMode);
+        SmartDashboardLogger.putBoolean(UserDriver.DRIVETRAIN_SIMPLE_MODE_LOG_KEY, simpleMode);
 
         return simpleMode;
     }
